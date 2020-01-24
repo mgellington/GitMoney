@@ -19,7 +19,6 @@ class PlayerTest {
 		deck.add(C2);
 		deck.add(C3);
 		testPlayer.setDeck(deck);
-
 	}
 
 	@Test
@@ -34,34 +33,31 @@ class PlayerTest {
 
 	@Test
 	public void testAddCards() {
+		
+		ArrayList<Card> newDeck = new ArrayList<Card>();
+		newDeck.add(new Card ("card"));
+		newDeck.add(new Card ("another card"));
 
 		ArrayList<Card> deck2 = new ArrayList<Card>();
-		Card c4 = new Card("Henry");
-		deck2.add(c4);
-		testPlayer.addCards(deck2);
+		deck2.addAll(deck);
+		deck2.addAll(newDeck);
 
-		ArrayList<Card> newDeck = new ArrayList<Card>();
-		newDeck.addAll(deck);
-		newDeck.addAll(deck2);
-
-		assertSame(newDeck, testPlayer.getDeck(), "deck3 should be the same as player deck + deck 2");
-
+		testPlayer.addCards(newDeck);
+		assertSame(deck2, testPlayer.getDeck(), "Player deck should be same as deck2");
 	}
 
 	@Test
 	void testIsWinner() {
-		// creating a new deck and filling it with 40 card objects
+		// a winner condition
 		ArrayList<Card> winDeck = new ArrayList<Card>();
 		for (int i = 0; i < 40; i++) {
 			winDeck.add(new Card("Card"));
 		}
-
-		// making a new Person object and assigning them the full deck
 		Player testPlayer1 = new Player("Person");
 		testPlayer1.setDeck(winDeck);
 		assertSame(true, testPlayer1.isWinner(), "isWinner should return true");
 
-		// a new person object - assigning a non-full deck to them
+		// a non-winner condition
 		ArrayList<Card> deck2 = new ArrayList<Card>();
 		deck2.add(new Card("Card"));
 		Player testPlayer2 = new Player("George");
@@ -72,12 +68,14 @@ class PlayerTest {
 
 	@Test
 	void testIsLoser() {
-
+		
+		// a loser condition
 		ArrayList<Card> deck2 = new ArrayList<Card>();
 		Player testPlayer2 = new Player("George");
 		testPlayer2.setDeck(deck2);
-
 		assertSame(true, testPlayer2.isLoser(), "deck is empty so needs to return true");
+		
+		// a non-loser condition
 		assertSame(false, testPlayer.isLoser(), "deck is not empty so needs to return false");
 	}
 
