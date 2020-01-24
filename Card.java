@@ -11,6 +11,24 @@ public class Card {
 		this.music = music;
 
 	}
+	public int getTopCatagory(){
+		int maxCatagory = 0;
+		int maxScore;
+		for(int i = 0; i < 5; i++){
+			maxScore = floorSticky;
+			if(pintPrice > maxScore){
+				maxCatagory = 1;
+				maxScore = pintPrice;}
+			if(pubQuiz > maxScore){
+				maxCatagory = 2;
+				maxScore = pubQuiz;}
+			if(atmosphere > maxScore){
+				maxCatagory = 3;
+				maxScore = atmosphere;}
+			if(music > maxCatagory){
+				maxCatagory = 4;}
+		}return maxCatagory;
+	}
 
 	public String getName() {
 		return name;
