@@ -22,7 +22,7 @@ public class Deck {
 		mainDeck.add(x);
 	}
 
-	public card getCard() {
+	public card getTopCard() {
 		/*
 		 * this will return the top card but also remove it from the list
 		 * can be used when dealing the cards into each players hands
@@ -33,6 +33,19 @@ public class Deck {
 		mainDeck.remove(0);
 		return firstCard;
 	}
+	public void addSetOfCards(Deck cards){
+		/*
+		 *adds a lost of cards to the current deck
+		 *such as adding the communal deck to a players hand
+		 */	
+		this.mainDeck.addAll(cards.getMainDeck());	
+	}
+
+
+	public ArrayList<card> getMainDeck() {
+		return mainDeck;
+	}
+
 	public card seeCard(int x) {
 		/*
 		 * just returns the card at a given index
@@ -41,6 +54,28 @@ public class Deck {
 		
 		card one = mainDeck.get(x);
 		return one;
+	}
+
+	public boolean isLoser(){
+		/*
+		 * checks is deck is empty
+		 * can be used to see if there is a loser
+		 * as a player lose if there hand is empty
+		 */
+		if(mainDeck.size() == 0){
+			return true;
+		}
+		else return false;
+	}
+	public boolean isWinner(){
+		/*
+		 * check to see if there is 40 cards in the list
+		 * as someone wins when they accumulate all 40 cards
+		 */
+		if(mainDeck.size() == 40){
+			return true;
+		}
+		else return false;
 	}
 
 	
