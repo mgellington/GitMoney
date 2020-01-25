@@ -27,17 +27,15 @@ public class GameModel {
 		for(int i=0; i < mainDeck.getSize(); i++) {
 			player[i].getDeck().addCard(mainDeck.d)
 		}
+		// incomplete method
 	}
 	
 	//print human player their card - print method in Card class?
 	
 	public String chooseCategory() {
-		
 		Scanner scanner = new Scanner(System.in);
-		
 		System.out.println("Which catagory would you like to play? \nPlease choose from the following catagories and enter a number from 1 to 5."
 				+ "\n1 - Floor Stickiness\n2 - Pint Price\n3 - Pub Quiz Quality\n4 - Atmosphere\n5 - Music Quality");
-		
 		int userChoice = scanner.nextInt();
 		String chosenCategory = null;
 		if(userChoice == 1) {
@@ -53,10 +51,8 @@ public class GameModel {
 		}else {
 			System.out.println("Input not recognised. Please try again.");
 			chooseCategory();
-		}
-			
+		}	
 		// returns string of chosen category name
-		// scanner input 
 		return chosenCategory;
 	}
 	
