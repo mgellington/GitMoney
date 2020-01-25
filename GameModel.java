@@ -69,7 +69,8 @@ public class GameModel {
 		}
 	}
 	
-	private int randomPlayer() {
+	// randomises first player
+	private int randomFirstPlayer() {
 		return new Random().nextInt(numAIPlayers +1);
 	}
 	
@@ -87,5 +88,7 @@ public class GameModel {
 		// logic for comparing the cards by category
 		
 	}
+	
+	// method to transfer cards to communal pile?
 
 }
