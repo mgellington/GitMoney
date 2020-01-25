@@ -9,7 +9,7 @@ public class Player {
 		playerNumber = n;
 	}
 	
-	public void setDeck(ArrayList<Card> c) {
+	public void setDeck(Deck c) {
 		playerDeck = c;	
 	}
 
