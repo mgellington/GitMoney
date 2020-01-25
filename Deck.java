@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Deck {
-	private ArrayList<card> mainDeck;
+	private ArrayList<Card> mainDeck;
 
 	public Deck() {
-		mainDeck = new ArrayList<card>();
+		mainDeck = new ArrayList<Card>();
 	}
 
 	public void shuffleDeck() {
@@ -15,21 +15,21 @@ public class Deck {
 		Collections.shuffle(mainDeck);
 	}
 
-	public void addCard(card x) {
+	public void addCard(Card x) {
 		/*
 		 * adds card tio end of list
 		 */
 		mainDeck.add(x);
 	}
 
-	public card getTopCard() {
+	public Card getTopCard() {
 		/*
 		 * this will return the top card but also remove it from the list
 		 * can be used when dealing the cards into each players hands
 		 * 
 		 * can use similar method for playing and moving into common pile
 		 */
-		card firstCard = mainDeck.get(0);
+		Card firstCard = mainDeck.get(0);
 		mainDeck.remove(0);
 		return firstCard;
 	}
@@ -42,17 +42,17 @@ public class Deck {
 	}
 
 
-	public ArrayList<card> getMainDeck() {
+	public ArrayList<Card> getMainDeck() {
 		return mainDeck;
 	}
 
-	public card seeCard(int x) {
+	public Card seeCard(int x) {
 		/*
 		 * just returns the card at a given index
 		 * card will remain in list
 		 */
 		
-		card one = mainDeck.get(x);
+		Card one = mainDeck.get(x);
 		return one;
 	}
 
