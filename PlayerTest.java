@@ -5,19 +5,18 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 class PlayerTest {
-	ArrayList<Card> deck;
+	Deck deck;
 	Player testPlayer;
 	Player testPlayer2;
 
 	public PlayerTest() {
-		deck = new ArrayList<Card>();
-		testPlayer = new Player("Player1");
-		Card C1 = new Card("Monster");
-		Card C2 = new Card("Wizard");
-		Card C3 = new Card("Zombie");
-		deck.add(C1);
-		deck.add(C2);
-		deck.add(C3);
+		testPlayer = new Player(1);
+		Card c1 = new Card("A", 1, 2, 3, 4, 5);
+		Card c2 = new Card("B", 1, 2, 3, 4, 5);
+		Card c3 = new Card("C", 1, 2, 3, 4, 5);
+		deck.add(c1);
+		deck.add(c2);
+		deck.add(c3);
 		testPlayer.setDeck(deck);
 	}
 
