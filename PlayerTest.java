@@ -46,7 +46,7 @@ class PlayerTest {
 	}
 
 	@Test
-	void testIsWinner() {
+	void testIsFull() {
 		// a winner condition
 		ArrayList<Card> winDeck = new ArrayList<Card>();
 		for (int i = 0; i < 40; i++) {
@@ -54,7 +54,7 @@ class PlayerTest {
 		}
 		Player testPlayer1 = new Player("Person");
 		testPlayer1.setDeck(winDeck);
-		assertSame(true, testPlayer1.isWinner(), "isWinner should return true");
+		assertSame(true, testPlayer1.isFull(), "isWinner should return true");
 
 		// a non-winner condition
 		ArrayList<Card> deck2 = new ArrayList<Card>();
@@ -62,20 +62,20 @@ class PlayerTest {
 		Player testPlayer2 = new Player("George");
 		testPlayer2.setDeck(deck2);
 
-		assertSame(false, testPlayer2.isWinner(), "isWinner should return false");
+		assertSame(false, testPlayer2.isFull(), "isWinner should return false");
 	}
 
 	@Test
-	void testIsLoser() {
+	void testIsEmpty() {
 		
 		// a loser condition
 		ArrayList<Card> deck2 = new ArrayList<Card>();
 		Player testPlayer2 = new Player("George");
 		testPlayer2.setDeck(deck2);
-		assertSame(true, testPlayer2.isLoser(), "deck is empty so needs to return true");
+		assertSame(true, testPlayer2.isEmpty(), "deck is empty so needs to return true");
 		
 		// a non-loser condition
-		assertSame(false, testPlayer.isLoser(), "deck is not empty so needs to return false");
+		assertSame(false, testPlayer.isEmpty(), "deck is not empty so needs to return false");
 	}
 
 }
