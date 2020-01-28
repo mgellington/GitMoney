@@ -13,6 +13,7 @@ public class GameModel {
 	private int numOfRounds;
 	private int numOfDraws;
 	private int numAIPlayers;
+	CategoryTypes chosenCategory; // added as a variable for calling method in newRound()
 	
 	
 	// constructor for game instance
@@ -21,7 +22,7 @@ public class GameModel {
 	}
 	
 	// this will only deal the main deck at the start of the game
-	private void deal() {
+	private void startDeal() {
 		// iterates through array list of players
 		// deal 1 card to each 
 		this.mainDeck.shuffleDeck();
@@ -43,9 +44,7 @@ public class GameModel {
 		System.out.println("Which catagory would you like to play? \nPlease choose from the following catagories and enter a number from 1 to 5."
 				+ "\n1 - Floor Stickiness\n2 - Pint Price\n3 - Pub Quiz Quality\n4 - Atmosphere\n5 - Music Quality");
 		int userChoice = scanner.nextInt();
-		CategoryTypes chosenCategory = null;
-		
-		
+		// CategoryTypes chosenCategory = null; 
 		if(userChoice == 1) {
 			chosenCategory = CategoryTypes.FLOOR;
 		}else if(userChoice == 2) {
@@ -64,6 +63,7 @@ public class GameModel {
 		return chosenCategory;
 	}
 	
+	
 	public void startGame(int AIPlayers) {
 		this.numAIPlayers = AIPlayers;
 		player = new Player[AIPlayers +1];
@@ -76,12 +76,32 @@ public class GameModel {
 				player[i].setName("AI Player " + i);
 			}
 		}
+		startDeal();
+		activePlayer = player[randomFirstPlayer()];
 	}
+	
 	
 	// randomises first player
 	private int randomFirstPlayer() {
 		return new Random().nextInt(numAIPlayers + 1);
 	}
+	
+	
+	// starts every round (except round 1)
+	private void newRound(){
+		numOfRounds++;
+		System.out.println("Round " + numOfRounds);
+		System.out.println("Active player: " + activePlayer);
+		// insert printing the human player their top card
+		
+		// if the active player is the human player..
+		if(activePlayer.equals(player[0])){
+			chooseCategory();
+		}
+		// calling roundResult method
+		roundResult(chosenCategory);	
+	}
+	
 	
 	private int roundResult(CategoryTypes chosenCategory) {
 		if(activePlayer == player[0]) {
@@ -132,7 +152,9 @@ public class GameModel {
 		
 		if (isDraw) {
 			System.out.println("A Draw!");
-			handleDraw();
+			//handleDraw();
+			this.numOfDraws++;
+			newRound();
 		} else {
 			// determine winner
 			for (int i = 0; i < player.length; i++) {
@@ -141,46 +163,38 @@ public class GameModel {
 					System.out.println(player[i] + " has won the round!");
 				}
 			}
-			
-			
-			handleWin();
-			   // moved below to handle win method
-			// roundWinner.addCards(communalDeck);
-			// emptyCommunal();
-
-		}
-		
-		return 0;
-		
+			//handleWin();
+			roundWinner.addCards(communalDeck);
+			emptyCommunal();
+			newRound();
+		}	
+		return 0;	
 	}
 	
-	public void handleDraw() {
-		this.numOfDraws++;
-		// restart round
-		// record stats?
+	
+	//public void handleDraw() {
+		//this.numOfDraws++;
+		//newRound();
+			// record stats?
 		
 	// toString for communal pile for testing it is empty here?
-	}
+	//}
 	
-	public void handleWin() {
-		// stats?
-		roundWinner.addCards(communalDeck);
-		emptyCommunal();
-		// restart round
+	//public void handleWin() {
+			// stats?
+		// roundWinner.addCards(communalDeck);
+		// emptyCommunal();
+		//newRound();
 	// toString for communal pile for testing, print the communal pile here to check its empty?
-	}
+	//}
 	
 	public void transferToCommunal(Deck cards) {
 		// adds card deck to communal deck and shuffles
 		this.communalDeck.addSetOfCards(cards);
-		this.communalDeck.shuffleDeck();
-		
+		this.communalDeck.shuffleDeck();	
 	}
 	
 	public void emptyCommunal() {
 		this.communalDeck.getMainDeck().clear();
 	}
-	
-
-
 }
