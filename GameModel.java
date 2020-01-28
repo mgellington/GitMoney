@@ -33,6 +33,7 @@ public class GameModel {
 			}
 		}
 		// incomplete method
+		// toString method for Card to show player their top card?
 	}
 	
 	//print human player their card - print method in Card class?
@@ -130,17 +131,22 @@ public class GameModel {
 		transferToCommunal(tempDeck);
 		
 		if (isDraw) {
+			System.out.println("A Draw!");
 			handleDraw();
 		} else {
 			// determine winner
 			for (int i = 0; i < player.length; i++) {
 				if (winningCard == player[i].getDeck().getTopCard()) {
 					roundWinner = player[i];
+					System.out.println(player[i] + " has won the round!");
 				}
 			}
 			
-			roundWinner.addCards(communalDeck);
-			emptyCommunal();
+			
+			handleWin();
+			   // moved below to handle win method
+			// roundWinner.addCards(communalDeck);
+			// emptyCommunal();
 
 		}
 		
@@ -150,14 +156,18 @@ public class GameModel {
 	
 	public void handleDraw() {
 		this.numOfDraws++;
-		// handle draw
 		// restart round
 		// record stats?
+		
+	// toString for communal pile for testing it is empty here?
 	}
 	
 	public void handleWin() {
-		//restart round
-		//set stats?
+		// stats?
+		roundWinner.addCards(communalDeck);
+		emptyCommunal();
+		// restart round
+	// toString for communal pile for testing, print the communal pile here to check its empty?
 	}
 	
 	public void transferToCommunal(Deck cards) {
