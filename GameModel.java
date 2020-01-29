@@ -11,7 +11,7 @@ public class GameModel {
 	private ArrayList<Player> player;
 	private Player activePlayer;
 	private int numOfRounds;
-	private int numOfDraws;
+	private int numOfDraws = 0;
 	private int numAIPlayers;
 	private CategoryTypes chosenCategory = null;
 	private Player gameWinner;
@@ -119,6 +119,7 @@ public class GameModel {
 		
 		// logic for comparing the cards by category
 		
+		// array of all players current top cards
 		Card[] current = new Card[player.size()];
 		for (int i = 0; i < current.length; i ++) {
 			current[i] = player.get(i).getDeck().getTopCard();
@@ -129,6 +130,7 @@ public class GameModel {
 		
 		int maxScore = 0;
 		
+		// comparing cards to chosen category
 		for (int j = 0; j < current.length - 1; j++) {
 			if (winningCard.matchCategory(chosenCategory).compareTo(current[j+1].matchCategory(chosenCategory)) == 1) {
 				if (current[j].matchCategory(chosenCategory).getScore() > maxScore) {
@@ -149,11 +151,13 @@ public class GameModel {
 		
 		Player roundWinner = null;
 		
+		// changin array of top cards to array list
 		ArrayList<Card> cardList = new ArrayList<Card>();
 		for (int x = 0; x < current.length; x++) {
 			cardList.add(current[x]);
 		}
 		
+		// adding array list to temporary deck, to add it to communal deck
 		Deck tempDeck = new Deck(cardList);
 		transferToCommunal(tempDeck);
 		
