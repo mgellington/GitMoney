@@ -18,7 +18,8 @@ public class GameModel {
 	
 	
 	// constructor for game instance
-	private GameModel() {
+	public GameModel(int numAIPlayers) {
+		this.numAIPlayers = numAIPLayers;
 		this.mainDeck = new Deck();
 		startGame(numAIPlayers);
 	}
