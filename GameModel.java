@@ -29,8 +29,10 @@ public class GameModel {
 		// deal 1 card to each 
 		this.mainDeck.shuffleDeck();
 		
-		for (int j = 0; j < player.size(); j++) {
-			player.get(j).addOneCard(mainDeck.getAndRemoveTopCard());
+		for (int i = 0; i < mainDeck.getMainDeck().size(); i++) {
+			for (int j = 0; j < player.size(); j++) {
+				player.get(j).addOneCard(mainDeck.getAndRemoveTopCard());
+			}
 		}
 		// incomplete method
 		// Card toString in TopTrumpsCLIApplication
