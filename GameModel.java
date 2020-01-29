@@ -28,14 +28,14 @@ public class GameModel {
 		// iterates through array list of players
 		// deal 1 card to each 
 		this.mainDeck.shuffleDeck();
-		
+		// test array length change doesnt mess up iteration
 		for (int i = 0; i < mainDeck.getMainDeck().size(); i++) {
 			for (int j = 0; j < player.size(); j++) {
 				player.get(j).addOneCard(mainDeck.getAndRemoveTopCard());
 			}
 		}
-		// incomplete method
-		// Card toString in TopTrumpsCLIApplication
+		// display human player their card
+		// call roundResult()
 	}
 	
 	//print human player their card - print method in Card class?
@@ -103,8 +103,9 @@ public class GameModel {
 		roundResult(chosenCategory);	
 	}
 	
-	private int roundResult(CategoryTypes chosenCategory) {
+	private int roundResult() {
 		if(activePlayer == player.get(0)) {
+			chosenCategory = chooseCategory();
 			System.out.println("You have selected " + chosenCategory.getName());
 		}
 		else {
