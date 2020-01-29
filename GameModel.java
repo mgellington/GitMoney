@@ -92,15 +92,9 @@ public class GameModel {
 	private void newRound(){
 		numOfRounds++;
 		System.out.println("Round " + numOfRounds);
-		System.out.println("Active player: " + activePlayer);
+		System.out.println("Active player: " + activePlayer.getName());
 		// insert printing the human player their top card
-		
-		// if the active player is the human player..
-		if(activePlayer.equals(player.get(0))){
-			chooseCategory();
-		}
-		// calling roundResult method
-		roundResult(chosenCategory);	
+		roundResult();	
 	}
 	
 	private int roundResult() {
