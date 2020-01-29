@@ -14,11 +14,14 @@ public class GameModel {
 	private int numOfDraws;
 	private int numAIPlayers;
 	CategoryTypes chosenCategory; // added as a variable for calling method in newRound()
+	int activePlayers;
 	
+	// boolean in Player class for isEliminated ***
 	
 	// constructor for game instance
 	private GameModel() {
 		this.mainDeck = new Deck();
+		startGame(numAIPlayers);
 	}
 	
 	// this will only deal the main deck at the start of the game
@@ -26,15 +29,13 @@ public class GameModel {
 		// iterates through array list of players
 		// deal 1 card to each 
 		this.mainDeck.shuffleDeck();
-		
-		
 		for(int i=mainDeck.getMainDeck().size(); i >= 0; i++) {
 			for (int j = 0; j < player.length; j++) {
 				player[j].addOneCard(mainDeck.getAndRemoveTopCard());
 			}
 		}
 		// incomplete method
-		// toString method for Card to show player their top card?
+		// toString method to show human player their top card?
 	}
 	
 	//print human player their card - print method in Card class?
@@ -154,6 +155,7 @@ public class GameModel {
 			System.out.println("A Draw!");
 			//handleDraw();
 			this.numOfDraws++;
+			gameWinnerCheck();
 			newRound();
 		} else {
 			// determine winner
@@ -166,11 +168,28 @@ public class GameModel {
 			//handleWin();
 			roundWinner.addCards(communalDeck);
 			emptyCommunal();
+			gameWinnerCheck();
 			newRound();
 		}	
 		return 0;	
 	}
 	
+	public void gameWinnerCheck(){
+		for(int i=0; i<player.length; i++) {
+			if (player[i].isFull()) {
+				// saving winner info (for stats) in gameWinner variable
+				gameWinner = player[i];
+				System.out.println(player[i] + " has won the game!");
+			}else if(player[i].isEmpty()) {
+				numActivePlayer--;
+				System.out.println(player[i] + " has been ELIMINATED!");
+				
+				// variable for number eliminated, or 
+			}
+			
+			// if is loser, rmeove from array
+		}
+	}	
 	
 	//public void handleDraw() {
 		//this.numOfDraws++;
