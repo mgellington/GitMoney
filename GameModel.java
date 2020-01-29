@@ -8,15 +8,14 @@ public class GameModel {
 	
 	private Deck communalDeck;
 	private Deck mainDeck;
-	private Player[] player;
+	private ArrayList<Player> player;
 	private Player activePlayer;
 	private int numOfRounds;
 	private int numOfDraws;
 	private int numAIPlayers;
-	CategoryTypes chosenCategory; // added as a variable for calling method in newRound()
-	int activePlayers;
+	private CategoryTypes chosenCategory = null;
+	private Player gameWinner;
 	
-	// boolean in Player class for isEliminated ***
 	
 	// constructor for game instance
 	private GameModel() {
@@ -29,13 +28,12 @@ public class GameModel {
 		// iterates through array list of players
 		// deal 1 card to each 
 		this.mainDeck.shuffleDeck();
-		for(int i=mainDeck.getMainDeck().size(); i >= 0; i++) {
-			for (int j = 0; j < player.length; j++) {
-				player[j].addOneCard(mainDeck.getAndRemoveTopCard());
-			}
+		
+		for (int j = 0; j < player.size(); j++) {
+			player.get(j).addOneCard(mainDeck.getAndRemoveTopCard());
 		}
 		// incomplete method
-		// toString method to show human player their top card?
+		// Card toString in TopTrumpsCLIApplication
 	}
 	
 	//print human player their card - print method in Card class?
@@ -45,7 +43,9 @@ public class GameModel {
 		System.out.println("Which catagory would you like to play? \nPlease choose from the following catagories and enter a number from 1 to 5."
 				+ "\n1 - Floor Stickiness\n2 - Pint Price\n3 - Pub Quiz Quality\n4 - Atmosphere\n5 - Music Quality");
 		int userChoice = scanner.nextInt();
-		// CategoryTypes chosenCategory = null; 
+		CategoryTypes chosenCategory = null;
+		
+		
 		if(userChoice == 1) {
 			chosenCategory = CategoryTypes.FLOOR;
 		}else if(userChoice == 2) {
@@ -64,31 +64,29 @@ public class GameModel {
 		return chosenCategory;
 	}
 	
-	
 	public void startGame(int AIPlayers) {
 		this.numAIPlayers = AIPlayers;
-		player = new Player[AIPlayers +1];
+		player = new ArrayList<Player>();
 		this.numOfRounds = 1;
+
+		// sets you as player and adds to arraylist
+		player.add(new Player());
+		player.get(0).setName("You");
 		
-		for (int i = 0; i < player.length; i++) {
-			if (i == 0) {
-				player[i].setName("You");
-			} else {
-				player[i].setName("AI Player " + i);
-			}
+		// adds AI players to array list
+		for (int i = 1; i < numAIPlayers; i++) {
+			player.add(new Player());
+			player.get(i).setName("AI Player" + i);
 		}
 		startDeal();
-		activePlayer = player[randomFirstPlayer()];
+		activePlayer = player.get(randomFirstPlayer());
 	}
-	
 	
 	// randomises first player
 	private int randomFirstPlayer() {
 		return new Random().nextInt(numAIPlayers + 1);
 	}
 	
-	
-	// starts every round (except round 1)
 	private void newRound(){
 		numOfRounds++;
 		System.out.println("Round " + numOfRounds);
@@ -96,16 +94,15 @@ public class GameModel {
 		// insert printing the human player their top card
 		
 		// if the active player is the human player..
-		if(activePlayer.equals(player[0])){
+		if(activePlayer.equals(player.get(0))){
 			chooseCategory();
 		}
 		// calling roundResult method
 		roundResult(chosenCategory);	
 	}
 	
-	
 	private int roundResult(CategoryTypes chosenCategory) {
-		if(activePlayer == player[0]) {
+		if(activePlayer == player.get(0)) {
 			System.out.println("You have selected " + chosenCategory.getName());
 		}
 		else {
@@ -119,23 +116,29 @@ public class GameModel {
 		
 		// logic for comparing the cards by category
 		
-		Card[] current = new Card[player.length];
+		Card[] current = new Card[player.size()];
 		for (int i = 0; i < current.length; i ++) {
-			current[i] = player[i].getDeck().getTopCard();
+			current[i] = player.get(i).getDeck().getTopCard();
 		}
 		
 		Card winningCard = current[0];
 		boolean isDraw = false;
 		
-		// add variable for max score for determining draw
+		int maxScore = 0;
 		
 		for (int j = 0; j < current.length - 1; j++) {
 			if (winningCard.matchCategory(chosenCategory).compareTo(current[j+1].matchCategory(chosenCategory)) == 1) {
-				winningCard = current[j];
-				isDraw = false;
-			} else if (winningCard.matchCategory(chosenCategory).compareTo(current[j+1].matchCategory(chosenCategory)) == 2){
-				winningCard = current[j + 1];
-				isDraw = false;
+				if (current[j].matchCategory(chosenCategory).getScore() > maxScore) {
+					maxScore = current[j].matchCategory(chosenCategory).getScore();
+					winningCard = current[j];
+					isDraw = false;
+				}
+			} else if (winningCard.matchCategory(chosenCategory).compareTo(current[j+1].matchCategory(chosenCategory)) == 2) {
+				if (current[j+1].matchCategory(chosenCategory).getScore() > maxScore) {
+					maxScore = current[j + 1].matchCategory(chosenCategory).getScore();
+					winningCard = current[j + 1];
+					isDraw = false;
+				}
 			} else {
 				isDraw = true;
 			}
@@ -153,67 +156,78 @@ public class GameModel {
 		
 		if (isDraw) {
 			System.out.println("A Draw!");
-			//handleDraw();
 			this.numOfDraws++;
 			gameWinnerCheck();
 			newRound();
 		} else {
 			// determine winner
-			for (int i = 0; i < player.length; i++) {
-				if (winningCard == player[i].getDeck().getTopCard()) {
-					roundWinner = player[i];
-					System.out.println(player[i] + " has won the round!");
+			for (int i = 0; i < player.size(); i++) {
+				if (winningCard == player.get(i).getDeck().getTopCard()) {
+					roundWinner = player.get(i);
+					System.out.println(player.get(i) + " has won the round!");
 				}
 			}
-			//handleWin();
+			
 			roundWinner.addCards(communalDeck);
 			emptyCommunal();
 			gameWinnerCheck();
 			newRound();
-		}	
-		return 0;	
+
+		}
+		
+		return 0;
+		
 	}
 	
 	public void gameWinnerCheck(){
-		for(int i=0; i<player.length; i++) {
-			if (player[i].isFull()) {
+		for(int i=0; i<player.size(); i++) {
+			if (player.get(i).isFull()) {
 				// saving winner info (for stats) in gameWinner variable
-				gameWinner = player[i];
-				System.out.println(player[i] + " has won the game!");
-			}else if(player[i].isEmpty()) {
-				numActivePlayer--;
-				System.out.println(player[i] + " has been ELIMINATED!");
+				gameWinner = player.get(i);
+				System.out.println(player.get(i) + " has won the game!");
+			}else if(player.get(i).isEmpty()) {
+				System.out.println(player.get(i) + " has been ELIMINATED!");
+				player.remove(i);
 				
-				// variable for number eliminated, or 
 			}
 			
-			// if is loser, rmeove from array
 		}
 	}	
 	
-	//public void handleDraw() {
-		//this.numOfDraws++;
-		//newRound();
-			// record stats?
-		
-	// toString for communal pile for testing it is empty here?
-	//}
-	
-	//public void handleWin() {
-			// stats?
-		// roundWinner.addCards(communalDeck);
-		// emptyCommunal();
-		//newRound();
-	// toString for communal pile for testing, print the communal pile here to check its empty?
-	//}
+//	public void handleDraw() {
+//		this.numOfDraws++;
+//		// handle draw
+//		// restart round
+//		// record stats?
+//	}
+//	
+//	public void handleWin() {
+//		//restart round
+//		//set stats?
+//	}
 	
 	public void transferToCommunal(Deck cards) {
 		// adds card deck to communal deck and shuffles
 		this.communalDeck.addSetOfCards(cards);
-		this.communalDeck.shuffleDeck();	
+		this.communalDeck.shuffleDeck();
+		
 	}
 	
 	public void emptyCommunal() {
 		this.communalDeck.getMainDeck().clear();
 	}
+
+	public int getNumOfRounds() {
+		return numOfRounds;
+	}
+
+	public int getNumOfDraws() {
+		return numOfDraws;
+	}
+
+	public Player getGameWinner() {
+		return gameWinner;
+	}
+
+
 }
