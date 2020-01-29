@@ -34,6 +34,7 @@ public class GameModel {
 				player.get(j).addOneCard(mainDeck.getAndRemoveTopCard());
 			}
 		}
+		activePlayer = player.get(randomFirstPlayer());		
 		// display human player their card
 		// call roundResult()
 	}
@@ -81,7 +82,6 @@ public class GameModel {
 			player.get(i).setName("AI Player" + i);
 		}
 		startDeal();
-		activePlayer = player.get(randomFirstPlayer());
 	}
 	
 	// randomises first player
