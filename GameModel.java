@@ -90,24 +90,20 @@ public class GameModel {
 				}
 			} else {
 				resultInt = -1; // draw
-			}
-			
+			}	
 		}
-		
 		return resultInt;
 	}
 	
+	
 	public void transferCards(int resultInt) {
-		
 		transferToCommunal(mainDeck);
-		
 		if (resultInt == -2) {
 			System.out.println("we fucked up"); // take out later
 		} else if (resultInt > -1) {
-			players.
+			activePlayer = resultInt; // sets activePlayer to index number of winner
+			player.get(resultInt).addCards(communalDeck);
 		}
-			
-		
 	}
 	
 	
@@ -201,22 +197,8 @@ public class GameModel {
 	
 	public void emptyCommunal() {
 		this.communalDeck.getMainDeck().clear();
-	}
-
+	}	
 	
-//	public String gameWinnerCheck(){
-//		String winner, eliminated;
-//		for(int i=0; i<player.size(); i++) {
-//			if (player.get(i).isFull()) {
-//				// saving winner info (for stats) in gameWinner variable
-//				gameWinner = player.get(i);
-//				winner = player.get(i) + " has won the game!";
-//			}else if(player.get(i).isEmpty()) {
-//				player.remove(i);
-//				eliminated = player.get(i) + " has been ELIMINATED!";
-//			}	
-//		}
-//	}	
 	
 	public String eliminateLoser() {
 		String eliminated = null;
