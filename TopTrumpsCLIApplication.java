@@ -103,14 +103,13 @@ public class TopTrumpsCLIApplication {
 					//which iterates through remaining players and removes them from the ListArray if they have no cards left
 					//method should also return a String message which says which players have been eliminated
 
+					//###### IMPORTANT: consider here what to do if there is a draw in the final game and no cards
+
 					//need method public String isGameOver()
+					//which returns a message to the user if there is only one player left (winner)
 
-
-					//which
-					//test if gameOver here
-					//select next active player here
-
-					//consider here what to do if there is a draw in the final game and no cards
+					//need method public int nextActivePlayer()
+					//which selects next active player - use this method also in constructor for consistency & simplicity
 
 				//}
 
