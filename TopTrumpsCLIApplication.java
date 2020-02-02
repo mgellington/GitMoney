@@ -51,10 +51,10 @@ public class TopTrumpsCLIApplication {
 
 			/* ######## Add code here to extract all cards from database and store them in a deck object */
 
-			//deck = extractDeckFromDataBase(filepath)
+			//deckOfAllCards = extractDeckFromDataBase(filepath)
 			// the above method is expected to be included in one of the database classes
 
-            //game = new GameModel(userInput,deck);
+            //game = new GameModel(userInput (# of players),deckOfAllCards object);
 
 			/* ######## Add code here to initialise a GameModel object by calling the constructor
 			* - Constructor needs to: - initialise player objects (AI player number defined by user, 1-4)
