@@ -38,7 +38,7 @@ public class GameModel {
 		// deals cards to all players
 		for (int j = 0; j < mainDeck.getMainDeck().size(); j++) {
 			for (int k = 0; k < player.size(); k++) {
-				player.get(j).addOneCard(mainDeck.getAndRemoveTopCard());
+				player.get(k).addOneCard(mainDeck.getAndRemoveTopCard());
 			}
 		}
 		activePlayer = randomFirstPlayer();
