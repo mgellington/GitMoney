@@ -52,7 +52,7 @@ public class GameModel {
 	//print human player their card - print method in Card class?
 	
 	
-	private CategoryTypes AIPlayerTopCategory(int activePlayer) {
+	public CategoryTypes AIPlayerTopCategory(int activePlayer) {
 		CategoryTypes topCategory = player.get(activePlayer).getDeck().getTopCard().getTopCategory().getType();
 		return topCategory;
 	}
@@ -60,37 +60,12 @@ public class GameModel {
 	
 	//increase round counter ??
 	
-	private void collectTopCards() {
+	public void collectTopCards() {
 		for (int i = 0; i < player.size(); i++) {
 			mainDeck.addCard(player.get(i).getDeck().getAndRemoveTopCard());
 		}
 	}
 	
-	
-
-	
-	//private int roundResult() {
-//		if(activePlayer == player.get(0)) {
-//			chosenCategory = chooseCategory();
-//			System.out.println("You have selected " + chosenCategory.getName());
-//		}
-//		else {
-//			chosenCategory = activePlayer.getDeck().getTopCard().getTopCategory().getType();
-//			System.out.println(activePlayer.getName() + " has selected " + chosenCategory.getName());
-//		}
-//		
-//		System.out.println(" on the " + activePlayer.getDeck().getTopCard().getName() + " card.");
-//		
-//		numOfRounds++;
-		
-		// logic for comparing the cards by category
-		
-		// array of all players current top cards
-//		Card[] current = new Card[player.size()];
-//		for (int i = 0; i < current.length; i ++) {
-//			current[i] = player.get(i).getDeck().getTopCard();
-//		}
-		
 	public int getRoundWinner(CategoryTypes chosenCategory) {
 		
 		int resultInt = -2; // initialised number that we don't want returned to make testing easier; change before turning in
@@ -121,6 +96,44 @@ public class GameModel {
 		
 		return resultInt;
 	}
+	
+	public void transferCards(int resultInt) {
+		
+		transferToCommunal(mainDeck);
+		
+		if (resultInt == -2) {
+			System.out.println("we fucked up"); // take out later
+		} else if (resultInt > -1) {
+			players.
+		}
+			
+		
+	}
+	
+	
+
+	
+//private int roundResult() {
+//		if(activePlayer == player.get(0)) {
+//			chosenCategory = chooseCategory();
+//			System.out.println("You have selected " + chosenCategory.getName());
+//		}
+//		else {
+//			chosenCategory = activePlayer.getDeck().getTopCard().getTopCategory().getType();
+//			System.out.println(activePlayer.getName() + " has selected " + chosenCategory.getName());
+//		}
+//		
+//		System.out.println(" on the " + activePlayer.getDeck().getTopCard().getName() + " card.");
+//		
+//		numOfRounds++;
+		
+// logic for comparing the cards by category
+		
+// array of all players current top cards
+//		Card[] current = new Card[player.size()];
+//		for (int i = 0; i < current.length; i ++) {
+//			current[i] = player.get(i).getDeck().getTopCard();
+//		}
 		
 //		Card winningCard = current[0];
 //		boolean isDraw = false;
@@ -152,65 +165,81 @@ public class GameModel {
 //		ArrayList<Card> cardList = new ArrayList<Card>();
 //		for (int x = 0; x < current.length; x++) {
 //			cardList.add(current[x]);
-//		}
-		
-		// adding array list to temporary deck, to add it to communal deck
-		Deck tempDeck = new Deck(cardList);
-		transferToCommunal(tempDeck);
-		
-		if (isDraw) {
-			System.out.println("A Draw!");
-			this.numOfDraws++;
-			gameWinnerCheck();
-			newRound();
-		} else {
-			// determine winner
-			for (int i = 0; i < player.size(); i++) {
-				if (winningCard == player.get(i).getDeck().getTopCard()) {
-					roundWinner = player.get(i);
-					System.out.println(player.get(i) + " has won the round!");
-				}
-			}
-			
-			roundWinner.addCards(communalDeck);
-			emptyCommunal();
-			gameWinnerCheck();
-			newRound();
+//		}	
+// adding array list to temporary deck, to add it to communal deck
+//		Deck tempDeck = new Deck(cardList);
+//		transferToCommunal(tempDeck);
+//		
+//		if (isDraw) {
+//			System.out.println("A Draw!");
+//			this.numOfDraws++;
+//			gameWinnerCheck();
+//			newRound();
+//		} else {
+//			// determine winner
+//			for (int i = 0; i < player.size(); i++) {
+//				if (winningCard == player.get(i).getDeck().getTopCard()) {
+//					roundWinner = player.get(i);
+//					System.out.println(player.get(i) + " has won the round!");
+//				}
+//			}	
+//			roundWinner.addCards(communalDeck);
+//			emptyCommunal();
+//			gameWinnerCheck();
+//			newRound();
+//		}		
+//		return 0;	
+//	}
 
-		}
-		
-		return 0;
-		
-	}
-	
-	public void gameWinnerCheck(){
-		for(int i=0; i<player.size(); i++) {
-			if (player.get(i).isFull()) {
-				// saving winner info (for stats) in gameWinner variable
-				gameWinner = player.get(i);
-				System.out.println(player.get(i) + " has won the game!");
-			}else if(player.get(i).isEmpty()) {
-				System.out.println(player.get(i) + " has been ELIMINATED!");
-				player.remove(i);
-				
-			}
-			
-		}
-	}	
-	
-	
-	
-	
+
 	public void transferToCommunal(Deck cards) {
 		// adds card deck to communal deck and shuffles
 		this.communalDeck.addSetOfCards(cards);
 		this.communalDeck.shuffleDeck();
-		
 	}
+	
 	
 	public void emptyCommunal() {
 		this.communalDeck.getMainDeck().clear();
 	}
+
+	
+//	public String gameWinnerCheck(){
+//		String winner, eliminated;
+//		for(int i=0; i<player.size(); i++) {
+//			if (player.get(i).isFull()) {
+//				// saving winner info (for stats) in gameWinner variable
+//				gameWinner = player.get(i);
+//				winner = player.get(i) + " has won the game!";
+//			}else if(player.get(i).isEmpty()) {
+//				player.remove(i);
+//				eliminated = player.get(i) + " has been ELIMINATED!";
+//			}	
+//		}
+//	}	
+	
+	public String eliminateLoser() {
+		String eliminated = null;
+		for(int i = 0; i<player.size(); i++) {
+			if(player.get(i).isEmpty()) {
+				eliminated += player.get(i) + " has been ELIMINATED\n";
+				player.remove(i);
+				i--;
+			}
+		}return eliminated;
+	}
+	
+	public String isGameOver() {
+		String winner = null;
+		for(int i=0; i<player.size(); i++) {
+			if (player.get(i).isFull()) {
+				// saving winner info (for stats) in gameWinner variable
+				gameWinner = player.get(i);
+				winner = player.get(i) + " has won the game!";
+			}
+		}return winner;
+	}
+
 
 	public int getNumOfRounds() {
 		return numOfRounds;
