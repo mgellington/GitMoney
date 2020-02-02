@@ -99,10 +99,21 @@ public class TopTrumpsCLIApplication {
 					//need method public void giveCardsToRoundWinner()
 					//which moves cards in mainDeck (aka activeDeck) & communalDeck to winner (or moves them to communalDeck if draw)
 
+					//need method public String eliminateLosers()
+					//which iterates through remaining players and removes them from the ListArray if they have no cards left
+					//method should also return a String message which says which players have been eliminated
+
+					//need method public String isGameOver()
+					//which
 					//test if gameOver here
 					//select next active player here
 
+					//consider here what to do if there is a draw in the final game and no cards
+
 				//}
+
+
+				// display user's top card here
 
 				userInput = promptUserInput("Which catagory would you like to play? \nPlease choose" +
 						" from the following catagories and enter a number from 1 to 5."
@@ -154,3 +165,6 @@ public class TopTrumpsCLIApplication {
 	}
 
 }
+
+// additional notes:
+// game is expected to have a 'test log' that stores a log of every action that happens in the game
