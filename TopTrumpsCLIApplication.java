@@ -52,12 +52,14 @@ public class TopTrumpsCLIApplication {
 			/* ######## Add code here to extract all cards from database and store them in a deck object */
 
 			//deck = extractDeckFromDataBase(filepath)
+			// the above method is expected to be included in one of the database classes
 
             //game = new GameModel(userInput,deck);
 
 			/* ######## Add code here to initialise a GameModel object by calling the constructor
-			* - Constructor needs to: - initialise player objects (number defined by user, 1-4)
-			*                         - initialise mainDeck (activeDeck) and communalDeck objects and clone deck
+			* - Constructor needs to: - initialise player objects (AI player number defined by user, 1-4)
+			*                         - initialise mainDeck (aka activeDeck) and communalDeck objects and clone deck
+			*                         - shuffle Deck
 			*                         - deal out cards from mainDeck to players
 			*                         - set all game stats to zero (TIP: could also collect all game stats in a
 			*                           separate object of class GameStats)
@@ -65,6 +67,14 @@ public class TopTrumpsCLIApplication {
 			*                           (have a separate method to randomly provide a number)
 			*/
 
+			/* For the above constructor method need the following supporting methods within the class:
+
+			public void startDeal()
+			which the takes cards one by one from this.mainDeck (aka activeDeck?) and deals them to each player's deck
+
+			public int getActivePlayer()
+			which is getter method that returns who is the active player - i.e. returns an int representing player number
+			 */
 
 			/* Dialogue Loop:
 			 *  On each round:
@@ -74,12 +84,21 @@ public class TopTrumpsCLIApplication {
             gameOver = false;
             while (!gameOver) {
 
-				//while(user is not activePlayer){
+				//while(user is not activePlayer i.e. (game.getActivePLayer()!=1){
 
-					//active AI player chooses their category based on highest value here
-					//put everyone's top card in mainDeck (activeDeck) here
-					//determine the winner of the round here
-					//move cards in communal deck to winner here (or keep them there if draw)
+					//need method public Category chooseAICategory(# number of active player i.e. game.getActivePLayer())
+					//where active AI player chooses their category based on highest value on their top card
+
+					//need method public void collectTopCards()
+					//which collects and puts everyone's top card in mainDeck (aka activeDeck) here
+
+					//need method public int getRoundWinner()
+					//which determines the winner of the round and returns the integer # number of the winning player
+					//it also needs to allow for draw (using say number -1)
+
+					//need method public void giveCardsToRoundWinner()
+					//which moves cards in mainDeck (aka activeDeck) & communalDeck to winner (or moves them to communalDeck if draw)
+
 					//test if gameOver here
 					//select next active player here
 
