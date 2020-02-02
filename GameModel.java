@@ -18,8 +18,8 @@ public class GameModel {
 	
 	
 	// constructor for game instance
-	public GameModel(int numAIPlayers) {
-		this.mainDeck = new Deck();
+	public GameModel(int numAIPlayers, Deck inputDeck) {
+		this.mainDeck = inputDeck;
 		this.mainDeck.shuffleDeck();
 		int numOfRounds = 1;
 		int numOfDraws = 0;
