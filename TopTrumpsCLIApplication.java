@@ -86,13 +86,13 @@ public class TopTrumpsCLIApplication {
 
 				//while(user is not activePlayer i.e. (game.getActivePLayer()!=1){
 
-					//need method public Category chooseAICategory(# number of active player i.e. game.getActivePLayer())
+					//need method public Category chooseAICategory(# ID of active player i.e. game.getActivePLayer())
 					//where active AI player chooses their category based on highest value on their top card
 
 					//need method public void collectTopCards()
 					//which collects and puts everyone's top card in mainDeck (aka activeDeck) here
 
-					//need method public int getRoundWinner()
+					//need method public int getRoundWinner(Category object chosen by active AI player)
 					//which determines the winner of the round and returns the integer # number of the winning player
 					//it also needs to allow for draw (using say number -1)
 
@@ -104,6 +104,8 @@ public class TopTrumpsCLIApplication {
 					//method should also return a String message which says which players have been eliminated
 
 					//need method public String isGameOver()
+
+
 					//which
 					//test if gameOver here
 					//select next active player here
