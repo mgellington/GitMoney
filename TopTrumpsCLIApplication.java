@@ -113,20 +113,29 @@ public class TopTrumpsCLIApplication {
 
 				//}
 
-
-				// display user's top card here
+				// needs method public String displayUserTopCard()
+				// which returns user's top card - write a method in both Card and GameModel classes for completeness
 
 				userInput = promptUserInput("Which catagory would you like to play? \nPlease choose" +
 						" from the following catagories and enter a number from 1 to 5."
 						+ "\n1 - Floor Stickiness\n2 - Pint Price\n3 - Pub Quiz Quality\n4 - Atmosphere\n5 - Music"+
 						" Quality", new int[] {1, 2, 3, 4, 5});
 
-				//include here a line diplaying the user's choice of category to the user
-				//put everyone's top card in mainDeck (activeDeck) here
-				//determine the winner of the round here
-				//move cards in communal deck to winner here (or keep them there if draw)
-				//test if gameOver here
-				//select next active player here
+				//include a line here for displaying the user's choice of category to the user
+
+				//reuse method public void collectTopCards()
+
+				//reuse method public int getRoundWinner(Category object chosen by active AI player)
+
+				//reuse method public void giveCardsToRoundWinner()
+
+				//reuse method public String eliminateLosers()
+
+				//###### IMPORTANT: consider here what to do if there is a draw in the final game and no cards
+
+				//reuse method public String isGameOver()
+
+				//reuse method public int nextActivePlayer()
 
 			}
 
