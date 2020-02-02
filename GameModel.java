@@ -58,39 +58,58 @@ public class GameModel {
 	}
 	
 	
+	//increase round counter ??
 	
-	
-	
-	
-	private void newRound(){
-		numOfRounds++;
-		System.out.println("Round " + numOfRounds);
-		System.out.println("Active player: " + activePlayer.getName());
-		// insert printing the human player their top card
-		roundResult();	
+	private void collectTopCards() {
+		for (int i = 0; i < player.size(); i++) {
+			mainDeck.addCard(player.get(i).getDeck().getAndRemoveTopCard());
+		}
 	}
 	
-	private int roundResult() {
-		if(activePlayer == player.get(0)) {
-			chosenCategory = chooseCategory();
-			System.out.println("You have selected " + chosenCategory.getName());
-		}
-		else {
-			chosenCategory = activePlayer.getDeck().getTopCard().getTopCategory().getType();
-			System.out.println(activePlayer.getName() + " has selected " + chosenCategory.getName());
-		}
-		
-		System.out.println(" on the " + activePlayer.getDeck().getTopCard().getName() + " card.");
-		
-		numOfRounds++;
+	
+
+	
+	//private int roundResult() {
+//		if(activePlayer == player.get(0)) {
+//			chosenCategory = chooseCategory();
+//			System.out.println("You have selected " + chosenCategory.getName());
+//		}
+//		else {
+//			chosenCategory = activePlayer.getDeck().getTopCard().getTopCategory().getType();
+//			System.out.println(activePlayer.getName() + " has selected " + chosenCategory.getName());
+//		}
+//		
+//		System.out.println(" on the " + activePlayer.getDeck().getTopCard().getName() + " card.");
+//		
+//		numOfRounds++;
 		
 		// logic for comparing the cards by category
 		
 		// array of all players current top cards
-		Card[] current = new Card[player.size()];
-		for (int i = 0; i < current.length; i ++) {
-			current[i] = player.get(i).getDeck().getTopCard();
-		}
+//		Card[] current = new Card[player.size()];
+//		for (int i = 0; i < current.length; i ++) {
+//			current[i] = player.get(i).getDeck().getTopCard();
+//		}
+		
+	public int getRoundWinner(CategoryTypes chosenCategory) {
+		
+		int resultInt = 0;
+		
+		ArrayList<Card> topCards = mainDeck.getMainDeck();
+		
+		Card winningCard = topCards.get(0);
+		int maxScore = 0;
+		
+		for (int i = 0; i < topCards.size() - 1; i++) {
+			if (winningCard.matchCategory(chosenCategory).compareTo(topCards.get(i + 1).matchCategory(chosenCategory)) == 1) {
+				if (topCards.get(i).matchCategory(chosenCategory).getScore() > maxScore) {
+					maxScore = topCards.get(i).matchCategory(chosenCategory).getScore();
+					winningCard = topCards.get(i);
+					
+				}
+			}
+			
+	}
 		
 		Card winningCard = current[0];
 		boolean isDraw = false;
@@ -197,6 +216,16 @@ public class GameModel {
 	public int getActivePlayer() {
 		return activePlayer;
 	}
+
+	public ArrayList<Player> getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(ArrayList<Player> player) {
+		this.player = player;
+	}
+	
+	
 
 
 }
