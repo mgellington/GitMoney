@@ -23,18 +23,15 @@ public class GameModel {
 		this.mainDeck.shuffleDeck();
 		int numOfRounds = 1;
 		int numOfDraws = 0;
-		
 		player = new ArrayList<Player>();
-		// sets you as player and adds to arraylist
+		// sets you as player and adds to array list
 		player.add(new Player());
 		player.get(0).setName("You");
-		
 		// adds AI players to array list
 		for (int i = 1; i < numAIPlayers; i++) {
 			player.add(new Player());
 			player.get(i).setName("AI Player" + i);
-		}
-			
+		}	
 		// deals cards to all players
 		for (int j = 0; j < mainDeck.getMainDeck().size(); j++) {
 			for (int k = 0; k < player.size(); k++) {
@@ -44,12 +41,14 @@ public class GameModel {
 		activePlayer = randomFirstPlayer();
 	}
 	
+	
 	// randomises first player
 	private int randomFirstPlayer() {
 		return new Random().nextInt(numAIPlayers + 1);
 	}
 	
 	// print human player their card - print method in Card class?
+	
 	
 	// returns active players top category if AI player
 	public CategoryTypes AIPlayerTopCategory(int activePlayer) {
@@ -66,6 +65,7 @@ public class GameModel {
 			mainDeck.addCard(player.get(i).getDeck().getAndRemoveTopCard());
 		}
 	}
+	
 	
 	// finding round winner and returning their ID number; returns -1 if draw; returns -2 if method failed (testing)
 	public int getRoundWinner(CategoryTypes chosenCategory) {
@@ -97,6 +97,7 @@ public class GameModel {
 		return resultInt;
 	}
 	
+	
 	// moves cards from main deck to communal deck
 	// if not draw, gives cards to winner and empties communal deck
 	public void transferCards(int resultInt) {
@@ -110,16 +111,19 @@ public class GameModel {
 		}
 	}
 
+	
 	// moves cards from main deck to communal deck and shuffles
 	public void transferToCommunal(Deck cards) {
 		this.communalDeck.addSetOfCards(cards);
 		this.communalDeck.shuffleDeck();
 	}
 	
+	
 	// empties communal deck
 	public void emptyCommunal() {
 		this.communalDeck.getMainDeck().clear();
 	}	
+	
 	
 	// check if player has no cards left, returns String of all players eliminated
 	// removes eliminated players from player arraylist
@@ -133,6 +137,7 @@ public class GameModel {
 			}
 		}return eliminated;
 	}
+	
 	
 	// checks if a player has won (full hand of 40 cards)
 	// returns String announcing winner
