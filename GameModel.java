@@ -44,14 +44,14 @@ public class GameModel {
 		activePlayer = randomFirstPlayer();
 	}
 	
-		// randomises first player
+	// randomises first player
 	private int randomFirstPlayer() {
 		return new Random().nextInt(numAIPlayers + 1);
 	}
 	
-	//print human player their card - print method in Card class?
+	// print human player their card - print method in Card class?
 	
-	
+	// returns active players top category if AI player
 	public CategoryTypes AIPlayerTopCategory(int activePlayer) {
 		CategoryTypes topCategory = player.get(activePlayer).getDeck().getTopCard().getTopCategory().getType();
 		return topCategory;
@@ -60,12 +60,14 @@ public class GameModel {
 	
 	//increase round counter ??
 	
+	// getting all players top cards and moving them to main deck
 	public void collectTopCards() {
 		for (int i = 0; i < player.size(); i++) {
 			mainDeck.addCard(player.get(i).getDeck().getAndRemoveTopCard());
 		}
 	}
 	
+	// finding round winner and returning their ID number; returns -1 if draw; returns -2 if method failed (testing)
 	public int getRoundWinner(CategoryTypes chosenCategory) {
 		
 		int resultInt = -2; // initialised number that we don't want returned to make testing easier; change before turning in
@@ -95,7 +97,8 @@ public class GameModel {
 		return resultInt;
 	}
 	
-	
+	// moves cards from main deck to communal deck
+	// if not draw, gives cards to winner and empties communal deck
 	public void transferCards(int resultInt) {
 		transferToCommunal(mainDeck);
 		if (resultInt == -2) {
@@ -103,103 +106,23 @@ public class GameModel {
 		} else if (resultInt > -1) {
 			activePlayer = resultInt; // sets activePlayer to index number of winner
 			player.get(resultInt).addCards(communalDeck);
+			emptyCommunal();
 		}
 	}
-	
-	
 
-	
-//private int roundResult() {
-//		if(activePlayer == player.get(0)) {
-//			chosenCategory = chooseCategory();
-//			System.out.println("You have selected " + chosenCategory.getName());
-//		}
-//		else {
-//			chosenCategory = activePlayer.getDeck().getTopCard().getTopCategory().getType();
-//			System.out.println(activePlayer.getName() + " has selected " + chosenCategory.getName());
-//		}
-//		
-//		System.out.println(" on the " + activePlayer.getDeck().getTopCard().getName() + " card.");
-//		
-//		numOfRounds++;
-		
-// logic for comparing the cards by category
-		
-// array of all players current top cards
-//		Card[] current = new Card[player.size()];
-//		for (int i = 0; i < current.length; i ++) {
-//			current[i] = player.get(i).getDeck().getTopCard();
-//		}
-		
-//		Card winningCard = current[0];
-//		boolean isDraw = false;
-//		
-//		int maxScore = 0;
-//		
-//		// comparing cards to chosen category
-//		for (int j = 0; j < current.length - 1; j++) {
-//			if (winningCard.matchCategory(chosenCategory).compareTo(current[j+1].matchCategory(chosenCategory)) == 1) {
-//				if (current[j].matchCategory(chosenCategory).getScore() > maxScore) {
-//					maxScore = current[j].matchCategory(chosenCategory).getScore();
-//					winningCard = current[j];
-//					isDraw = false;
-//				}
-//			} else if (winningCard.matchCategory(chosenCategory).compareTo(current[j+1].matchCategory(chosenCategory)) == 2) {
-//				if (current[j+1].matchCategory(chosenCategory).getScore() > maxScore) {
-//					maxScore = current[j + 1].matchCategory(chosenCategory).getScore();
-//					winningCard = current[j + 1];
-//					isDraw = false;
-//				}
-//			} else {
-//				isDraw = true;
-//			}
-//		}
-//		
-//		Player roundWinner = null;
-//		
-//		// changin array of top cards to array list
-//		ArrayList<Card> cardList = new ArrayList<Card>();
-//		for (int x = 0; x < current.length; x++) {
-//			cardList.add(current[x]);
-//		}	
-// adding array list to temporary deck, to add it to communal deck
-//		Deck tempDeck = new Deck(cardList);
-//		transferToCommunal(tempDeck);
-//		
-//		if (isDraw) {
-//			System.out.println("A Draw!");
-//			this.numOfDraws++;
-//			gameWinnerCheck();
-//			newRound();
-//		} else {
-//			// determine winner
-//			for (int i = 0; i < player.size(); i++) {
-//				if (winningCard == player.get(i).getDeck().getTopCard()) {
-//					roundWinner = player.get(i);
-//					System.out.println(player.get(i) + " has won the round!");
-//				}
-//			}	
-//			roundWinner.addCards(communalDeck);
-//			emptyCommunal();
-//			gameWinnerCheck();
-//			newRound();
-//		}		
-//		return 0;	
-//	}
-
-
+	// moves cards from main deck to communal deck and shuffles
 	public void transferToCommunal(Deck cards) {
-		// adds card deck to communal deck and shuffles
 		this.communalDeck.addSetOfCards(cards);
 		this.communalDeck.shuffleDeck();
 	}
 	
-	
+	// empties communal deck
 	public void emptyCommunal() {
 		this.communalDeck.getMainDeck().clear();
 	}	
 	
-	
+	// check if player has no cards left, returns String of all players eliminated
+	// removes eliminated players from player arraylist
 	public String eliminateLoser() {
 		String eliminated = null;
 		for(int i = 0; i<player.size(); i++) {
@@ -211,6 +134,8 @@ public class GameModel {
 		}return eliminated;
 	}
 	
+	// checks if a player has won (full hand of 40 cards)
+	// returns String announcing winner
 	public String isGameOver() {
 		String winner = null;
 		for(int i=0; i<player.size(); i++) {
@@ -225,6 +150,11 @@ public class GameModel {
 
 	public int getNumOfRounds() {
 		return numOfRounds;
+	}
+	
+	// to be called at beginning of each round in TopTrumpsCLIApplication
+	public void incrementNumOfRounds() {
+		this.numOfRounds++;
 	}
 
 	public int getNumOfDraws() {
@@ -241,13 +171,6 @@ public class GameModel {
 
 	public ArrayList<Player> getPlayer() {
 		return player;
-	}
-
-	public void setPlayer(ArrayList<Player> player) {
-		this.player = player;
-	}
-	
-	
-
+	}	
 
 }
