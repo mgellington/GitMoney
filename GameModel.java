@@ -9,9 +9,9 @@ public class GameModel {
 	private Deck communalDeck;
 	private Deck mainDeck;
 	private ArrayList<Player> player;
-	private Player activePlayer;
+	private int activePlayer;
 	private int numOfRounds;
-	private int numOfDraws = 0;
+	private int numOfDraws;
 	private int numAIPlayers;
 	private CategoryTypes chosenCategory = null;
 	private Player gameWinner;
@@ -19,60 +19,12 @@ public class GameModel {
 	
 	// constructor for game instance
 	public GameModel(int numAIPlayers) {
-		this.numAIPlayers = numAIPLayers;
 		this.mainDeck = new Deck();
-		startGame(numAIPlayers);
-	}
-	
-	// this will only deal the main deck at the start of the game
-	private void startDeal() {
-		// iterates through array list of players
-		// deal 1 card to each 
 		this.mainDeck.shuffleDeck();
-		// test array length change doesnt mess up iteration
-		for (int i = 0; i < mainDeck.getMainDeck().size(); i++) {
-			for (int j = 0; j < player.size(); j++) {
-				player.get(j).addOneCard(mainDeck.getAndRemoveTopCard());
-			}
-		}
-		activePlayer = player.get(randomFirstPlayer());		
-		// display human player their card
-		// call roundResult()
-	}
-	
-	//print human player their card - print method in Card class?
-	
-	public CategoryTypes chooseCategory() {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Which catagory would you like to play? \nPlease choose from the following catagories and enter a number from 1 to 5."
-				+ "\n1 - Floor Stickiness\n2 - Pint Price\n3 - Pub Quiz Quality\n4 - Atmosphere\n5 - Music Quality");
-		int userChoice = scanner.nextInt();
-		CategoryTypes chosenCategory = null;
+		int numOfRounds = 1;
+		int numOfDraws = 0;
 		
-		
-		if(userChoice == 1) {
-			chosenCategory = CategoryTypes.FLOOR;
-		}else if(userChoice == 2) {
-			chosenCategory = CategoryTypes.PINT;
-		}else if(userChoice == 3) {
-			chosenCategory = CategoryTypes.QUIZ;
-		}else if(userChoice == 4) {
-			chosenCategory = CategoryTypes.VIBES;
-		}else if(userChoice == 5) {
-			chosenCategory = CategoryTypes.TUNES;
-		}else {
-			System.out.println("Input not recognised. Please try again.");
-			chooseCategory();
-		}	
-		// returns string of chosen category name
-		return chosenCategory;
-	}
-	
-	public void startGame(int AIPlayers) {
-		this.numAIPlayers = AIPlayers;
 		player = new ArrayList<Player>();
-		this.numOfRounds = 1;
-
 		// sets you as player and adds to arraylist
 		player.add(new Player());
 		player.get(0).setName("You");
@@ -82,13 +34,33 @@ public class GameModel {
 			player.add(new Player());
 			player.get(i).setName("AI Player" + i);
 		}
-		startDeal();
+			
+		// deals cards to all players
+		for (int j = 0; j < mainDeck.getMainDeck().size(); j++) {
+			for (int k = 0; k < player.size(); k++) {
+				player.get(j).addOneCard(mainDeck.getAndRemoveTopCard());
+			}
+		}
+		activePlayer = randomFirstPlayer();
 	}
 	
-	// randomises first player
+		// randomises first player
 	private int randomFirstPlayer() {
 		return new Random().nextInt(numAIPlayers + 1);
 	}
+	
+	//print human player their card - print method in Card class?
+	
+	
+	private CategoryTypes AIPlayerTopCategory(int activePlayer) {
+		CategoryTypes topCategory = player.get(activePlayer).getDeck().getTopCard().getTopCategory().getType();
+		return topCategory;
+	}
+	
+	
+	
+	
+	
 	
 	private void newRound(){
 		numOfRounds++;
@@ -196,17 +168,8 @@ public class GameModel {
 		}
 	}	
 	
-//	public void handleDraw() {
-//		this.numOfDraws++;
-//		// handle draw
-//		// restart round
-//		// record stats?
-//	}
-//	
-//	public void handleWin() {
-//		//restart round
-//		//set stats?
-//	}
+	
+	
 	
 	public void transferToCommunal(Deck cards) {
 		// adds card deck to communal deck and shuffles
@@ -229,6 +192,10 @@ public class GameModel {
 
 	public Player getGameWinner() {
 		return gameWinner;
+	}
+	
+	public int getActivePlayer() {
+		return activePlayer;
 	}
 
 
