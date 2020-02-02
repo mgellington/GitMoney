@@ -110,4 +110,14 @@ public class Card {
 //		return music;
 //	}
 
+    public String toString(){
+	    String cardContents="";
+        for (int k = 0; k < cats.length; k++) {
+            cardContents+=cats[k].getType().getName()+":";
+            cardContents+=cats[k].getScore()+" ";
+        }
+	    return cardContents;
+    }
+
+
 }
