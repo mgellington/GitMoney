@@ -93,7 +93,7 @@ public class GameModel {
 		
 	public int getRoundWinner(CategoryTypes chosenCategory) {
 		
-		int resultInt = 0;
+		int resultInt = -2; // initialised number that we don't want returned to make testing easier; change before turning in
 		
 		ArrayList<Card> topCards = mainDeck.getMainDeck();
 		
@@ -105,43 +105,54 @@ public class GameModel {
 				if (topCards.get(i).matchCategory(chosenCategory).getScore() > maxScore) {
 					maxScore = topCards.get(i).matchCategory(chosenCategory).getScore();
 					winningCard = topCards.get(i);
-					
+					resultInt = i;
 				}
-			}
-			
-	}
-		
-		Card winningCard = current[0];
-		boolean isDraw = false;
-		
-		int maxScore = 0;
-		
-		// comparing cards to chosen category
-		for (int j = 0; j < current.length - 1; j++) {
-			if (winningCard.matchCategory(chosenCategory).compareTo(current[j+1].matchCategory(chosenCategory)) == 1) {
-				if (current[j].matchCategory(chosenCategory).getScore() > maxScore) {
-					maxScore = current[j].matchCategory(chosenCategory).getScore();
-					winningCard = current[j];
-					isDraw = false;
-				}
-			} else if (winningCard.matchCategory(chosenCategory).compareTo(current[j+1].matchCategory(chosenCategory)) == 2) {
-				if (current[j+1].matchCategory(chosenCategory).getScore() > maxScore) {
-					maxScore = current[j + 1].matchCategory(chosenCategory).getScore();
-					winningCard = current[j + 1];
-					isDraw = false;
+			} else if (winningCard.matchCategory(chosenCategory).compareTo(topCards.get(i + 1).matchCategory(chosenCategory)) == 2) {
+				if (topCards.get(i + 1).matchCategory(chosenCategory).getScore() > maxScore) {
+					maxScore = topCards.get(i + 1).matchCategory(chosenCategory).getScore();
+					winningCard = topCards.get(i + 1);
+					resultInt = i + 1;
 				}
 			} else {
-				isDraw = true;
+				resultInt = -1; // draw
 			}
+			
 		}
 		
-		Player roundWinner = null;
+		return resultInt;
+	}
 		
-		// changin array of top cards to array list
-		ArrayList<Card> cardList = new ArrayList<Card>();
-		for (int x = 0; x < current.length; x++) {
-			cardList.add(current[x]);
-		}
+//		Card winningCard = current[0];
+//		boolean isDraw = false;
+//		
+//		int maxScore = 0;
+//		
+//		// comparing cards to chosen category
+//		for (int j = 0; j < current.length - 1; j++) {
+//			if (winningCard.matchCategory(chosenCategory).compareTo(current[j+1].matchCategory(chosenCategory)) == 1) {
+//				if (current[j].matchCategory(chosenCategory).getScore() > maxScore) {
+//					maxScore = current[j].matchCategory(chosenCategory).getScore();
+//					winningCard = current[j];
+//					isDraw = false;
+//				}
+//			} else if (winningCard.matchCategory(chosenCategory).compareTo(current[j+1].matchCategory(chosenCategory)) == 2) {
+//				if (current[j+1].matchCategory(chosenCategory).getScore() > maxScore) {
+//					maxScore = current[j + 1].matchCategory(chosenCategory).getScore();
+//					winningCard = current[j + 1];
+//					isDraw = false;
+//				}
+//			} else {
+//				isDraw = true;
+//			}
+//		}
+//		
+//		Player roundWinner = null;
+//		
+//		// changin array of top cards to array list
+//		ArrayList<Card> cardList = new ArrayList<Card>();
+//		for (int x = 0; x < current.length; x++) {
+//			cardList.add(current[x]);
+//		}
 		
 		// adding array list to temporary deck, to add it to communal deck
 		Deck tempDeck = new Deck(cardList);
