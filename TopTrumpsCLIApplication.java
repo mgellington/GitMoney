@@ -1,5 +1,6 @@
 package commandline;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
@@ -21,6 +22,9 @@ public class TopTrumpsCLIApplication {
 		GameModel game;
 		boolean gameOver;
 		CategoryTypes chosenCategory = null;
+		Deck deckOfAllCards;
+		ArrayList<Player> allTestPlayers;
+		Deck testDeck;
 
 /**
 		boolean writeGameLogsToFile = false; // Should we write game logs to file?
@@ -53,6 +57,29 @@ public class TopTrumpsCLIApplication {
 
 			//deckOfAllCards = extractDeckFromDataBase(filepath)
 			// the above method is expected to be included in one of the database classes
+
+			deckOfAllCards = new Deck();
+
+			deckOfAllCards.addCard(new Card("QMU", 75, 15, 34, 56, 76));
+			deckOfAllCards.addCard(new Card("OldSchoolHouse", 44, 43, 87, 27, 87));
+			deckOfAllCards.addCard(new Card("Dram", 67, 44, 23, 89, 24));
+			deckOfAllCards.addCard(new Card("GUU", 55, 33, 22, 11, 25));
+
+			System.out.println("ok up to creating deckOfAllCards");
+
+            game = new GameModel(userInput,deckOfAllCards);
+
+			System.out.println("ok up to constructing GameModel");
+
+			allTestPlayers = game.getPlayer();
+
+			System.out.println("Contents of the GameModel:");
+			for (int k = 0; k < allTestPlayers.size(); k++) {
+				System.out.println("Player name:"+allTestPlayers.get(k).getName());
+				testDeck = allTestPlayers.get(k).getDeck();
+				System.out.println("Pub name:"+testDeck.seeCard(0).getName()+" "+testDeck.getTopCard().toString());
+			}
+
 
             //game = new GameModel(userInput (# of players),deckOfAllCards object);
 
@@ -110,6 +137,7 @@ public class TopTrumpsCLIApplication {
 
 					//need method public int nextActivePlayer()
 					//which selects next active player - use this method also in constructor for consistency & simplicity
+					//increase round count here
 
 				//}
 
