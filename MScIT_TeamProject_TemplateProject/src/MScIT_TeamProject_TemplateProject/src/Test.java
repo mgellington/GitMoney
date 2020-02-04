@@ -4,7 +4,8 @@ public class Test{
     public static void main(String args[]) {
        // GameData gd = new GameData();
       //  DatabaseAccess.uploadData(gd);
-       DatabaseAccess.retrieveGameData();
+       System.out.println(DatabaseAccess.getAvgNoDraws());
+       System.out.println(DatabaseAccess.getTotalNumerOfGames());
         
 
 }
