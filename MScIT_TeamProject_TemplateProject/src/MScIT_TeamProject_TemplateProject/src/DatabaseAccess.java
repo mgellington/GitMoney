@@ -9,7 +9,7 @@ public class DatabaseAccess {
     public static void uploadData(GameData gd) {
         int noOfDraws = gd.getNoOfDraws();
         int noOfRounds = gd.getNoOfRounds();
-        int overallWinner = 1;
+        int overallWinner = gd.getOverallWinner();
         int userRoundWins = gd.getUserRoundWins();
         int ai1RoundWins = gd.getAi1RoundWins();
         int ai2RoundWins = gd.getAi2RoundWins();
