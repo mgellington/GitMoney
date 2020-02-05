@@ -28,10 +28,10 @@ public class Card {
 	public Category getTopCategory(){
 		Category maxCategory = null;
 		int maxScore = cats[0].getScore();;
-		for(int i = 0; i < 4; i++) {
-			if (cats[i+1].getScore() > maxScore) {
-				maxCategory = cats[i+1];
-				maxScore = cats[i+1].getScore();
+		for(int i = 0; i < 5; i++) {
+			if (cats[i].getScore() > maxScore) {
+				maxCategory = cats[i];
+				maxScore = cats[i].getScore();
 			}
 //			maxScore = floorSticky;
 //			if(pintPrice > maxScore){
@@ -46,6 +46,7 @@ public class Card {
 //			if(music > maxCatagory){
 //				maxCatagory = 4;}
 		}
+		//System.out.println("Max category is: "+maxCategory.getType().getName());
 		return maxCategory;
 	}
 	
@@ -112,6 +113,7 @@ public class Card {
 
     public String toString(){
 	    String cardContents="";
+        cardContents+=name+" ";
         for (int k = 0; k < cats.length; k++) {
             cardContents+=cats[k].getType().getName()+":";
             cardContents+=cats[k].getScore()+" ";
@@ -119,5 +121,12 @@ public class Card {
 	    return cardContents;
     }
 
+    public String categoryName(int index){
+        return cats[index].getType().getName();
+    }
+
+    public int categoryValue(int index){
+	    return cats[index].getScore();
+    }
 
 }

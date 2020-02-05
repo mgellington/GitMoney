@@ -35,9 +35,7 @@ public class Category {
 		this.score = score;
 	}
 
-	public CategoryTypes getType() {
-		return type;
-	}
+	public CategoryTypes getType() { return type; }
 
 	public void setType(CategoryTypes type) {
 		this.type = type;
