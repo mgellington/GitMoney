@@ -209,33 +209,63 @@ public class TopTrumpsCLIApplication {
 					//which selects next active player - use this method also in constructor for consistency & simplicity
 					//increase round count here
 
+					game.setActivePlayer(roundWinner);
 					roundCounter++;
 				}
 
 				// needs method public String displayUserTopCard()
 				// which returns user's top card - write a method in both Card and GameModel classes for completeness
 
-				userInput = promptUserInput("Which catagory would you like to play? \nPlease choose" +
-						" from the following catagories and enter a number from 1 to 5."
-						+ "\n1 - Floor Stickiness\n2 - Pint Price\n3 - Pub Quiz Quality\n4 - Atmosphere\n5 - Music"+
-						" Quality", new int[] {1, 2, 3, 4, 5});
+				userInput = promptUserInput("It is your turn to select a category, the categories are:\n"+
+						"   1: "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(0)+"\n"+
+						"   2: "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(1)+"\n"+
+						"   3: "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(2)+"\n"+
+						"   4: "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(3)+"\n"+
+						"   5: "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(4)+"\n"+
+						"Enter the number for your attribute: "
+						, new int[] {1, 2, 3, 4, 5});
 
-				//include a line here for displaying the user's choice of category to the user
+				chosenCategory = game.getPlayer().get(0).getDeck().seeCard(0).categoryType(userInput-1);
 
-				//reuse method public void collectTopCards()
+				//include a line here for displaying the user's choice of category to the user - NOT NEEDED
 
+				//reuse method public void collectTopCards() - NOT NEEDED
+
+				roundWinner = game.getRoundWinner(chosenCategory);
 				//reuse method public int getRoundWinner(Category object chosen by active AI player)
 
+				System.out.println("Round "+roundCounter+": Player "+
+						game.getPlayer().get(roundWinner).getName()+" won this round");
+
+				System.out.println("The winning card was '"+game.getRoundWinningCard().getName()+"':\n"+
+						"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(0)+": "+
+						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(0)+"\n"+
+						"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(1)+": "+
+						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(1)+"\n"+
+						"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(2)+": "+
+						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(2)+"\n"+
+						"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(3)+": "+
+						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(3)+"\n"+
+						"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(4)+": "+
+						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(4));
+
+				game.transferCards(roundWinner);
+				System.out.println("Transfer successful");
 				//reuse method public void giveCardsToRoundWinner()
 
+				loserEliminatedMessage=game.eliminateLoser();
+				System.out.println(loserEliminatedMessage);
 				//reuse method public String eliminateLosers()
 
 				//###### IMPORTANT: consider here what to do if there is a draw in the final game and no cards
 
+				isGameOverMessage = game.isGameOver();
+				System.out.println(isGameOverMessage);
 				//reuse method public String isGameOver()
 
 				//reuse method public int nextActivePlayer()
 
+				game.setActivePlayer(roundWinner);
 				roundCounter++;
 			}
 
