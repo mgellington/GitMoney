@@ -110,26 +110,7 @@ public class TopTrumpsCLIApplication {
             gameOver = false;
             while (!gameOver) {
 
-				System.out.println("Round "+roundCounter);
-				System.out.println("Round "+roundCounter+": Players have drawn their cards");
 
-				System.out.println("Your drew '"+
-						game.getPlayer().get(0).getDeck().seeCard(0).getName()+"':\n"+
-						"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(0)+": "+
-						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(0)+"\n"+
-						"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(1)+": "+
-						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(1)+"\n"+
-						"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(2)+": "+
-						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(2)+"\n"+
-						"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(3)+": "+
-						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(3)+"\n"+
-						"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(4)+": "+
-						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(4));
-				System.out.println("There are "+game.getPlayer().get(0).getDeck().sizeOfDeck()+" cards in your deck");
-
-				game.collectTopCards();
-				//need method public void collectTopCards()
-				//which collects and puts everyone's top card in mainDeck (aka activeDeck) here
 
 				/*
 				System.out.println("\nThere are "+game.numberOfPlayers()+" players in the game");
@@ -145,6 +126,24 @@ public class TopTrumpsCLIApplication {
 
             	while(game.getActivePlayer()!=0){
 
+					System.out.println("Round "+roundCounter);
+					System.out.println("Round "+roundCounter+": Players have drawn their cards");
+
+					System.out.println("Your drew '"+
+							game.getPlayer().get(0).getDeck().seeCard(0).getName()+"':\n"+
+							"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(0)+": "+
+							game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(0)+"\n"+
+							"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(1)+": "+
+							game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(1)+"\n"+
+							"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(2)+": "+
+							game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(2)+"\n"+
+							"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(3)+": "+
+							game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(3)+"\n"+
+							"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(4)+": "+
+							game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(4));
+					System.out.println("There are "+game.getPlayer().get(0).getDeck().sizeOfDeck()+" cards in your deck");
+
+
             		//System.out.println("here");
 				//while(user is not activePlayer i.e. (game.getActivePLayer()!=1){
 
@@ -153,6 +152,10 @@ public class TopTrumpsCLIApplication {
 					//where active AI player chooses their category based on highest value on their top card
 
 					//chosenCategory = game.getPlayer().get(0).getDeck().getTopCard().getCats()[0].getType();
+
+					game.collectTopCards();
+					//need method public void collectTopCards()
+					//which collects and puts everyone's top card in mainDeck (aka activeDeck) here
 
 					roundWinner = game.getRoundWinner(chosenCategory);
 					//need method public int getRoundWinner(Category object chosen by active AI player)
@@ -175,6 +178,7 @@ public class TopTrumpsCLIApplication {
 							game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(3)+"\n"+
 							"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(4)+": "+
 							game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(4));
+					System.out.println("Comparison category: "+chosenCategory.getName());
 
 					// need to make the above output match perfectly with the sample output on moodle
 					// i.e. will need an arrow pointing to the winning category
@@ -189,7 +193,7 @@ public class TopTrumpsCLIApplication {
 					//need method public void giveCardsToRoundWinner()
 					//which moves cards in mainDeck (aka activeDeck) & communalDeck to winner (or moves them to communalDeck if draw)
 
-					System.out.println("Transfer successful");
+					//System.out.println("Transfer successful");
 
 					loserEliminatedMessage=game.eliminateLoser();
 					//need method public String eliminateLosers()
@@ -211,7 +215,29 @@ public class TopTrumpsCLIApplication {
 
 					game.setActivePlayer(roundWinner);
 					roundCounter++;
+					if(roundCounter>5){ System.exit(-2);}
 				}
+
+
+
+				System.out.println("Round "+roundCounter);
+				System.out.println("Round "+roundCounter+": Players have drawn their cards");
+
+				System.out.println("Your drew '"+
+						game.getPlayer().get(0).getDeck().seeCard(0).getName()+"':\n"+
+						"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(0)+": "+
+						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(0)+"\n"+
+						"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(1)+": "+
+						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(1)+"\n"+
+						"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(2)+": "+
+						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(2)+"\n"+
+						"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(3)+": "+
+						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(3)+"\n"+
+						"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(4)+": "+
+						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(4));
+				System.out.println("There are "+game.getPlayer().get(0).getDeck().sizeOfDeck()+" cards in your deck");
+
+
 
 				// needs method public String displayUserTopCard()
 				// which returns user's top card - write a method in both Card and GameModel classes for completeness
@@ -226,6 +252,11 @@ public class TopTrumpsCLIApplication {
 						, new int[] {1, 2, 3, 4, 5});
 
 				chosenCategory = game.getPlayer().get(0).getDeck().seeCard(0).categoryType(userInput-1);
+
+				game.collectTopCards();
+				//need method public void collectTopCards()
+				//which collects and puts everyone's top card in mainDeck (aka activeDeck) here
+
 
 				//include a line here for displaying the user's choice of category to the user - NOT NEEDED
 
@@ -248,9 +279,10 @@ public class TopTrumpsCLIApplication {
 						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(3)+"\n"+
 						"   > "+game.getPlayer().get(0).getDeck().seeCard(0).categoryName(4)+": "+
 						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(4));
+				System.out.println("Comparison category: "+chosenCategory.getName());
 
 				game.transferCards(roundWinner);
-				System.out.println("Transfer successful");
+				//System.out.println("Transfer successful");
 				//reuse method public void giveCardsToRoundWinner()
 
 				loserEliminatedMessage=game.eliminateLoser();
