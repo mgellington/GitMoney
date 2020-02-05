@@ -55,6 +55,7 @@ public class DatabaseAccess {
         }
 
     }
+    
 
     public static int getTotalNumerOfGames() {
         /**
