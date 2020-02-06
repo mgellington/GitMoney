@@ -31,30 +31,30 @@ public class GameData{
         this.ai3RoundWins = 0;
         this.ai4RoundWins = 0;
     }
-    public void setNoOfDraws(int one){
-        this.noOfDraws = one;
+    public void addOneNoOfDraws(){
+        this.noOfDraws++;
     }
 
-    public void setNoOfRounds(int one){
-        this.noOfRounds = one;
+    public void addOneNoOfRounds(){
+        this.noOfRounds++;
     }
-    public void setOverallWinner(int one){
-        this.overallWinner = one;
+    public void setOverallWinner(int overallWinner){
+        this.overallWinner = overallWinner;
     }
-    public void setUserRounds(int one){
-        this.userRoundWins = one;
+    public void addOneUserRounds(){
+        this.userRoundWins++;
     }
-    public void setAi1RoundWins(int one){
-        this.ai1RoundWins = one;
+    public void addOneAi1RoundWins(){
+        this.ai1RoundWins++;
     }
-    public void setAi2RoundWins(int one){
-        this.ai2RoundWins = one;
+    public void addOneAi2RoundWins(){
+        this.ai2RoundWins++;
     }
-    public void setAi3RoundWins(int one){
-        this.ai3RoundWins = one;
+    public void addOneAi3RoundWins(){
+        this.ai3RoundWins++;
     }
-    public void setAi4RoundWins(int one){
-        this.ai4RoundWins = one;
+    public void addOneAi4RoundWins(){
+        this.ai4RoundWins++;
     }
     public int getNoOfDraws(){
         return this.noOfDraws;
