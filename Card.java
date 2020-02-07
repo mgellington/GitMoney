@@ -26,7 +26,7 @@ public class Card {
 	
 	
 	public Category getTopCategory(){
-		Category maxCategory = null;
+		Category maxCategory = cats[0];
 		int maxScore = cats[0].getScore();;
 		for(int i = 0; i < 5; i++) {
 			if (cats[i].getScore() > maxScore) {
@@ -127,6 +127,10 @@ public class Card {
 
     public int categoryValue(int index){
 	    return cats[index].getScore();
+    }
+
+    public CategoryTypes categoryType(int index){
+	    return cats[index].getType();
     }
 
 }

@@ -50,6 +50,16 @@ public class Deck {
 		return firstCard;
 	}
 
+	public void removeTopCard() {
+		/*
+		 * this will return the top card but also remove it from the list
+		 * can be used when dealing the cards into each players hands
+		 *
+		 * can use similar method for playing and moving into common pile
+		 */
+		mainDeck.remove(0);
+	}
+
 	public void addSetOfCards(Deck cards){
 		/*
 		 *adds a lost of cards to the current deck

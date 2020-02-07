@@ -3,6 +3,8 @@ package commandline;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class GameModel {
 
@@ -65,12 +67,45 @@ public class GameModel {
 	public void collectTopCards() {
 		for (int i = 0; i < player.size(); i++) {
 			mainDeck.addCard(player.get(i).getDeck().getAndRemoveTopCard());
+			//System.out.println("maindeck size:"+mainDeck.sizeOfDeck());
 		}
 	}
 
+	// getting all players top cards and moving them to main deck
+	public void removeTopCards() {
+		for (int i = 0; i < player.size(); i++) {
+			player.get(i).getDeck().removeTopCard();
+		}
+	}
+
+	// finding round winner and returning their ID number; returns -1 if draw
+	public int getRoundWinner(CategoryTypes chosenCategory) {
+		int roundWinner=-2;
+		int roundWinnerCount=0;
+		Card winningCard=null;
+		int highestScore = mainDeck.seeCard(0).matchCategory(chosenCategory).getScore();
+		for (int i = 0; i < mainDeck.getMainDeck().size(); i++) {
+			if(mainDeck.seeCard(i).matchCategory(chosenCategory).getScore()>highestScore){
+				highestScore=mainDeck.seeCard(i).matchCategory(chosenCategory).getScore();
+			}
+		}
+		System.out.println("maindeck size:"+mainDeck.getMainDeck().size());
+		for (int k = 0; k < mainDeck.getMainDeck().size(); k++) {
+			if(mainDeck.seeCard(k).matchCategory(chosenCategory).getScore()==highestScore){
+				roundWinner=k;
+				winningCard=mainDeck.seeCard(k);
+				roundWinnerCount++;
+			}
+		}
+		if(roundWinnerCount>1){
+			roundWinner=-1;
+		}
+		this.roundWinningCard=winningCard;
+		return roundWinner;
+	}
 
 	// finding round winner and returning their ID number; returns -1 if draw; returns -2 if method failed (testing)
-	public int getRoundWinner(CategoryTypes chosenCategory) {
+	public int DONOTUSEgetRoundWinner(CategoryTypes chosenCategory) {
 
 		int resultInt = -2; // initialised number that we don't want returned to make testing easier; change before turning in
 
@@ -105,6 +140,7 @@ public class GameModel {
 	// if not draw, gives cards to winner and empties communal deck
 	public void transferCards(int resultInt) {
 		transferToCommunal(mainDeck);
+		emptyMainDeck();
 		if (resultInt == -2) {
 			System.out.println("we fucked up"); // take out later
 		} else if (resultInt > -1) {
@@ -133,6 +169,10 @@ public class GameModel {
 		this.communalDeck.getMainDeck().clear();
 	}
 
+	public void emptyMainDeck() {
+		this.mainDeck.getMainDeck().clear();
+	}
+
 
 	// check if player has no cards left, returns String of all players eliminated
 	// removes eliminated players from player arraylist
@@ -140,7 +180,7 @@ public class GameModel {
 		String eliminated = "";
 		for(int i = 0; i<player.size(); i++) {
 			if(player.get(i).isEmpty()) {
-				eliminated += player.get(i) + " has been ELIMINATED\n";
+				eliminated += player.get(i).getName() + " has been ELIMINATED\n";
 				player.remove(i);
 				i--;
 			}
@@ -152,13 +192,17 @@ public class GameModel {
 	// returns String announcing winner
 	public String isGameOver() {
 		String winner = "";
-		for(int i=0; i<player.size(); i++) {
-			if (player.get(i).isFull()) {
-				// saving winner info (for stats) in gameWinner variable
-				gameWinner = player.get(i);
-				winner = player.get(i) + " has won the game!";
-			}
-		}return winner;
+	//	for(int i=0; i<player.size(); i++) {
+	//		if (player.get(i).isFull()) {
+	//			// saving winner info (for stats) in gameWinner variable
+	//			gameWinner = player.get(i);
+	//			winner = player.get(i) + " has won the game!";
+	//		}
+		if(player.size()==1){
+			gameWinner = player.get(0);
+			winner="Game end\n\nThe overall winner was "+player.get(0).getName();
+		}
+		return winner;
 	}
 
 
@@ -202,4 +246,33 @@ public class GameModel {
 	public Card getRoundWinningCard() {
 		return roundWinningCard;
 	}
+
+	public int findPlayerIndex(String playerName){
+		int result=-1;
+		for (int i = 0; i < player.size(); i++) {
+			if(player.get(i).getName().equalsIgnoreCase(playerName)){
+				result=i;
+			}
+		}
+		return result;
+	}
+
+	public void inputTxt() throws FileNotFoundException {
+		/*
+		 * inputs attributes into card objects and into deck
+		 * need to change file name accordingly
+		 */
+		Scanner scanner = new Scanner(new File("/Users/markmorrison/Desktop/StarCitizenDeck.txt"));
+		while (scanner.hasNextLine()) {
+			String name = scanner.next();
+			int sticky = scanner.nextInt();
+			int pintPrice = scanner.nextInt();
+			int pubQuiz = scanner.nextInt();
+			int atmosphere = scanner.nextInt();
+			int music = scanner.nextInt();
+			mainDeck.addCard(new Card(name, sticky, pintPrice, pubQuiz, atmosphere, music));
+		}
+	}
+
+
 }
