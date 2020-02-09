@@ -136,11 +136,11 @@ img {
                       Choose a category
                     </a>
                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" onclick="DropDownFunction()" href="#">Pint Price</a>
-                    <a class="dropdown-item" href="#">Atmosphere</a>
-                    <a class="dropdown-item" href="#">Pub Quiz Quality</a>
-                    <a class="dropdown-item" href="#">Music Quality</a>
-                    <a class="dropdown-item" href="#">Floor Stickiness</a>
+                    <a class="dropdown-item" onclick="PintPriceFunction()" href="#">Pint Price</a>
+                    <a class="dropdown-item" onclick="AtmosphereFunction()" href="#">Atmosphere</a>
+                    <a class="dropdown-item" onclick="PubQuizFunction()" href="#">Pub Quiz Quality</a>
+                    <a class="dropdown-item" onclick="MusicQualityFunction()" href="#">Music Quality</a>
+                    <a class="dropdown-item" onclick="StickyFunction()" href="#">Floor Stickiness</a>
                   </div>
                 </div>
                   </div>
@@ -210,12 +210,40 @@ img {
             }
           </script>
         
+        <!-- JavaScript if function from google
+           if (condition) {   }
+            //  block of code to be executed if the condition is true -->
+
         <script type = "text/javascript">
-         function DropDownFunction(){
+            function PintPriceFunction(){
             var url = "https://www.reddit.com/";
             window.location.replace(url);
          }
          </script>
+         <script type = "text/javascript">
+          function AtmosphereFunction(){
+             var url = "https://www.reddit.com/";
+             window.location.replace(url);
+          }
+          </script>
+          <script type = "text/javascript">
+            function PubQuizFunction(){
+               var url = "https://www.reddit.com/";
+               window.location.replace(url);
+            }
+            </script>
+            <script type = "text/javascript">
+              function MusicQualityFunction(){
+                 var url = "https://www.reddit.com/";
+                 window.location.replace(url);
+              }
+              </script>
+              <script type = "text/javascript">
+                function StickyFunction(){
+                   var url = "https://www.reddit.com/";
+                   window.location.replace(url);
+                }
+                </script>
         
           <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
