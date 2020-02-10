@@ -37,11 +37,22 @@ public class GameModel {
 			player.get(i).setName("AI Player " + i);
 		}
 		// deals cards to all players
+		int k = 0;
+		do{
+			player.get(k).addOneCard(mainDeck.getAndRemoveTopCard());
+			k++;
+			if(k>=numAIPlayers){
+				k=0;
+			}
+		}while(mainDeck.sizeOfDeck()>0);
+
+		/*
 		for (int j = 0; j < mainDeck.getMainDeck().size(); j++) {
 			for (int k = 0; k < player.size(); k++) {
 				player.get(k).addOneCard(mainDeck.getAndRemoveTopCard());
 			}
 		}
+		 */
 		activePlayer = randomFirstPlayer(numAIPlayers);
 	}
 
@@ -66,6 +77,7 @@ public class GameModel {
 	// getting all players top cards and moving them to main deck
 	public void collectTopCards() {
 		for (int i = 0; i < player.size(); i++) {
+			System.out.println(player.get(i).getName());
 			mainDeck.addCard(player.get(i).getDeck().getAndRemoveTopCard());
 			//System.out.println("maindeck size:"+mainDeck.sizeOfDeck());
 		}

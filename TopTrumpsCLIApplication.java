@@ -1,14 +1,13 @@
 package commandline;
 
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.stream.IntStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 import java.nio.charset.StandardCharsets;
 
@@ -58,20 +57,25 @@ public class TopTrumpsCLIApplication {
 
 			//new Scanner(ClassYouAreIn.class.getResourceAsStream("names.txt"), StandardCharsets.UTF_8);
 
-			File file = new File("C:\\Users\\Larzz\\IdeaProjects\\Git-Money-Command-Line-adhoc\\GlasgowBars.txt");
+			File file = new File("GlasgowBars.txt");
+			System.out.println(file.getAbsolutePath());
+			System.out.println(file.length());
+			System.out.println(file.canRead());
 
 			//File file = new File(getSystemProperty("user.dir"), "GlasgowBars.txt");
+			//Scanner sc = new Scanner(file, StandardCharsets.UTF_8.name());
 			try{
-				Scanner sc = new Scanner(file, StandardCharsets.UTF_8.name());
+				Scanner sc = new Scanner(new BufferedReader(new FileReader("GlasgowBars.txt")));
 				while (sc.hasNextLine()) {
 					System.out.println(sc.nextLine());
 				}
+				sc.close();
 			}
 			catch (IOException e) {
 				e.printStackTrace();
 			}
-
 */
+
 
 			deckOfAllCards = new Deck();
 			deckOfAllCards = inputTxt("GlasgowBars.txt");
@@ -125,7 +129,7 @@ public class TopTrumpsCLIApplication {
 			game = new GameModel(numberOfPlayers, deckOfAllCards);
 			//game = new GameModel(userInput (# of players),deckOfAllCards object);
 
-
+			System.out.println("size of deck (should be zero):"+game.getMainDeck().sizeOfDeck());
 
 			/* ######## Add code here to initialise a GameModel object by calling the constructor
 			 * - Constructor needs to: - initialise player objects (AI player number defined by user, 1-4)
@@ -209,6 +213,8 @@ public class TopTrumpsCLIApplication {
 					//need method public void collectTopCards()
 					//which collects and puts everyone's top card in mainDeck (aka activeDeck) here
 
+					System.out.println("Maindeck size at creation:"+game.getMainDeck().sizeOfDeck());
+
 					roundWinner = game.getRoundWinner(chosenCategory);
 					//need method public int getRoundWinner(Category object chosen by active AI player)
 					//which determines the winner of the round and returns the integer # number of the winning player
@@ -216,6 +222,10 @@ public class TopTrumpsCLIApplication {
 
 					//add code to allow for draw (i.e. roundWinner = -1)
 					System.out.println("Roundwinner: " + roundWinner);
+
+					if(roundWinner==-1){
+						System.out.println("############# Draw");
+					}
 
 					System.out.println("Round " + roundCounter + ": Player " +
 							game.getPlayer().get(roundWinner).getName() + " won this round");
@@ -323,6 +333,7 @@ public class TopTrumpsCLIApplication {
 					chosenCategory = game.getPlayer().get(0).getDeck().seeCard(0).categoryType(userInput - 1);
 
 					game.collectTopCards();
+
 					//need method public void collectTopCards()
 					//which collects and puts everyone's top card in mainDeck (aka activeDeck) here
 
@@ -335,6 +346,10 @@ public class TopTrumpsCLIApplication {
 
 					//reuse method public int getRoundWinner(Category object chosen by active AI player)
 					System.out.println("Roundwinner: " + roundWinner);
+
+					if(roundWinner==-1){
+						System.out.println("############# Draw");
+					}
 
 					System.out.println("Round " + roundCounter + ": Player " +
 						game.getPlayer().get(roundWinner).getName() + " won this round");
@@ -431,21 +446,30 @@ public class TopTrumpsCLIApplication {
 		 */
 		Deck inputDeck = new Deck();
 		File file = new File(pathName);
-		System.out.println("file found");
+		//System.out.println("file found");
 		//StandardCharsets.UTF_8.name())
-		try(Scanner scanner = new Scanner(file)) {
+		try {
+			Scanner scanner = new Scanner(new BufferedReader(new FileReader(pathName)));
 			while (scanner.hasNextLine()) {
 				String name = scanner.next();
-				int sticky = scanner.nextInt();
-				int pintPrice = scanner.nextInt();
-				int pubQuiz = scanner.nextInt();
-				int atmosphere = scanner.nextInt();
-				int music = scanner.nextInt();
+				int sticky = (int) Integer.parseInt(scanner.next());
+				int pintPrice = (int) Integer.parseInt(scanner.next());
+				int pubQuiz = (int) Integer.parseInt(scanner.next());
+				int atmosphere = (int) Integer.parseInt(scanner.next());
+				int music = (int) Integer.parseInt(scanner.next());
+				//System.out.println("here");
 				inputDeck.addCard(new Card(name, sticky, pintPrice, pubQuiz, atmosphere, music));
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		}
+		catch (FileNotFoundException ex) {
+			ex.printStackTrace();
+		}
+		catch(NoSuchElementException ex2){
+			ex2.printStackTrace();
+		}
+		/*catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}*/
 		return inputDeck;
 	}
 
