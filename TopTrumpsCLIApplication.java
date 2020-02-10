@@ -1,10 +1,16 @@
 package commandline;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+import java.nio.charset.StandardCharsets;
 
 
 /**
@@ -47,6 +53,37 @@ public class TopTrumpsCLIApplication {
 		// Loop until the user wants to exit the game
 		while (!userWantsToQuit) {
 
+/*
+			System.out.println(new File("GlasgowBars.txt").getAbsolutePath());
+
+			//new Scanner(ClassYouAreIn.class.getResourceAsStream("names.txt"), StandardCharsets.UTF_8);
+
+			File file = new File("C:\\Users\\Larzz\\IdeaProjects\\Git-Money-Command-Line-adhoc\\GlasgowBars.txt");
+
+			//File file = new File(getSystemProperty("user.dir"), "GlasgowBars.txt");
+			try{
+				Scanner sc = new Scanner(file, StandardCharsets.UTF_8.name());
+				while (sc.hasNextLine()) {
+					System.out.println(sc.nextLine());
+				}
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+
+*/
+
+			deckOfAllCards = new Deck();
+			deckOfAllCards = inputTxt("GlasgowBars.txt");
+			System.out.println("deck of all cards ready");
+			System.out.println(deckOfAllCards.sizeOfDeck());
+
+			for (int k = 0; k < deckOfAllCards.sizeOfDeck(); k++) {
+				System.out.println(deckOfAllCards.seeCard(k).getName());
+			}
+
+
+
 			/* Dialogue #1: ask user if he wants to see game statistics or play the game or quit */
 			userInput = promptUserInput("--------------------\n" +
 					"--- Top Trumps   ---\n" +
@@ -73,15 +110,22 @@ public class TopTrumpsCLIApplication {
 			//deckOfAllCards = extractDeckFromDataBase(filepath)
 			// the above method is expected to be included in one of the database classes
 
-			deckOfAllCards = new Deck();
+			//"C:\Users\Larzz\IdeaProjects\Git-Money-Command-Line-adhoc\src\commandline\GlasgowBars.txt"
 
-			deckOfAllCards.addCard(new Card("QMU", 75, 15, 34, 56, 76));
-			deckOfAllCards.addCard(new Card("Old School House", 44, 43, 87, 27, 87));
-			deckOfAllCards.addCard(new Card("Dram", 67, 44, 23, 89, 24));
-			deckOfAllCards.addCard(new Card("GUU", 55, 33, 22, 11, 25));
+		//deckOfAllCards = new Deck();
+			// deckOfAllCards = inputTxt("\\Users\\Larzz\\Desktop\\GlasgowBars.txt");
+
+
+
+		//	deckOfAllCards.addCard(new Card("QMU", 75, 15, 34, 56, 76));
+		//	deckOfAllCards.addCard(new Card("Old School House", 44, 43, 87, 27, 87));
+		//	deckOfAllCards.addCard(new Card("Dram", 67, 44, 23, 89, 24));
+		//	deckOfAllCards.addCard(new Card("GUU", 55, 33, 22, 11, 25));
 
 			game = new GameModel(numberOfPlayers, deckOfAllCards);
 			//game = new GameModel(userInput (# of players),deckOfAllCards object);
+
+
 
 			/* ######## Add code here to initialise a GameModel object by calling the constructor
 			 * - Constructor needs to: - initialise player objects (AI player number defined by user, 1-4)
@@ -380,7 +424,30 @@ public class TopTrumpsCLIApplication {
 		return false;
 	}
 
-	
+	public static Deck inputTxt(String pathName) {
+		/*
+		 * inputs attributes into card objects and into deck
+		 * need to change file name accordingly
+		 */
+		Deck inputDeck = new Deck();
+		File file = new File(pathName);
+		System.out.println("file found");
+		//StandardCharsets.UTF_8.name())
+		try(Scanner scanner = new Scanner(file)) {
+			while (scanner.hasNextLine()) {
+				String name = scanner.next();
+				int sticky = scanner.nextInt();
+				int pintPrice = scanner.nextInt();
+				int pubQuiz = scanner.nextInt();
+				int atmosphere = scanner.nextInt();
+				int music = scanner.nextInt();
+				inputDeck.addCard(new Card(name, sticky, pintPrice, pubQuiz, atmosphere, music));
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return inputDeck;
+	}
 
 
 }
