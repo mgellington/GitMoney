@@ -1,4 +1,4 @@
-package MScIT_TeamProject_TemplateProject.src;
+package commandline;
 public class GameData{
     private int noOfDraws, noOfRounds, overallWinner, userRoundWins, ai1RoundWins, ai2RoundWins, ai3RoundWins, ai4RoundWins;
 
@@ -31,6 +31,23 @@ public class GameData{
         this.ai3RoundWins = 0;
         this.ai4RoundWins = 0;
     }
+    public void winnerCounter(Player winner){
+        if(winner.getName().equals("You")){
+            addOneUserRounds(); 
+        }
+        if(winner.getName().equals("AI Player 1")){
+            addOneAi1RoundWins();
+        }
+        if(winner.getName().equals("AI Player 2")){
+            addOneAi2RoundWins();
+        }
+        if(winner.getName().equals("AI Player 3")){
+            addOneAi3RoundWins();
+        }
+        if(winner.getName().equals("AI Player 4")){
+            addOneAi4RoundWins();
+        }
+    }
     public void addOneNoOfDraws(){
         this.noOfDraws++;
     }
@@ -38,8 +55,22 @@ public class GameData{
     public void addOneNoOfRounds(){
         this.noOfRounds++;
     }
-    public void setOverallWinner(int overallWinner){
-        this.overallWinner = overallWinner;
+    public void setOverallWinner(Player winner){
+        if(winner.getName().equals("You")){
+            overallWinner = 1;
+        }
+        if(winner.getName().equals("AI Player 1")){
+            overallWinner = 2;
+        }
+        if(winner.getName().equals("AI Player 2")){
+            overallWinner = 3;
+        }
+        if(winner.getName().equals("AI Player 3")){
+            overallWinner = 4;
+        }
+        if(winner.getName().equals("AI Player 4")){
+            overallWinner = 5;
+        }
     }
     public void addOneUserRounds(){
         this.userRoundWins++;

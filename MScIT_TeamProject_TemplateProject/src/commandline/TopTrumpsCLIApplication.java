@@ -3,6 +3,7 @@ package commandline;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import database.DatabaseAccess;
 
 /**
  * Top Trumps command line application
@@ -29,11 +30,10 @@ public class TopTrumpsCLIApplication {
 		CategoryTypes chosenCategory = null;
 		int roundWinner;
 		Deck deckOfAllCards;
-		ArrayList<Player> allTestPlayers;
-		Deck testDeck;
 		String loserEliminatedMessage;
 		String isGameOverMessage;
 		String activePlayerName;
+		GameData gameData = new GameData();
 
 		/**
 		 * boolean writeGameLogsToFile = false; // Should we write game logs to file? if
@@ -87,6 +87,21 @@ public class TopTrumpsCLIApplication {
 					"   2: Play game\n" +
 					"Enter the number for your selection: ", new int[]{1, 2, 3});
 			if (userInput == 1) {
+				System.out.println("\nTotal number of Games: " + DatabaseAccess.getTotalNumerOfGames() + 
+				"\nThe average number of Draws: " + DatabaseAccess.getAvgNoDraws() +
+				"\nThe Max number of Rounds Played: " + DatabaseAccess.getMaxNoRounds() +
+				"\nThe Number of AI Wins: " + DatabaseAccess.getNumberOfComputerWins() +
+				"\nThe Number of User Wins: " + DatabaseAccess.getNumberOfUserWins());
+				System.out.println("\n\nDo you want to continue to selection screen?\nIf yes enter 1.\nIf no enter 2.");
+				Scanner scanner = new Scanner(System.in);
+				if(scanner.nextInt() == 1){
+					continue;
+				}
+				else{
+					userWantsToQuit = true;
+					break;
+				}
+				
 
 				//add code here for viewing game statistics
 
@@ -99,22 +114,6 @@ public class TopTrumpsCLIApplication {
 
 			/* Initialising game below */
 
-			/* ######## Add code here to extract all cards from database and store them in a deck object */
-
-			//deckOfAllCards = extractDeckFromDataBase(filepath)
-			// the above method is expected to be included in one of the database classes
-
-			//"C:\Users\Larzz\IdeaProjects\Git-Money-Command-Line-adhoc\src\commandline\GlasgowBars.txt"
-
-		//deckOfAllCards = new Deck();
-			// deckOfAllCards = inputTxt("\\Users\\Larzz\\Desktop\\GlasgowBars.txt");
-
-
-
-		//	deckOfAllCards.addCard(new Card("QMU", 75, 15, 34, 56, 76));
-		//	deckOfAllCards.addCard(new Card("Old School House", 44, 43, 87, 27, 87));
-		//	deckOfAllCards.addCard(new Card("Dram", 67, 44, 23, 89, 24));
-		//	deckOfAllCards.addCard(new Card("GUU", 55, 33, 22, 11, 25));
 
 			game = new GameModel(numberOfPlayers, deckOfAllCards);
 			//game = new GameModel(userInput (# of players),deckOfAllCards object);
@@ -151,7 +150,7 @@ public class TopTrumpsCLIApplication {
 
 			roundCounter = 1;
 			gameOver = false;
-			while (!gameOver) {
+			do {
 
 
 
@@ -206,6 +205,7 @@ public class TopTrumpsCLIApplication {
 					System.out.println("Maindeck size at creation:"+game.getMainDeck().sizeOfDeck());
 
 					roundWinner = game.getRoundWinner(chosenCategory);
+					gameData.winnerCounter(game.getPlayer().get(roundWinner));
 					//need method public int getRoundWinner(Category object chosen by active AI player)
 					//which determines the winner of the round and returns the integer # number of the winning player
 					//it also needs to allow for draw (using say number -1)
@@ -286,6 +286,7 @@ public class TopTrumpsCLIApplication {
 					}
 
 					roundCounter++;
+					gameData.addOneNoOfRounds();
 					//if(roundCounter>5){ System.exit(-2);}
 				}
 
@@ -338,7 +339,9 @@ public class TopTrumpsCLIApplication {
 					System.out.println("Roundwinner: " + roundWinner);
 
 					if(roundWinner==-1){
+						gameData.addOneNoOfDraws();
 						System.out.println("############# Draw");
+						
 					}
 
 					System.out.println("Round " + roundCounter + ": Player " +
@@ -392,11 +395,15 @@ public class TopTrumpsCLIApplication {
 				//reuse method public int nextActivePlayer()
 
 				roundCounter++;
+				gameData.addOneNoOfRounds();
 			}
+		
+			
 
 
-		}
-
+		}while (!gameOver);
+			gameData.setOverallWinner(game.getGameWinner());
+			DatabaseAccess.uploadData(gameData);
 
 		}
 

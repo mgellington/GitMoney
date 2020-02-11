@@ -1,8 +1,9 @@
-package MScIT_TeamProject_TemplateProject.src;
+package database;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Connection;
+import commandline.GameData;
 
 public class DatabaseAccess {
 
