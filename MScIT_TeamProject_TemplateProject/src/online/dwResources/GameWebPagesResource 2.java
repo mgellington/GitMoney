@@ -52,6 +52,6 @@ public class GameWebPagesResource {
 	 */
     public StatisticsView getStatisticsView() {
         return new StatisticsView();
-    }
+	}
 	
 }

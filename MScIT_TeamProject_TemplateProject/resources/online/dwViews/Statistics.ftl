@@ -2,7 +2,7 @@
 
 	<head>
 		<!-- Web page title -->
-    	<title>Top Trumps</title>
+    	<title>Top Trumps - Stats</title>
     	
     	<!-- Import JQuery, as it provides functions you will probably find useful (see https://jquery.com/) -->
     	<script src="https://code.jquery.com/jquery-2.1.1.js"></script>
@@ -23,8 +23,80 @@
     <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
     	
     	<div class="container">
-
-			<!-- Add your HTML Here -->
+				<!-- Add your HTML Here -->
+			<div class="Header">
+			<h1> Top Trumps Game Statistics</h1>
+			<style> 
+				h1 { text-align: center;
+					font-family: 'Roboto', sans-serif; 
+					font-size: 30px;}
+				p { font-size: 20px;
+					font-family: 'Roboto', sans-serif;
+					text-align: right; }
+				#result{
+					text-align: left;
+				}
+				button {display: inline-block;
+						padding: 0.3em 1.2em;
+						margin: 0 0.3em 0.3em;
+						border-radius: 2em;
+						box-sizing: border-box;
+						text-decoration: none;
+						font-family: 'Roboto', sans-serif;
+						font-weight: 400;
+						color: #FFFFFF;
+						background-color: #4eb5f1;
+						text-align: center;
+						transition: all 0.2s
+					}
+			</style>
+			<br>
+		</div>
+		<div class="No of Games">
+			<div class="col-sm-6">
+				<p>Total Number of Games</p>
+			</div>
+			<div class="col-sm-2">
+				<p id="result">Result</p>
+			</div>
+		</div>
+		<div class="No of user wins">
+			<div class="col-sm-6">
+				<p>Number of User Wins</p>
+			</div>
+			<div class="col-sm-6">
+				<p id="result">Result</p>
+			</div>
+		</div>
+		<div class="No of computer wins">
+			<div class="col-sm-6">
+				<p>Number of Computer Wins</p>
+			</div>
+			<div class="col-sm-6">
+				<p id="result">Result</p>
+			</div>
+		</div>
+		<div class="Avg no of draws">
+			<div class="col-sm-6">
+				<p>Average Number of Draws</p>
+			</div>
+			<div class="col-sm-6">
+				<p id="result">Result</p>
+			</div>
+		</div>
+		<div class="max games playeds">
+			<div class="col-sm-6">
+				<p>Maximum Number of Rounds Played</p>
+			</div>
+			<div class="col-sm-6">
+				<p id="result">Result</p>
+			</div>
+		</div>
+		<div class ="home button">
+			<div class="col-sm-12 text-center">
+			<button>Home</button>
+		</div>
+		</div>
 		
 		</div>
 		
@@ -32,6 +104,32 @@
 		
 			// Method that is called on page load
 			function initalize() {
+
+      //create cors request to send GET request
+      var xhr = creatCORSRequest('GET', "http://localhost:7777/toptrumps/database");
+
+      //if cors not supported creates alert message
+      if(!xhr) {
+        alert("CORS not supported");
+      }
+
+
+      //need to determine what to do with returned info before //sending request
+      xhr.onload = function(e){
+        var responseText = xhr.response;
+        var json = JSON.parse(responseText);
+        $("#total_games").html(json["totalGamesPlayed"]);
+        $("#user_wins").html(json["numberOfUserWins"]);
+        $("#computer_wins").html(json["numberOfComputerWins"]);
+        $("#avg_draws").html(json["avgNumberOFDraws"]);
+        $("#max_rounds").html(json["maxNumberOfRounds"]);
+      };
+
+      //send request
+      xhr.send();
+
+};
+				
 			
 				// --------------------------------------------------------------------------
 				// You can call other methods you want to run when the page first loads here
