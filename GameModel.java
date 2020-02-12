@@ -12,8 +12,8 @@ public class GameModel {
 	private Deck mainDeck;
 	private ArrayList<Player> player;
 	private int activePlayer;
-	private int numOfRounds;
-	private int numOfDraws;
+	private int numOfRounds; // update somewhere within methods or remove from the class entirely
+	private int numOfDraws; // this doesn't get updated - suggest to remove
 	private int numAIPlayers;
 	private CategoryTypes chosenCategory = null;
 	private Player gameWinner;
@@ -77,7 +77,7 @@ public class GameModel {
 	// getting all players top cards and moving them to main deck
 	public void collectTopCards() {
 		for (int i = 0; i < player.size(); i++) {
-			System.out.println(player.get(i).getName());
+			//System.out.println(player.get(i).getName());
 			mainDeck.addCard(player.get(i).getDeck().getAndRemoveTopCard());
 			//System.out.println("maindeck size:"+mainDeck.sizeOfDeck());
 		}
@@ -101,7 +101,7 @@ public class GameModel {
 				highestScore=mainDeck.seeCard(i).matchCategory(chosenCategory).getScore();
 			}
 		}
-		System.out.println("maindeck size:"+mainDeck.getMainDeck().size());
+		//System.out.println("maindeck size:"+mainDeck.getMainDeck().size());
 		for (int k = 0; k < mainDeck.getMainDeck().size(); k++) {
 			if(mainDeck.seeCard(k).matchCategory(chosenCategory).getScore()==highestScore){
 				roundWinner=k;
@@ -269,6 +269,9 @@ public class GameModel {
 		return result;
 	}
 
+	public Deck getCommunalDeck(){
+		return communalDeck;
+	}
 
 
 }

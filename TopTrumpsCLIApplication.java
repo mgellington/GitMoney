@@ -39,7 +39,7 @@ public class TopTrumpsCLIApplication {
 		Deck testDeck;
 		String loserEliminatedMessage;
 		String isGameOverMessage;
-		String activePlayerName;
+		String activePlayerName="";
 
 
 /**
@@ -79,13 +79,14 @@ public class TopTrumpsCLIApplication {
 
 			deckOfAllCards = new Deck();
 			deckOfAllCards = inputTxt("GlasgowBars.txt");
-			System.out.println("deck of all cards ready");
-			System.out.println(deckOfAllCards.sizeOfDeck());
+			//System.out.println("deck of all cards ready");
+			//System.out.println(deckOfAllCards.sizeOfDeck());
 
+			/*
 			for (int k = 0; k < deckOfAllCards.sizeOfDeck(); k++) {
 				System.out.println(deckOfAllCards.seeCard(k).getName());
 			}
-
+*/
 
 
 			/* Dialogue #1: ask user if he wants to see game statistics or play the game or quit */
@@ -129,7 +130,7 @@ public class TopTrumpsCLIApplication {
 			game = new GameModel(numberOfPlayers, deckOfAllCards);
 			//game = new GameModel(userInput (# of players),deckOfAllCards object);
 
-			System.out.println("size of deck (should be zero):"+game.getMainDeck().sizeOfDeck());
+		//############	System.out.println("size of deck (should be zero):"+game.getMainDeck().sizeOfDeck());
 
 			/* ######## Add code here to initialise a GameModel object by calling the constructor
 			 * - Constructor needs to: - initialise player objects (AI player number defined by user, 1-4)
@@ -173,8 +174,6 @@ public class TopTrumpsCLIApplication {
 				}
 				 */
 
-				game.setActivePlayer(1);
-
 				//System.out.println("Active player: "+game.getActivePlayer());
 				humanIsActivePlayer=false;
 				if(game.getPlayer().get(game.getActivePlayer()).getName() == "You"){
@@ -185,20 +184,21 @@ public class TopTrumpsCLIApplication {
 					System.out.println("Round " + roundCounter);
 					System.out.println("Round " + roundCounter + ": Players have drawn their cards");
 
-					System.out.println("Your drew '" +
-							game.getPlayer().get(0).getDeck().seeCard(0).getName() + "':\n" +
-							"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(0) + ": " +
-							game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(0) + "\n" +
-							"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(1) + ": " +
-							game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(1) + "\n" +
-							"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(2) + ": " +
-							game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(2) + "\n" +
-							"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(3) + ": " +
-							game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(3) + "\n" +
-							"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(4) + ": " +
-							game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(4));
-					System.out.println("There are " + game.getPlayer().get(0).getDeck().sizeOfDeck() + " cards in your deck");
-
+					if(game.getPlayer().get(0).getName()=="You") {
+						System.out.println("Your drew '" +
+								game.getPlayer().get(0).getDeck().seeCard(0).getName() + "':\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(0) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(0) + "\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(1) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(1) + "\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(2) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(2) + "\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(3) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(3) + "\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(4) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(4));
+						System.out.println("There are " + game.getPlayer().get(0).getDeck().sizeOfDeck() + " cards in your deck");
+					}
 
 					//System.out.println("here");
 					//while(user is not activePlayer i.e. (game.getActivePLayer()!=1){
@@ -213,7 +213,7 @@ public class TopTrumpsCLIApplication {
 					//need method public void collectTopCards()
 					//which collects and puts everyone's top card in mainDeck (aka activeDeck) here
 
-					System.out.println("Maindeck size at creation:"+game.getMainDeck().sizeOfDeck());
+				//#######	System.out.println("Maindeck size at creation:" + game.getMainDeck().sizeOfDeck());
 
 					roundWinner = game.getRoundWinner(chosenCategory);
 					//need method public int getRoundWinner(Category object chosen by active AI player)
@@ -221,14 +221,16 @@ public class TopTrumpsCLIApplication {
 					//it also needs to allow for draw (using say number -1)
 
 					//add code to allow for draw (i.e. roundWinner = -1)
-					System.out.println("Roundwinner: " + roundWinner);
+					//System.out.println("Roundwinner: " + roundWinner);
 
-					if(roundWinner==-1){
+					/*
+					if (roundWinner == -1) {
 						System.out.println("############# Draw");
-					}
+					}*/
 
-					System.out.println("Round " + roundCounter + ": Player " +
-							game.getPlayer().get(roundWinner).getName() + " won this round");
+					if (roundWinner > -1) {
+						System.out.println("Round " + roundCounter + ": Player " +
+								game.getPlayer().get(roundWinner).getName() + " won this round");
 
 					System.out.println("The winning card was '" + game.getRoundWinningCard().getName() + "':\n" +
 							"   > " + game.getRoundWinningCard().categoryName(0) + ": " +
@@ -242,7 +244,7 @@ public class TopTrumpsCLIApplication {
 							"   > " + game.getRoundWinningCard().categoryName(4) + ": " +
 							game.getRoundWinningCard().categoryValue(4));
 					System.out.println("Comparison category: " + chosenCategory.getName());
-
+				}
 					// need to make the above output match perfectly with the sample output on moodle
 					// i.e. will need an arrow pointing to the winning category
 
@@ -259,8 +261,14 @@ public class TopTrumpsCLIApplication {
 
 					//System.out.println("Transfer successful");
 
-					game.setActivePlayer(roundWinner);
-					activePlayerName=game.getPlayer().get(game.getActivePlayer()).getName();
+					if(roundWinner>-1) {
+						game.setActivePlayer(roundWinner);
+						activePlayerName = game.getPlayer().get(game.getActivePlayer()).getName();
+					}
+
+					if(roundWinner==-1){
+						System.out.println("Round "+roundCounter+": This round was a Draw, common pile now has "+game.getCommunalDeck().sizeOfDeck()+" cards");
+					}
 
 					loserEliminatedMessage = game.eliminateLoser();
 					//need method public String eliminateLosers()
@@ -281,15 +289,17 @@ public class TopTrumpsCLIApplication {
 					//increase round count here
 
 					//activePlayerName=game.getPlayer().get(game.getActivePlayer()).getName();
-					game.setActivePlayer(game.findPlayerIndex(activePlayerName));
+					if(activePlayerName!=""){
+						game.setActivePlayer(game.findPlayerIndex(activePlayerName));
+					}
 
 					if (game.getGameWinner() != null) {
 						gameOver = true;
 						break;
 					}
 
-					System.out.println(game.getActivePlayer());
-					System.out.println(game.getPlayer().get(game.getActivePlayer()).getName());
+				//	System.out.println(game.getActivePlayer());
+				//	System.out.println(game.getPlayer().get(game.getActivePlayer()).getName());
 
 					if(game.getPlayer().get(game.getActivePlayer()).getName() == "You"){
 						humanIsActivePlayer=true;
@@ -303,20 +313,21 @@ public class TopTrumpsCLIApplication {
 					System.out.println("Round " + roundCounter);
 					System.out.println("Round " + roundCounter + ": Players have drawn their cards");
 
-					System.out.println("Your drew '" +
-						game.getPlayer().get(0).getDeck().seeCard(0).getName() + "':\n" +
-						"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(0) + ": " +
-						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(0) + "\n" +
-						"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(1) + ": " +
-						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(1) + "\n" +
-						"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(2) + ": " +
-						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(2) + "\n" +
-						"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(3) + ": " +
-						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(3) + "\n" +
-						"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(4) + ": " +
-						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(4));
-					System.out.println("There are " + game.getPlayer().get(0).getDeck().sizeOfDeck() + " cards in your deck");
-
+					if(game.getPlayer().get(0).getName()=="You") {
+						System.out.println("Your drew '" +
+								game.getPlayer().get(0).getDeck().seeCard(0).getName() + "':\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(0) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(0) + "\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(1) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(1) + "\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(2) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(2) + "\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(3) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(3) + "\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(4) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(4));
+						System.out.println("There are " + game.getPlayer().get(0).getDeck().sizeOfDeck() + " cards in your deck");
+					}
 
 					// needs method public String displayUserTopCard()
 					// which returns user's top card - write a method in both Card and GameModel classes for completeness
@@ -345,37 +356,45 @@ public class TopTrumpsCLIApplication {
 					roundWinner = game.getRoundWinner(chosenCategory);
 
 					//reuse method public int getRoundWinner(Category object chosen by active AI player)
-					System.out.println("Roundwinner: " + roundWinner);
+					//System.out.println("Roundwinner: " + roundWinner);
 
+					/*
 					if(roundWinner==-1){
 						System.out.println("############# Draw");
+					}*/
+
+					if(roundWinner>-1) {
+						System.out.println("Round " + roundCounter + ": Player " +
+								game.getPlayer().get(roundWinner).getName() + " won this round");
+
+						System.out.println("The winning card was '" + game.getRoundWinningCard().getName() + "':\n" +
+								"   > " + game.getRoundWinningCard().categoryName(0) + ": " +
+								game.getRoundWinningCard().categoryValue(0) + "\n" +
+								"   > " + game.getRoundWinningCard().categoryName(1) + ": " +
+								game.getRoundWinningCard().categoryValue(1) + "\n" +
+								"   > " + game.getRoundWinningCard().categoryName(2) + ": " +
+								game.getRoundWinningCard().categoryValue(2) + "\n" +
+								"   > " + game.getRoundWinningCard().categoryName(3) + ": " +
+								game.getRoundWinningCard().categoryValue(3) + "\n" +
+								"   > " + game.getRoundWinningCard().categoryName(4) + ": " +
+								game.getRoundWinningCard().categoryValue(4));
+						System.out.println("Comparison category: " + chosenCategory.getName());
 					}
-
-					System.out.println("Round " + roundCounter + ": Player " +
-						game.getPlayer().get(roundWinner).getName() + " won this round");
-
-					System.out.println("The winning card was '" + game.getRoundWinningCard().getName() + "':\n" +
-						"   > " + game.getRoundWinningCard().categoryName(0) + ": " +
-						game.getRoundWinningCard().categoryValue(0) + "\n" +
-						"   > " + game.getRoundWinningCard().categoryName(1) + ": " +
-						game.getRoundWinningCard().categoryValue(1) + "\n" +
-						"   > " + game.getRoundWinningCard().categoryName(2) + ": " +
-						game.getRoundWinningCard().categoryValue(2) + "\n" +
-						"   > " + game.getRoundWinningCard().categoryName(3) + ": " +
-						game.getRoundWinningCard().categoryValue(3) + "\n" +
-						"   > " + game.getRoundWinningCard().categoryName(4) + ": " +
-						game.getRoundWinningCard().categoryValue(4));
-					System.out.println("Comparison category: " + chosenCategory.getName());
-
 					//game.removeTopCards();
 
 					game.transferCards(roundWinner);
 					//System.out.println("Transfer successful");
 					//reuse method public void giveCardsToRoundWinner()
 
-					game.setActivePlayer(roundWinner);
-					activePlayerName=game.getPlayer().get(game.getActivePlayer()).getName();
-					//game.setActivePlayer(game.findPlayerIndex(activePlayerName));
+					if(roundWinner>-1) {
+						game.setActivePlayer(roundWinner);
+						activePlayerName = game.getPlayer().get(game.getActivePlayer()).getName();
+						//game.setActivePlayer(game.findPlayerIndex(activePlayerName));
+					}
+
+					if(roundWinner==-1){
+						System.out.println("Round "+roundCounter+": This round was a Draw, common pile now has "+game.getCommunalDeck().sizeOfDeck()+" cards");
+					}
 
 					loserEliminatedMessage = game.eliminateLoser();
 					System.out.println(loserEliminatedMessage);
@@ -388,7 +407,9 @@ public class TopTrumpsCLIApplication {
 					//reuse method public String isGameOver()
 
 					//activePlayerName=game.getPlayer().get(game.getActivePlayer()).getName();
-					game.setActivePlayer(game.findPlayerIndex(activePlayerName));
+					if(activePlayerName!=""){
+						game.setActivePlayer(game.findPlayerIndex(activePlayerName));
+					}
 
 				if (game.getGameWinner() != null) {
 					gameOver=true;
