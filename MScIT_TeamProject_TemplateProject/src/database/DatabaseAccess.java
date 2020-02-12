@@ -3,7 +3,7 @@ package database;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Connection;
-import commandline.GameData;
+import commandline.model.GameData;
 
 public class DatabaseAccess {
 

@@ -1,4 +1,4 @@
-package commandline;
+package commandline.model;
 
 public class Player {
 	private String name;

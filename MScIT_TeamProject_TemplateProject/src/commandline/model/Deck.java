@@ -1,4 +1,4 @@
-package commandline;
+package commandline.model;
 
 import java.util.ArrayList;
 import java.util.Collections;

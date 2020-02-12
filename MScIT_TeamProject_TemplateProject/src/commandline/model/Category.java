@@ -1,4 +1,4 @@
-package commandline;
+package commandline.model;
 
 public class Category {
 	private CategoryTypes type;

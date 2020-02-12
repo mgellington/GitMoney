@@ -1,4 +1,4 @@
-package commandline;
+package commandline.model;
 public class GameData{
     private int noOfDraws, noOfRounds, overallWinner, userRoundWins, ai1RoundWins, ai2RoundWins, ai3RoundWins, ai4RoundWins;
 
@@ -13,7 +13,10 @@ public class GameData{
         * getters and setters generated to acess and update data
         */
         noOfDraws = 0;
-        noOfRounds = 0;
+        /**
+         * initialises round to 1 for start because starts at round 1
+         */
+        noOfRounds = 1;
         overallWinner = 0;
         userRoundWins = 0;
         ai1RoundWins = 0;

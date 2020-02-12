@@ -1,9 +1,16 @@
 package commandline;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
-import database.DatabaseAccess;
+import java.util.stream.IntStream;
+
+import java.io.File;
+import commandline.model.*;
+import database.*;
+
 
 /**
  * Top Trumps command line application
@@ -11,11 +18,9 @@ import database.DatabaseAccess;
 public class TopTrumpsCLIApplication {
 
 	/**
-	 * This main method is called by TopTrumps.java when the user specifies that
-	 * they want to run in command line mode. The contents of args[0] is whether we
-	 * should write game logs to a file.
-	 * 
-	 * @param args
+	 * This main method is called by TopTrumps.java when the user specifies that they want to run in
+	 * command line mode. The contents of args[0] is whether we should write game logs to a file.
+ 	 * @param args
 	 */
 	public static void main(String[] args) {
 
@@ -30,52 +35,59 @@ public class TopTrumpsCLIApplication {
 		CategoryTypes chosenCategory = null;
 		int roundWinner;
 		Deck deckOfAllCards;
+		ArrayList<Player> allTestPlayers;
+		Deck testDeck;
 		String loserEliminatedMessage;
 		String isGameOverMessage;
-		String activePlayerName;
+		String activePlayerName="";
 		GameData gameData = new GameData();
 
-		/**
-		 * boolean writeGameLogsToFile = false; // Should we write game logs to file? if
-		 * (args[0].equalsIgnoreCase("true")) writeGameLogsToFile=true; // Command line
-		 * selection
-		 */
+
+/**
+		boolean writeGameLogsToFile = false; // Should we write game logs to file?
+		if (args[0].equalsIgnoreCase("true")) writeGameLogsToFile=true; // Command line selection
+ */
 		// State
 		boolean userWantsToQuit = false; // flag to check whether the user wants to quit the application
-
+		
 		// Loop until the user wants to exit the game
 		while (!userWantsToQuit) {
 
-			/*
-			 * System.out.println(new File("GlasgowBars.txt").getAbsolutePath());
-			 * 
-			 * //new Scanner(ClassYouAreIn.class.getResourceAsStream("names.txt"),
-			 * StandardCharsets.UTF_8);
-			 * 
-			 * File file = new File("GlasgowBars.txt");
-			 * System.out.println(file.getAbsolutePath());
-			 * System.out.println(file.length()); System.out.println(file.canRead());
-			 * 
-			 * //File file = new File(getSystemProperty("user.dir"), "GlasgowBars.txt");
-			 * //Scanner sc = new Scanner(file, StandardCharsets.UTF_8.name()); try{ Scanner
-			 * sc = new Scanner(new BufferedReader(new FileReader("GlasgowBars.txt")));
-			 * while (sc.hasNextLine()) { System.out.println(sc.nextLine()); } sc.close(); }
-			 * catch (IOException e) { e.printStackTrace(); }
-			 */
+/*
+			System.out.println(new File("GlasgowBars.txt").getAbsolutePath());
 
-			deckOfAllCards = new Deck();
-			try {
-				deckOfAllCards = inputText("/Users/markmorrison/Desktop/GLasgowBars.txt");
-			} catch (FileNotFoundException e) {
+			//new Scanner(ClassYouAreIn.class.getResourceAsStream("names.txt"), StandardCharsets.UTF_8);
+
+			File file = new File("GlasgowBars.txt");
+			System.out.println(file.getAbsolutePath());
+			System.out.println(file.length());
+			System.out.println(file.canRead());
+
+			//File file = new File(getSystemProperty("user.dir"), "GlasgowBars.txt");
+			//Scanner sc = new Scanner(file, StandardCharsets.UTF_8.name());
+			try{
+				Scanner sc = new Scanner(new BufferedReader(new FileReader("GlasgowBars.txt")));
+				while (sc.hasNextLine()) {
+					System.out.println(sc.nextLine());
+				}
+				sc.close();
+			}
+			catch (IOException e) {
 				e.printStackTrace();
 			}
-			System.out.println("deck of all cards ready");
-			System.out.println(deckOfAllCards.sizeOfDeck());
+*/
 
+
+			deckOfAllCards = new Deck();
+			deckOfAllCards = inputTxt("GlasgowBars.txt");
+			//System.out.println("deck of all cards ready");
+			//System.out.println(deckOfAllCards.sizeOfDeck());
+
+			/*
 			for (int k = 0; k < deckOfAllCards.sizeOfDeck(); k++) {
 				System.out.println(deckOfAllCards.seeCard(k).getName());
 			}
-
+*/
 
 
 			/* Dialogue #1: ask user if he wants to see game statistics or play the game or quit */
@@ -88,24 +100,20 @@ public class TopTrumpsCLIApplication {
 					"Enter the number for your selection: ", new int[]{1, 2, 3});
 			if (userInput == 1) {
 				System.out.println("\nTotal number of Games: " + DatabaseAccess.getTotalNumerOfGames() + 
-				"\nThe average number of Draws: " + DatabaseAccess.getAvgNoDraws() +
-				"\nThe Max number of Rounds Played: " + DatabaseAccess.getMaxNoRounds() +
-				"\nThe Number of AI Wins: " + DatabaseAccess.getNumberOfComputerWins() +
-				"\nThe Number of User Wins: " + DatabaseAccess.getNumberOfUserWins());
+						"\nThe average number of Draws: " + DatabaseAccess.getAvgNoDraws() +
+						"\nThe Max number of Rounds Played: " + DatabaseAccess.getMaxNoRounds() +
+						"\nThe Number of AI Wins: " + DatabaseAccess.getNumberOfComputerWins() +
+						"\nThe Number of User Wins: " + DatabaseAccess.getNumberOfUserWins());
 				System.out.println("\n\nDo you want to continue to selection screen?\nIf yes enter 1.\nIf no enter 2.");
 				Scanner scanner = new Scanner(System.in);
 				if(scanner.nextInt() == 1){
-					continue;
-				}
-				else{
-					userWantsToQuit = true;
-					break;
-				}
-				
-
-				//add code here for viewing game statistics
-
-			}
+						continue;
+					}
+					else{
+						userWantsToQuit = true;
+						break;
+						}
+					}
 
 			/* Dialogue #2: ask user how many AI players to include in the game */
 			numberOfPlayers = promptUserInput("\nHow many players do you want in the game?\n" +
@@ -114,11 +122,27 @@ public class TopTrumpsCLIApplication {
 
 			/* Initialising game below */
 
+			/* ######## Add code here to extract all cards from database and store them in a deck object */
+
+			//deckOfAllCards = extractDeckFromDataBase(filepath)
+			// the above method is expected to be included in one of the database classes
+
+			//"C:\Users\Larzz\IdeaProjects\Git-Money-Command-Line-adhoc\src\commandline\GlasgowBars.txt"
+
+		//deckOfAllCards = new Deck();
+			// deckOfAllCards = inputTxt("\\Users\\Larzz\\Desktop\\GlasgowBars.txt");
+
+
+
+		//	deckOfAllCards.addCard(new Card("QMU", 75, 15, 34, 56, 76));
+		//	deckOfAllCards.addCard(new Card("Old School House", 44, 43, 87, 27, 87));
+		//	deckOfAllCards.addCard(new Card("Dram", 67, 44, 23, 89, 24));
+		//	deckOfAllCards.addCard(new Card("GUU", 55, 33, 22, 11, 25));
 
 			game = new GameModel(numberOfPlayers, deckOfAllCards);
 			//game = new GameModel(userInput (# of players),deckOfAllCards object);
 
-			System.out.println("size of deck (should be zero):"+game.getMainDeck().sizeOfDeck());
+		//############	System.out.println("size of deck (should be zero):"+game.getMainDeck().sizeOfDeck());
 
 			/* ######## Add code here to initialise a GameModel object by calling the constructor
 			 * - Constructor needs to: - initialise player objects (AI player number defined by user, 1-4)
@@ -150,7 +174,7 @@ public class TopTrumpsCLIApplication {
 
 			roundCounter = 1;
 			gameOver = false;
-			do {
+			while (!gameOver) {
 
 
 
@@ -162,8 +186,6 @@ public class TopTrumpsCLIApplication {
 				}
 				 */
 
-				game.setActivePlayer(1);
-
 				//System.out.println("Active player: "+game.getActivePlayer());
 				humanIsActivePlayer=false;
 				if(game.getPlayer().get(game.getActivePlayer()).getName() == "You"){
@@ -174,20 +196,21 @@ public class TopTrumpsCLIApplication {
 					System.out.println("Round " + roundCounter);
 					System.out.println("Round " + roundCounter + ": Players have drawn their cards");
 
-					System.out.println("Your drew '" +
-							game.getPlayer().get(0).getDeck().seeCard(0).getName() + "':\n" +
-							"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(0) + ": " +
-							game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(0) + "\n" +
-							"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(1) + ": " +
-							game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(1) + "\n" +
-							"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(2) + ": " +
-							game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(2) + "\n" +
-							"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(3) + ": " +
-							game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(3) + "\n" +
-							"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(4) + ": " +
-							game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(4));
-					System.out.println("There are " + game.getPlayer().get(0).getDeck().sizeOfDeck() + " cards in your deck");
-
+					if(game.getPlayer().get(0).getName()=="You") {
+						System.out.println("Your drew '" +
+								game.getPlayer().get(0).getDeck().seeCard(0).getName() + "':\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(0) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(0) + "\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(1) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(1) + "\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(2) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(2) + "\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(3) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(3) + "\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(4) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(4));
+						System.out.println("There are " + game.getPlayer().get(0).getDeck().sizeOfDeck() + " cards in your deck");
+					}
 
 					//System.out.println("here");
 					//while(user is not activePlayer i.e. (game.getActivePLayer()!=1){
@@ -202,23 +225,25 @@ public class TopTrumpsCLIApplication {
 					//need method public void collectTopCards()
 					//which collects and puts everyone's top card in mainDeck (aka activeDeck) here
 
-					System.out.println("Maindeck size at creation:"+game.getMainDeck().sizeOfDeck());
+				//#######	System.out.println("Maindeck size at creation:" + game.getMainDeck().sizeOfDeck());
 
 					roundWinner = game.getRoundWinner(chosenCategory);
-					gameData.winnerCounter(game.getPlayer().get(roundWinner));
 					//need method public int getRoundWinner(Category object chosen by active AI player)
 					//which determines the winner of the round and returns the integer # number of the winning player
 					//it also needs to allow for draw (using say number -1)
 
 					//add code to allow for draw (i.e. roundWinner = -1)
-					System.out.println("Roundwinner: " + roundWinner);
+					//System.out.println("Roundwinner: " + roundWinner);
 
-					if(roundWinner==-1){
+					/*
+					if (roundWinner == -1) {
 						System.out.println("############# Draw");
-					}
+					}*/
 
-					System.out.println("Round " + roundCounter + ": Player " +
-							game.getPlayer().get(roundWinner).getName() + " won this round");
+					if (roundWinner > -1) {
+						gameData.winnerCounter(game.getPlayer().get(roundWinner));
+						System.out.println("Round " + roundCounter + ": Player " +
+								game.getPlayer().get(roundWinner).getName() + " won this round");
 
 					System.out.println("The winning card was '" + game.getRoundWinningCard().getName() + "':\n" +
 							"   > " + game.getRoundWinningCard().categoryName(0) + ": " +
@@ -232,7 +257,7 @@ public class TopTrumpsCLIApplication {
 							"   > " + game.getRoundWinningCard().categoryName(4) + ": " +
 							game.getRoundWinningCard().categoryValue(4));
 					System.out.println("Comparison category: " + chosenCategory.getName());
-
+				}
 					// need to make the above output match perfectly with the sample output on moodle
 					// i.e. will need an arrow pointing to the winning category
 
@@ -249,8 +274,15 @@ public class TopTrumpsCLIApplication {
 
 					//System.out.println("Transfer successful");
 
-					game.setActivePlayer(roundWinner);
-					activePlayerName=game.getPlayer().get(game.getActivePlayer()).getName();
+					if(roundWinner>-1) {
+						game.setActivePlayer(roundWinner);
+						activePlayerName = game.getPlayer().get(game.getActivePlayer()).getName();
+					}
+
+					if(roundWinner==-1){
+						gameData.addOneNoOfDraws();
+						System.out.println("Round "+roundCounter+": This round was a Draw, common pile now has "+game.getCommunalDeck().sizeOfDeck()+" cards");
+					}
 
 					loserEliminatedMessage = game.eliminateLoser();
 					//need method public String eliminateLosers()
@@ -271,15 +303,17 @@ public class TopTrumpsCLIApplication {
 					//increase round count here
 
 					//activePlayerName=game.getPlayer().get(game.getActivePlayer()).getName();
-					game.setActivePlayer(game.findPlayerIndex(activePlayerName));
+					if(activePlayerName!=""){
+						game.setActivePlayer(game.findPlayerIndex(activePlayerName));
+					}
 
 					if (game.getGameWinner() != null) {
 						gameOver = true;
 						break;
 					}
 
-					System.out.println(game.getActivePlayer());
-					System.out.println(game.getPlayer().get(game.getActivePlayer()).getName());
+				//	System.out.println(game.getActivePlayer());
+				//	System.out.println(game.getPlayer().get(game.getActivePlayer()).getName());
 
 					if(game.getPlayer().get(game.getActivePlayer()).getName() == "You"){
 						humanIsActivePlayer=true;
@@ -294,20 +328,21 @@ public class TopTrumpsCLIApplication {
 					System.out.println("Round " + roundCounter);
 					System.out.println("Round " + roundCounter + ": Players have drawn their cards");
 
-					System.out.println("Your drew '" +
-						game.getPlayer().get(0).getDeck().seeCard(0).getName() + "':\n" +
-						"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(0) + ": " +
-						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(0) + "\n" +
-						"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(1) + ": " +
-						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(1) + "\n" +
-						"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(2) + ": " +
-						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(2) + "\n" +
-						"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(3) + ": " +
-						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(3) + "\n" +
-						"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(4) + ": " +
-						game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(4));
-					System.out.println("There are " + game.getPlayer().get(0).getDeck().sizeOfDeck() + " cards in your deck");
-
+					if(game.getPlayer().get(0).getName()=="You") {
+						System.out.println("Your drew '" +
+								game.getPlayer().get(0).getDeck().seeCard(0).getName() + "':\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(0) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(0) + "\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(1) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(1) + "\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(2) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(2) + "\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(3) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(3) + "\n" +
+								"   > " + game.getPlayer().get(0).getDeck().seeCard(0).categoryName(4) + ": " +
+								game.getPlayer().get(0).getDeck().seeCard(0).categoryValue(4));
+						System.out.println("There are " + game.getPlayer().get(0).getDeck().sizeOfDeck() + " cards in your deck");
+					}
 
 					// needs method public String displayUserTopCard()
 					// which returns user's top card - write a method in both Card and GameModel classes for completeness
@@ -336,39 +371,47 @@ public class TopTrumpsCLIApplication {
 					roundWinner = game.getRoundWinner(chosenCategory);
 
 					//reuse method public int getRoundWinner(Category object chosen by active AI player)
-					System.out.println("Roundwinner: " + roundWinner);
+					//System.out.println("Roundwinner: " + roundWinner);
 
+					/*
 					if(roundWinner==-1){
-						gameData.addOneNoOfDraws();
 						System.out.println("############# Draw");
-						
+					}*/
+
+					if(roundWinner>-1) {
+						System.out.println("Round " + roundCounter + ": Player " +
+								game.getPlayer().get(roundWinner).getName() + " won this round");
+
+						System.out.println("The winning card was '" + game.getRoundWinningCard().getName() + "':\n" +
+								"   > " + game.getRoundWinningCard().categoryName(0) + ": " +
+								game.getRoundWinningCard().categoryValue(0) + "\n" +
+								"   > " + game.getRoundWinningCard().categoryName(1) + ": " +
+								game.getRoundWinningCard().categoryValue(1) + "\n" +
+								"   > " + game.getRoundWinningCard().categoryName(2) + ": " +
+								game.getRoundWinningCard().categoryValue(2) + "\n" +
+								"   > " + game.getRoundWinningCard().categoryName(3) + ": " +
+								game.getRoundWinningCard().categoryValue(3) + "\n" +
+								"   > " + game.getRoundWinningCard().categoryName(4) + ": " +
+								game.getRoundWinningCard().categoryValue(4));
+						System.out.println("Comparison category: " + chosenCategory.getName());
 					}
-
-					System.out.println("Round " + roundCounter + ": Player " +
-						game.getPlayer().get(roundWinner).getName() + " won this round");
-
-					System.out.println("The winning card was '" + game.getRoundWinningCard().getName() + "':\n" +
-						"   > " + game.getRoundWinningCard().categoryName(0) + ": " +
-						game.getRoundWinningCard().categoryValue(0) + "\n" +
-						"   > " + game.getRoundWinningCard().categoryName(1) + ": " +
-						game.getRoundWinningCard().categoryValue(1) + "\n" +
-						"   > " + game.getRoundWinningCard().categoryName(2) + ": " +
-						game.getRoundWinningCard().categoryValue(2) + "\n" +
-						"   > " + game.getRoundWinningCard().categoryName(3) + ": " +
-						game.getRoundWinningCard().categoryValue(3) + "\n" +
-						"   > " + game.getRoundWinningCard().categoryName(4) + ": " +
-						game.getRoundWinningCard().categoryValue(4));
-					System.out.println("Comparison category: " + chosenCategory.getName());
-
 					//game.removeTopCards();
 
 					game.transferCards(roundWinner);
 					//System.out.println("Transfer successful");
 					//reuse method public void giveCardsToRoundWinner()
 
-					game.setActivePlayer(roundWinner);
-					activePlayerName=game.getPlayer().get(game.getActivePlayer()).getName();
-					//game.setActivePlayer(game.findPlayerIndex(activePlayerName));
+					if(roundWinner>-1) {
+						gameData.winnerCounter(game.getPlayer().get(roundWinner));
+						game.setActivePlayer(roundWinner);
+						activePlayerName = game.getPlayer().get(game.getActivePlayer()).getName();
+						//game.setActivePlayer(game.findPlayerIndex(activePlayerName));
+					}
+
+					if(roundWinner==-1){
+						gameData.addOneNoOfDraws();
+						System.out.println("Round "+roundCounter+": This round was a Draw, common pile now has "+game.getCommunalDeck().sizeOfDeck()+" cards");
+					}
 
 					loserEliminatedMessage = game.eliminateLoser();
 					System.out.println(loserEliminatedMessage);
@@ -381,7 +424,9 @@ public class TopTrumpsCLIApplication {
 					//reuse method public String isGameOver()
 
 					//activePlayerName=game.getPlayer().get(game.getActivePlayer()).getName();
-					game.setActivePlayer(game.findPlayerIndex(activePlayerName));
+					if(activePlayerName!=""){
+						game.setActivePlayer(game.findPlayerIndex(activePlayerName));
+					}
 
 				if (game.getGameWinner() != null) {
 					gameOver=true;
@@ -397,17 +442,14 @@ public class TopTrumpsCLIApplication {
 				roundCounter++;
 				gameData.addOneNoOfRounds();
 			}
-		
-			
 
-
-		}while (!gameOver);
-			gameData.setOverallWinner(game.getGameWinner());
-			DatabaseAccess.uploadData(gameData);
 
 		}
+		gameData.setOverallWinner(game.getGameWinner());
+		DatabaseAccess.uploadData(gameData);
 
 	}
+}
 
 	// Method for prompting user for input until user types valid input
 	private static int promptUserInput(String userMessage, int[] userOptions){
@@ -422,7 +464,6 @@ public class TopTrumpsCLIApplication {
 					return userInput;
 				}
 			}
-			s.close();
 			System.out.println("Invalid user input. Please enter one of the options provided.");
 		}
 	}
@@ -437,24 +478,38 @@ public class TopTrumpsCLIApplication {
 		return false;
 	}
 
-	public static Deck inputText(String filePath) throws FileNotFoundException {
+	public static Deck inputTxt(String pathName) {
 		/*
 		 * inputs attributes into card objects and into deck
 		 * need to change file name accordingly
 		 */
-		Deck deck = new Deck();
-		Scanner scanner = new Scanner(new File(filePath));
-		while (scanner.hasNextLine()) {
-			String name = scanner.next();
-			int sticky = scanner.nextInt();
-			int pintPrice = scanner.nextInt();
-			int pubQuiz = scanner.nextInt();
-			int atmosphere = scanner.nextInt();
-			int music = scanner.nextInt();
-			deck.addCard(new Card(name, sticky, pintPrice, pubQuiz, atmosphere, music));
+		Deck inputDeck = new Deck();
+		File file = new File(pathName);
+		//System.out.println("file found");
+		//StandardCharsets.UTF_8.name())
+		try {
+			Scanner scanner = new Scanner(new BufferedReader(new FileReader(pathName)));
+			while (scanner.hasNextLine()) {
+				String name = scanner.next();
+				int sticky = (int) Integer.parseInt(scanner.next());
+				int pintPrice = (int) Integer.parseInt(scanner.next());
+				int pubQuiz = (int) Integer.parseInt(scanner.next());
+				int atmosphere = (int) Integer.parseInt(scanner.next());
+				int music = (int) Integer.parseInt(scanner.next());
+				//System.out.println("here");
+				inputDeck.addCard(new Card(name, sticky, pintPrice, pubQuiz, atmosphere, music));
+			}
 		}
-		scanner.close();
-		return deck;
+		catch (FileNotFoundException ex) {
+			ex.printStackTrace();
+		}
+		catch(NoSuchElementException ex2){
+			ex2.printStackTrace();
+		}
+		/*catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}*/
+		return inputDeck;
 	}
 
 
