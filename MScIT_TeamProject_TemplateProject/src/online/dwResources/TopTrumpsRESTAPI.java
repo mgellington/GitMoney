@@ -1,10 +1,12 @@
 package online.dwResources;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -13,13 +15,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import online.OnlineController;
 import online.configuration.TopTrumpsJSONConfiguration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.google.gson.Gson;
-
+import com.google.gson.Gson;M
 import database.DatabaseAccess;
 
 @Path("/toptrumps") // Resources specified here should be hosted at http://localhost:7777/toptrumps
@@ -39,7 +41,14 @@ public class TopTrumpsRESTAPI {
 
 	/** A Jackson Object writer. It allows us to turn Java objects
 	 * into JSON strings easily. */
-	ObjectWriter oWriter = new ObjectMapper().writerWithDefaultPrettyPrinter();
+	private int NUMBER_OF_PLAYERS;
+    /**
+     * A Jackson Object writer. It allows us to turn Java objects
+     * into JSON strings easily.
+     */
+    private ObjectWriter oWriter;
+	private String deckFile;
+	OnlineController controller;
 	
 	/**
 	 * Contructor method for the REST API. This is called first. It provides
@@ -48,14 +57,95 @@ public class TopTrumpsRESTAPI {
 	 * @param conf
 	 */
 	public TopTrumpsRESTAPI(TopTrumpsJSONConfiguration conf) {
-		// ----------------------------------------------------
-		// Add relevant initialization here
-		// ----------------------------------------------------
+		oWriter = new ObjectMapper().writerWithDefaultPrettyPrinter();
+        deckFile = conf.getDeckFile();
+		NUMBER_OF_PLAYERS = conf.getNumAIPlayers() + 1;
+		controller = new OnlineController(NUMBER_OF_PLAYERS -1);
 	}
 	
 	// ----------------------------------------------------
 	// Add relevant API methods here
 	// ----------------------------------------------------
+
+	@GET
+	@Path("/gamestart")
+	/**
+	 * 
+	 * 
+	 * calls the method to initialise the start of the game in the controller
+	 */
+	public String startGame() throws JsonProcessingException{
+		controller.startGame();
+		Gson gson = new Gson();
+		String json = gson.toJson(controller.getRoundInfo());
+		return json;
+	}
+
+	@GET
+	@Path("/roundinfo")
+	/**
+	 * 
+	 * @return all the info in the round info object
+	 *
+	 * @throws JsonProcessingException
+	 */
+
+	public String roundInfo() throws JsonProcessingException{
+		Gson gson = new Gson();
+		String json = gson.toJson(controller.getRoundInfo());
+		return json;
+	}
+
+	@GET
+	@Path("/whostarts")
+	/**
+	 * 
+	 * @return returns int from 1-5 to decide who the starting player is
+	 */
+
+	public int whoStarts(){
+		Random random = new Random();
+		int starter = random.nextInt(5);
+		return starter;
+	}
+
+
+
+
+
+	@GET
+	@Path("/userround")
+	/**
+	 * plays a user round
+	 * @param category takes the category as an int 
+	 * 
+	 * this will be chosen by the user from the dropdown when prompted
+	 */
+
+	public void playHumanRound(@QueryParam("category") int category){
+				controller.playRoundHuman(category);
+				//maybe need to return something not sure yet
+
+	}
+
+	@GET
+	@Path("/computerround")
+	/**
+	 * 
+	 */
+	public void playComputerRound(){
+		controller.playRoundAI();
+		//maybe need to return something not sure yet
+	}
+
+	@GET
+	@Path("/humancard")
+
+	public String returnHumanCard(){
+		Gson gson = new Gson();
+		String json = gson.toJson(controller.getHumanCard());
+		return json;
+	}
 
 	@GET
 	@Path("/database")

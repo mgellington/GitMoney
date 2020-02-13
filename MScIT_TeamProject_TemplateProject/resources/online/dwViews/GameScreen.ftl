@@ -57,7 +57,7 @@
 						
 					.rectangle {
 					height: 200px;
-					width: 150px;
+					width: 180px;
 					background-color: rgb(235, 179, 179);
 					}
 					</style>
@@ -80,38 +80,53 @@
 									Information
 									<div class="rectangle">
 										<div>
-											<p>
-											Round Number: <br>
-											Active Player: <br>
-											Category Chosen: <br>
-										
-
-											</p>
-											</div>
+                                        <div>
+											<p style="float: left;">Round Number:</p><p id="roundNumber"></p>
+                                        </div>
+                                        <div>
+											<p style="float: left;">Active Player:</p><p id="activePlayer"></p>
+                                        </div>
+                                        <div>
+											<p style="float: left;">Category Chosen:</p><p id="chosenCategory"></p>
+                                        </div>
+                                        <div>
+											<p style="float: left;">Communal Deck Size:</p><p id="comDeck"></p>
+                                        </div>
+                                        </div>
 									</div>
-									<button onclick="MyFunction()" type="button" class="btn btn-success">Next</button>
+									<button onclick="whoStarts();" type="button" id="mainButton" class="btn btn-success">Start Game</button>
 									</div> 
 
                 <!-- human player card -->
-              <div class="col-sm">
-                Human Player <span class="badge badge-pill badge-dark">XX</span>
+              <div class="col-sm" id="usercard">
+                Human Player <span class="badge badge-pill badge-dark" id="UserCardNo">XX</span>
                 <div class="card", style="width:80%" style="height:100%;">
                     <div class ="container">
-                        <div class ="card-header">Card Name </div>
-                            <p>
-                                Stat1<br>
-                                Stat2<br>
-                                Stat3<br>
-                                Stat4<br>
-                                Stat5<br>
-                            </p>
+                        <div class ="card-header" id="UserCardName">Card Name </div>
+                            <div>
+                            <div>
+								<p style="float: left;">Floor Stickiness:</p><p id="UserFloorSticky"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Pint Price:</p><p id="UserPintPrice"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Pub Quiz:</p><p id="UserPubQuiz"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Atmosphere:</p><p id="UserAtmosphere"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Playlist:</p><p id="UserPlaylist"></p>
+                            </div>
+                            </div>
                         </div>
                       
     
                     </div>
               </div>
 
-              <div class="col-sm">
+              <div class="col-sm" id="ai1card" style="visibility: hidden">
                 AI Player 1 <span class="badge badge-pill badge-dark">XX</span>
                 <div class="card", style="width:80%" style="height:100%;">
                     <div class ="container">
@@ -129,7 +144,7 @@
                     </div>
               </div>
 
-              <div class="col-sm">
+              <div class="col-sm" id="ai2card" style="visibility: hidden">
                   AI Player 2 <span class="badge badge-pill badge-dark">XX</span>
                   <div class="card", style="width:80%" style="height:100%;">
                     <div class ="container">
@@ -155,7 +170,7 @@
                 <div class="col-sm">
                   <!-- next button, and select category drop down menu-->
                   <div class="dropdown show">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="btn btn-secondary dropdown-toggle disabled" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Choose a category
                     </a>
                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -168,7 +183,7 @@
                 </div>
                   </div>
                
-                <div class="col-sm">
+                <div class="col-sm" id="ai3card" style="visibility: hidden">
                   AI Player 3 <span class="badge badge-pill badge-dark">XX</span>
                   <div class="card", style="width:80%" style="height:100%;">
                     <div class ="container">
@@ -186,7 +201,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm">
+                <div class="col-sm" id="ai4card" style="visibility: hidden">
                   AI Player 4 <span class="badge badge-pill badge-dark">XX</span>
                   <div class="card", style="width:80%" style="height:100%;">
                     <div class ="container">
@@ -205,19 +220,6 @@
                 </div>
 
                 <div class="col-sm">
-                    AI Player 5 <span class="badge badge-pill badge-dark">15</span>
-                <!-- Julia's attempt to card-->
-                <div class="card", style="width:80%" style="height:100%;">
-                <div class ="container">
-                    <div class ="card-header">Card Name </div>
-                        <p>
-                            Stat1<br>
-                            Stat2<br>
-                            Stat3<br>
-                            Stat4<br>
-                            Stat5<br>
-                        </p>
-                    </div>
                   
 
                 </div>
@@ -281,14 +283,14 @@
 		
 			// Method that is called on page load
 			function initalize() {
+                gameStart();
+                roundInfo();
 			
 				// --------------------------------------------------------------------------
 				// You can call other methods you want to run when the page first loads here
 				// --------------------------------------------------------------------------
 				
 				// For example, lets call our sample methods
-				helloJSONList();
-				helloWord("Student");
 				
 			}
 			
@@ -325,6 +327,107 @@
 		
 		<!-- Here are examples of how to call REST API Methods -->
 		<script type="text/javascript">
+            function gameStart(){
+        
+            // First create a CORS request, this is the message we are going to send (a get request in this case)
+            var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/gamestart"); // Request type and URL
+
+            // Message is not sent yet, but we can check that the browser supports CORS
+            if (!xhr) {
+                alert("CORS not supported");
+            };
+            xhr.send();
+
+            }
+
+            function userCardInfo(){
+            // First create a CORS request, this is the message we are going to send (a get request in this case)
+            var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/humancard"); // Request type and URL
+
+            // Message is not sent yet, but we can check that the browser supports CORS
+            if (!xhr) {
+                alert("CORS not supported");
+            }
+            //need to determine what to do with returned info before //sending request
+            xhr.onload = function(e) {
+                var responseText = xhr.response;
+                var json = JSON.parse(responseText);
+                $("#UserCardName").html(json["name"]);
+                $("#UserFloorSticky").html(json["FLOOR"]);
+                $("#UserPintPrice").html(json["PINT"]);
+                $("#UserPubQuiz").html(json["QUIZ"]);
+                $("#UserAtmosphere").html(json["VIBES"]);
+                $("#UserPlaylist").html(json["TUNES"]);
+            };
+
+            //send request
+            xhr.send();
+
+        }
+
+        
+            function roundInfo(){
+            // First create a CORS request, this is the message we are going to send (a get request in this case)
+            var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/roundinfo"); // Request type and URL
+
+            // Message is not sent yet, but we can check that the browser supports CORS
+            if (!xhr) {
+                alert("CORS not supported");
+            }
+            //need to determine what to do with returned info before //sending request
+            xhr.onload = function(e) {
+                var responseText = xhr.response;
+                var json = JSON.parse(responseText);
+                $("#roundNumber").html(json["roundCounter"]);
+                $("#activePlayer").html(json["activePlayer"]);
+                $("#comDeck").html(json["communalDeckSize"]);
+            };
+
+            //send request
+            xhr.send();
+
+        }
+
+        function whoStarts(){
+            var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/whostarts"); // Request type and URL
+
+            // Message is not sent yet, but we can check that the browser supports CORS
+            if (!xhr) {
+                alert("CORS not supported");
+            }
+            //need to determine what to do with returned info before //sending request
+            xhr.onload = function(e) {
+                var response = xhr.response;
+                if(response == 0){
+                    alert("User to Start! Pick a Category!");
+                    userToPickCategory();
+                } else{
+                    alert("AI Player " + response + " to start!");
+                    aiRound();
+                }
+                userCardInfo();
+                
+            }
+
+            //send request
+            xhr.send();
+
+        }
+
+        function userToPickCategory(){
+            $('dropdownMenuLink').prop('disabled', false);
+    	}
+        
+        function showUserCardInfo(){
+            
+
+        }
+
+
+
+
+
+           
 		
 			// This calls the helloJSONList REST method from TopTrumpsRESTAPI
 			function helloJSONList() {
