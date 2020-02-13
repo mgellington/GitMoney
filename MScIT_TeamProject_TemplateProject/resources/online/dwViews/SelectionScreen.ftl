@@ -17,13 +17,7 @@
     	<link rel="stylesheet" href="http://dcs.gla.ac.uk/~richardm/assets/stylesheets/vex-theme-os.css"/>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-		 <!-- importing javascript plugins that are used by bootstrap-->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-		<!-- below code makes the views adaptable to all the -->
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 	</head>
 
     <body onload="initalize()"> <!-- Call the initalize method when the page loads -->
@@ -32,16 +26,29 @@
 
 			<!-- Add your HTML Here -->
 			<!-- JULIAS ATTEMPT -->
+		<!DOCTYPE html>
+<html>
+    <head>
+        <!-- importing the bootstrap stylesheet -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>
+        Glasgow Bars Top Trumps
+    </title>
+    <!-- below code makes the views adaptable to all the -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    </head>
     <body>
         <div class="container-fluid">
             <div class ="row">
                 <div class ="col">
-                    <h1 class="blockquote text-center">
+				<style> h1{text-align: center;}</style>
+                    <h1>
                         Glasgow Bars Top Trumps
                     </h1>
                 </div>
             </div>
           </div>
+
           <div class ="container-fluid">
             <div class ="row">
                 <div class ="col-sm"> <br> </div>
@@ -61,33 +68,39 @@
               <br>
               <div class ="row">
                 <div class ="col-sm"></div>
-                <div class ="col-sm"><button id="newGame" onclick="showButton()" value="Redirect" type="button" class="btn btn-success btn-block" >New Game</button></div>
+                <div class ="col-sm"><button id="newGame" onclick="newGame()" value="Redirect" type="button" class="btn btn-success btn-block" >New Game</button></div>
+                <div class ="col-sm"></div>
+            </div>
+			<br>
+			<div class ="row">
+			  <style> #label {text-align: center;}</style>
+                <div class ="col-sm"></div>
+                <div class ="col-sm"><p id="label">Select Number of AI Players Before Game</p></div>
                 <div class ="col-sm"></div>
             </div>
             <div class ="row">
-                <div class ="col-sm"> <br> </div>
-                <div class ="col-sm"> <br> </div>
-                <div class ="col-sm"> <br> </div>
+                <div class ="col-sm"></div>
+                <div class ="col-sm"></div>
+                <div class ="col-sm"></div>
             </div>
             <div class ="row">
                 <div class ="col"></div>
                 <div class ="col"></div>
-                <div class="dropdown-show">
-                    <a class="btn-btn-secondary-dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Choose Number of AI Players
-                    </a>
-                 	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" onclick="PintPriceFunction()" href="#">1</a>
-                    <a class="dropdown-item" onclick="AtmosphereFunction()" href="#">2</a>
-                    <a class="dropdown-item" onclick="PubQuizFunction()" href="#">3</a>
-                    <a class="dropdown-item" onclick="MusicQualityFunction()" href="#">4</a>
-                    <a class="dropdown-item" onclick="StickyFunction()" href="#">5</a>
-                  </div>
-                </div>
+                <select id="numAIPlayers">
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				</select>
                 <div class ="col"></div>
                 <div class ="col"></div>
             </div>
           </div>
+
+        <!-- importing javascript plugins that are used by bootstrap-->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
    
         <!-- Button on click javascript redirect to game screen -->
         <script type="text/javascript">
@@ -109,13 +122,15 @@
 		<script type="text/javascript">
 		
 			// Method that is called on page load
-			function initalize() {
+			//function initalize() {
 			
 				// --------------------------------------------------------------------------
 				// You can call other methods you want to run when the page first loads here
 				// --------------------------------------------------------------------------
 				
 				// For example, lets call our sample methods
+				helloJSONList();
+				helloWord("Student");
 				
 			}
 			
@@ -152,6 +167,9 @@
 		
 		<!-- Here are examples of how to call REST API Methods -->
 		<script type="text/javascript">
+			function newGame(){
+				$(dropdownMenuLink).dropdown('hide')
+			}
 		
 			// This calls the helloJSONList REST method from TopTrumpsRESTAPI
 			function helloJSONList() {
