@@ -75,13 +75,13 @@
             <div class ="row3">
 					<div class ="col-sm"></div>
 							<div class="dropdown">
-								<button class="btn btn-primary dropdown-toggle" id="aiplayer" type="button" data-toggle="dropdown" disabled>AI Players
+								<button class="btn btn-primary dropdown-toggle" id="aiplayer" onclick="selectedPlayers()" type="button" data-toggle="dropdown" disabled>AI Players
 								<span class="caret"></span></button>
-									<ul class="dropdown-menu">
-										<li><a href="#">1 AI Player</a></li>
-										<li><a href="#">2 AI Players</a></li>
-										<li><a href="#">3 AI Players</a></li>
-										<li><a href="#">4 AI Players</a></li>
+									<ul id="dropdown" class="dropdown-menu">
+										<li><a data-value="1" href="#">1 AI Player</a></li>
+										<li><a data-value="2" href="#">2 AI Players</a></li>
+										<li><a data-value="3" href="#">3 AI Players</a></li>
+										<li><a data-value="4" href="#">4 AI Players</a></li>
 									</ul>
 							</div>
 						<div class ="col-sm"></div>
@@ -158,9 +158,21 @@
     			});
 			});
 
+			$(function(){
+				$(".dropdown-menu li a").click(function () {
+					alert($(this).data('value'));
+				});
+			});
+
+
 			function statsScreen(){
                 window.location.href = 'http://localhost:7777/toptrumps/stats';
             }
+			function selectedPlayers(){
+				var menu = document.querySelector("aiplayer");
+				var number = menu.value;
+				alert("CORS not supported");
+			}
 		
 			// This calls the helloJSONList REST method from TopTrumpsRESTAPI
 			function helloJSONList() {
