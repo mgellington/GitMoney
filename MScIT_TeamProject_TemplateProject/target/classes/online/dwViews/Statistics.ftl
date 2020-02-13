@@ -20,6 +20,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body onload="initalize()">
@@ -28,17 +32,11 @@
     <div class="container">
         <!-- Add your HTML Here -->
         <div class="Header">
-            <h1> Top Trumps Game Statistics</h1>
+        <style> h1, h2{text-align: center;}</style>
+            <h1> Glasgow Bars Top Trumps</h1>
+            <h2> Statistics</h2>
             <style>
-                h1 {
-                    text-align: center;
-                    font-family: 'Roboto', sans-serif;
-                    font-size: 30px;
-                }
-                
                 p {
-                    font-size: 20px;
-                    font-family: 'Roboto', sans-serif;
                     text-align: right;
                 }
                 
@@ -46,43 +44,29 @@
                     text-align: left;
                 }
                 
-                button {
-                    display: inline-block;
-                    padding: 0.3em 1.2em;
-                    margin: 0 0.3em 0.3em;
-                    border-radius: 2em;
-                    box-sizing: border-box;
-                    text-decoration: none;
-                    font-family: 'Roboto', sans-serif;
-                    font-weight: 400;
-                    color: #FFFFFF;
-                    background-color: #4eb5f1;
-                    text-align: center;
-                    transition: all 0.2s
-                }
             </style>
             <br>
         </div>
 		<div class="row">
-		<div class="col"><p>Total Number of Games</p></div>
+		<div class="col"><p>Total Number of Games:</p></div>
 		<div class="col"><p id="total_games">Result</p></div>
-		<div class="w-100"></div>
-		<div class="col"><p>Number of User Wins</p></div>
+		    <div class="w-100"></div>
+		<div class="col"><p>Number of User Wins:</p></div>
 		<div class="col"><p id="user_wins">Result</p></div>
-		<div class="w-100"></div>
-		<div class="col"><p>Number of Computer Wins</p></div>
+		    <div class="w-100"></div>
+		<div class="col"><p>Number of Computer Wins:</p></div>
 		<div class="col"><p id="computer_wins">Result</p></div>
-		<div class="w-100"></div>
-		<div class="col"><p>Average Number of Draws</p></div>
+		    <div class="w-100"></div>
+		<div class="col"><p>Average Number of Draws:</p></div>
 		<div class="col"><p id="avg_draws">Result</p></div>
-		<div class="w-100"></div>
-		<div class="col"><p>Maximum Number of Rounds Played</p></div>
+		    <div class="w-100"></div>
+		<div class="col"><p>Maximum Number of Rounds Played:</p></div>
 		<div class="col"><p id="max_rounds">Result</p></div>
-		<div class="w-100"></div>
+		    <div class="w-100"></div>
 		<div class="col"></div>
-		<div class="col-sm-6 text-center"><button>Home</button></div>
+		<div class ="col"><button id="home" value="Redirect" type="button" onclick="homeScreen()" class="btn btn-success btn-block" >Home</button></div>
 		<div class="col"></div>
-		<div class="w-100"></div>
+		    <div class="w-100"></div>
 		<div class="col"></div>
 		<div class="col"></div>
     </div>
@@ -159,6 +143,9 @@
             xhr.send();
 
         }
+        function homeScreen(){
+                window.location.href = 'http://localhost:7777/toptrumps';
+            }
         // This calls the helloJSONList REST method from TopTrumpsRESTAPI
         function helloJSONList() {
 

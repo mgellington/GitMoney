@@ -57,7 +57,7 @@
             </div>
             <div class ="row">
                 <div class ="col"></div>
-                <div class ="col"><button type="button" onclick="redirectSS()" class="btn btn-warning btn-block">Statistics</button></div>
+                <div class ="col"><button type="button" onclick="statsScreen()" class="btn btn-warning btn-block">Statistics</button></div>
                 <div class ="col"></div>
             </div>
                <div class ="row">
@@ -67,55 +67,40 @@
               </div>
               <br>
               <div class ="row">
-                <div class ="col-sm"></div>
-                <div class ="col-sm"><button id="newGame" onclick="newGame()" value="Redirect" type="button" class="btn btn-success btn-block" >New Game</button></div>
-                <div class ="col-sm"></div>
+                <div class ="col"></div>
+                <div class ="col"><button id="newGame" value="Redirect" type="button" class="btn btn-success btn-block" >New Game</button></div>
+                <div class ="col"></div>
             </div>
 			<br>
-			<div class ="row">
-			  <style> #label {text-align: center;}</style>
-                <div class ="col-sm"></div>
-                <div class ="col-sm"><p id="label">Select Number of AI Players Before Game</p></div>
-                <div class ="col-sm"></div>
-            </div>
-            <div class ="row">
-                <div class ="col-sm"></div>
-                <div class ="col-sm"></div>
-                <div class ="col-sm"></div>
-            </div>
-            <div class ="row">
-                <div class ="col"></div>
-                <div class ="col"></div>
-                <select id="numAIPlayers">
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
-				<option>4</option>
-				</select>
-                <div class ="col"></div>
-                <div class ="col"></div>
-            </div>
-          </div>
+            <div class ="row3">
+					<div class ="col-sm"></div>
+							<div class="dropdown">
+								<button class="btn btn-primary dropdown-toggle" id="aiplayer" type="button" data-toggle="dropdown" disabled>AI Players
+								<span class="caret"></span></button>
+									<ul class="dropdown-menu">
+										<li><a href="#">1 AI Player</a></li>
+										<li><a href="#">2 AI Players</a></li>
+										<li><a href="#">3 AI Players</a></li>
+										<li><a href="#">4 AI Players</a></li>
+									</ul>
+							</div>
+						<div class ="col-sm"></div>
+					</div>
+					<style>
+					.dropdown {
+								display: flex;
+								justify-content: center;
+								align-items: center;
+								}
+					</style>
+               
+        	 </div>
 
         <!-- importing javascript plugins that are used by bootstrap-->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
    
-        <!-- Button on click javascript redirect to game screen -->
-        <script type="text/javascript">
-            function redirectGS(){
-                var url = "GameScreen.html";
-                window.location.replace(url);
-            }
-        </script>
-
-        <script type="text/javascript">
-            function redirectSS(){
-                 var url = "StatisticsScreen.html";
-                 window.location.replace(url);
-            }
-        </script>
     </body>
 </html>
 		
@@ -167,9 +152,15 @@
 		
 		<!-- Here are examples of how to call REST API Methods -->
 		<script type="text/javascript">
-			function newGame(){
-				$(dropdownMenuLink).dropdown('hide')
-			}
+		$(function(){
+			$('#newGame').click(function() {
+				$('button').prop('disabled', false);
+    			});
+			});
+
+			function statsScreen(){
+                window.location.href = 'http://localhost:7777/toptrumps/stats';
+            }
 		
 			// This calls the helloJSONList REST method from TopTrumpsRESTAPI
 			function helloJSONList() {
