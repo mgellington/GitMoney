@@ -137,6 +137,7 @@ public class OnlineController {
         return rInfo;
     }    
     
+    //Trying to get a method to show the winner of a round but who is it?????
     public String getRoundWinner() {
     	this.game.getRoundWinningCard();
     	int winner = this.game.getRoundWinner(chosenCategory);
@@ -144,6 +145,7 @@ public class OnlineController {
     	return winnerIs;
     }
     
+    // method to return the human player's card 
     public Card getHumanCard() {
     	Player hPlayer = this.game.getPlayer().get(0);
     	Card humanCard = hPlayer.getDeck().getTopCard();
