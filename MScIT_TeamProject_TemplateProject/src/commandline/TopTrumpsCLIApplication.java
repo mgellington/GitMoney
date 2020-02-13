@@ -1,15 +1,8 @@
 package commandline;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.stream.IntStream;
-
-import java.io.File;
-import java.util.Scanner;
-import java.nio.charset.StandardCharsets;
 import commandline.model.*;
 import database.*;
 
@@ -28,7 +21,7 @@ public class TopTrumpsCLIApplication {
 	public static void main(String[] args) {
 
 		/* Initialising variables & objects needed for dialogue */
-		Scanner s = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		int userInput;
 		int numberOfPlayers;
 		int roundCounter;
@@ -38,8 +31,6 @@ public class TopTrumpsCLIApplication {
 		CategoryTypes chosenCategory = null;
 		int roundWinner;
 		Deck deckOfAllCards;
-		ArrayList<Player> allTestPlayers;
-		Deck testDeck;
 		String loserEliminatedMessage;
 		String isGameOverMessage;
 		String activePlayerName = "";
@@ -99,7 +90,6 @@ public class TopTrumpsCLIApplication {
 						+ "\nThe Number of AI Wins: " + DatabaseAccess.getNumberOfComputerWins()
 						+ "\nThe Number of User Wins: " + DatabaseAccess.getNumberOfUserWins());
 				System.out.println("\n\nDo you want to continue to selection screen?\nIf yes enter 1.\nIf no enter 2.");
-				Scanner scanner = new Scanner(System.in);
 				if (scanner.nextInt() == 1) {
 					continue;
 				} else {
@@ -461,22 +451,24 @@ public class TopTrumpsCLIApplication {
 		DatabaseAccess.uploadData(gameData);
 
 		}
+		scanner.close();
 
 	}
 
 	// Method for prompting user for input until user types valid input
 	private static int promptUserInput(String userMessage, int[] userOptions) {
-		Scanner s = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		int userInput;
 		while (true) {
 			System.out.print(userMessage);
-			userInput = s.nextInt();
-			s.nextLine();
+			userInput = scanner.nextInt();
+			scanner.nextLine();
 			if (!(userInput == 0)) {
 				if (contains(userOptions, userInput)) {
 					return userInput;
 				}
 			}
+			scanner.close();
 			System.out.println("Invalid user input. Please enter one of the options provided.");
 		}
 	}
@@ -497,21 +489,21 @@ public class TopTrumpsCLIApplication {
 		 * accordingly
 		 */
 		Deck inputDeck = new Deck();
-		File file = new File(pathName);
 		// System.out.println("file found");
 		// StandardCharsets.UTF_8.name())
 		try {
-			Scanner scanner = new Scanner(new BufferedReader(new FileReader(pathName)));
-			while (scanner.hasNextLine()) {
-				String name = scanner.next();
-				int sticky = (int) Integer.parseInt(scanner.next());
-				int pintPrice = (int) Integer.parseInt(scanner.next());
-				int pubQuiz = (int) Integer.parseInt(scanner.next());
-				int atmosphere = (int) Integer.parseInt(scanner.next());
-				int music = (int) Integer.parseInt(scanner.next());
+			Scanner scanner2 = new Scanner(new BufferedReader(new FileReader(pathName)));
+			while (scanner2.hasNextLine()) {
+				String name = scanner2.next();
+				int sticky = (int) Integer.parseInt(scanner2.next());
+				int pintPrice = (int) Integer.parseInt(scanner2.next());
+				int pubQuiz = (int) Integer.parseInt(scanner2.next());
+				int atmosphere = (int) Integer.parseInt(scanner2.next());
+				int music = (int) Integer.parseInt(scanner2.next());
 				// System.out.println("here");
 				inputDeck.addCard(new Card(name, sticky, pintPrice, pubQuiz, atmosphere, music));
 			}
+			scanner2.close();
 		} catch (FileNotFoundException ex) {
 			ex.printStackTrace();
 		} catch (NoSuchElementException ex2) {

@@ -25,13 +25,89 @@
     	<div class="container">
 
 			<!-- Add your HTML Here -->
-		
-		</div>
+			<!-- JULIAS ATTEMPT -->
+		<!DOCTYPE html>
+<html>
+    <head>
+        <!-- importing the bootstrap stylesheet -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>
+        Glasgow Bars Top Trumps
+    </title>
+    <!-- below code makes the views adaptable to all the -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class ="row">
+                <div class ="col">
+				<style> h1{text-align: center;}</style>
+                    <h1>
+                        Glasgow Bars Top Trumps
+                    </h1>
+                </div>
+            </div>
+          </div>
+
+          <div class ="container-fluid">
+            <div class ="row">
+                <div class ="col-sm"> <br> </div>
+                <div class ="col-sm"> <br> </div>
+                <div class ="col-sm"> <br> </div>
+            </div>
+            <div class ="row">
+                <div class ="col"></div>
+                <div class ="col"><button type="button" onclick="statsScreen()" class="btn btn-warning btn-block">Statistics</button></div>
+                <div class ="col"></div>
+            </div>
+               <div class ="row">
+                  <div class ="col"></div>
+                  <div class ="col"></div>
+                  <div class ="col"></div>
+              </div>
+              <br>
+              <div class ="row">
+                <div class ="col"></div>
+                <div class ="col"><button id="newGame" value="Redirect" type="button" class="btn btn-success btn-block" >New Game</button></div>
+                <div class ="col"></div>
+            </div>
+			<br>
+            <div class ="row3">
+					<div class ="col-sm"></div>
+							<div class="dropdown">
+								<button class="btn btn-primary dropdown-toggle" id="aiplayer" onclick="selectedPlayers()" type="button" data-toggle="dropdown" disabled>AI Players
+								<span class="caret"></span></button>
+									<ul id="dropdown" class="dropdown-menu">
+										<li><a data-value="1" href="#">1 AI Player</a></li>
+										<li><a data-value="2" href="#">2 AI Players</a></li>
+										<li><a data-value="3" href="#">3 AI Players</a></li>
+										<li><a data-value="4" href="#">4 AI Players</a></li>
+									</ul>
+							</div>
+						<div class ="col-sm"></div>
+					</div>
+					<style>
+					.dropdown {
+								display: flex;
+								justify-content: center;
+								align-items: center;
+								}
+					</style>
+               
+        	 </div>
+
+        <!-- importing javascript plugins that are used by bootstrap-->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   
+    </body>
+</html>
 		
 		<script type="text/javascript">
 		
 			// Method that is called on page load
-			function initalize() {
+			//function initalize() {
 			
 				// --------------------------------------------------------------------------
 				// You can call other methods you want to run when the page first loads here
@@ -76,6 +152,27 @@
 		
 		<!-- Here are examples of how to call REST API Methods -->
 		<script type="text/javascript">
+		$(function(){
+			$('#newGame').click(function() {
+				$('button').prop('disabled', false);
+    			});
+			});
+
+			$(function(){
+				$(".dropdown-menu li a").click(function () {
+					alert($(this).data('value'));
+				});
+			});
+
+
+			function statsScreen(){
+                window.location.href = 'http://localhost:7777/toptrumps/stats';
+            }
+			function selectedPlayers(){
+				var menu = document.querySelector("aiplayer");
+				var number = menu.value;
+				alert("CORS not supported");
+			}
 		
 			// This calls the helloJSONList REST method from TopTrumpsRESTAPI
 			function helloJSONList() {

@@ -114,31 +114,9 @@
     <script type="text/javascript">
         // Method that is called on page load
         function initalize() {
+            database();
+        }
 
-            //create cors request to send GET request
-            var xhr = creatCORSRequest('GET', "http://localhost:7777/toptrumps/database");
-
-            //if cors not supported creates alert message
-            if (!xhr) {
-                alert("CORS not supported");
-            }
-
-
-            //need to determine what to do with returned info before //sending request
-            xhr.onload = function(e) {
-                var responseText = xhr.response;
-                var json = JSON.parse(responseText);
-                $("#total_games").html(json["totalGamesPlayed"]);
-                $("#user_wins").html(json["numberOfUserWins"]);
-                $("#computer_wins").html(json["numberOfComputerWins"]);
-                $("#avg_draws").html(json["avgNumberOFDraws"]);
-                $("#max_rounds").html(json["maxNumberOfRounds"]);
-            };
-
-            //send request
-            xhr.send();
-
-        };
 
 
         // --------------------------------------------------------------------------
@@ -146,9 +124,6 @@
         // --------------------------------------------------------------------------
 
         // For example, lets call our sample methods
-        helloJSONList();
-        helloWord("Student");
-
 
 
         // -----------------------------------------
@@ -183,6 +158,31 @@
 
     <!-- Here are examples of how to call REST API Methods -->
     <script type="text/javascript">
+        function database() {
+            //create cors request to send GET request
+            var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/database");
+
+            //if cors not supported creates alert message
+            if (!xhr) {
+                alert("CORS not supported");
+            }
+
+
+            //need to determine what to do with returned info before //sending request
+            xhr.onload = function(e) {
+                var responseText = xhr.response;
+                var json = JSON.parse(responseText);
+                $("#total_games").html(json["totalGamesPlayed"]);
+                $("#user_wins").html(json["numberOfUserWins"]);
+                $("#computer_wins").html(json["numberOfComputerWins"]);
+                $("#avg_draws").html(json["avgNumberOFDraws"]);
+                $("#max_rounds").html(json["maxNumberOfRounds"]);
+            };
+
+            //send request
+            xhr.send();
+
+        }
         // This calls the helloJSONList REST method from TopTrumpsRESTAPI
         function helloJSONList() {
 
