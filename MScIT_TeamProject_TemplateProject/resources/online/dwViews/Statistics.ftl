@@ -32,16 +32,20 @@
     <div class="container">
         <!-- Add your HTML Here -->
         <div class="Header">
-        <style> h1, h2{text-align: center;}</style>
+        <style> 
+            body{background: grey}
+            h1, h2{text-align: center; color: white}</style>
             <h1> Glasgow Bars Top Trumps</h1>
             <h2> Statistics</h2>
             <style>
                 p {
                     text-align: right;
+                    color: white;
                 }
                 
                 #total_games, #user_wins, #computer_wins, #avg_draws, #max_rounds {
                     text-align: left;
+                    color: white;
                 }
                 
             </style>

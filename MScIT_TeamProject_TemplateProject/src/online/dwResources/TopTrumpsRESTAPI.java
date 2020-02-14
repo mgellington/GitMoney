@@ -1,10 +1,12 @@
 package online.dwResources;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -13,13 +15,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import online.OnlineController;
 import online.configuration.TopTrumpsJSONConfiguration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.gson.Gson;
-
 import database.DatabaseAccess;
 import online.OnlineController;
 import commandline.model.GameModel;
@@ -48,7 +50,14 @@ GameModel game;
 
 	/** A Jackson Object writer. It allows us to turn Java objects
 	 * into JSON strings easily. */
-	ObjectWriter oWriter = new ObjectMapper().writerWithDefaultPrettyPrinter();
+	private int NUMBER_OF_PLAYERS;
+    /**
+     * A Jackson Object writer. It allows us to turn Java objects
+     * into JSON strings easily.
+     */
+    private ObjectWriter oWriter;
+	private String deckFile;
+	OnlineController controller;
 	
 	/**
 	 * Contructor method for the REST API. This is called first. It provides
@@ -57,19 +66,100 @@ GameModel game;
 	 * @param conf
 	 */
 	public TopTrumpsRESTAPI(TopTrumpsJSONConfiguration conf) {
-		// ----------------------------------------------------
-		// Add relevant initialization here
-		// ----------------------------------------------------
-		
-		// creating an instance of Online Controller to call methods from
-		// I dont know how to get user input to pass number of AI players
-		// so we'll go with 4
-		oController = new OnlineController(4);
+		oWriter = new ObjectMapper().writerWithDefaultPrettyPrinter();
+        deckFile = conf.getDeckFile();
+		NUMBER_OF_PLAYERS = conf.getNumAIPlayers() + 1;
+		controller = new OnlineController(4);
+
 	}
 	
 	// ----------------------------------------------------
 	// Add relevant API methods here
 	// ----------------------------------------------------
+
+	@GET
+	@Path("/gamestart")
+	/**
+	 * 
+	 * 
+	 * calls the method to initialise the start of the game in the controller
+	 */
+	public String startGame() throws JsonProcessingException{
+		controller.startGame();
+		Gson gson = new Gson();
+		String json = gson.toJson(controller.getRoundInfo());
+		return json;
+	}
+
+	@GET
+	@Path("/roundinfo")
+	/**
+	 * 
+	 * @return all the info in the round info object
+	 *
+	 * @throws JsonProcessingException
+	 */
+
+	public String roundInfo() throws JsonProcessingException{
+		Gson gson = new Gson();
+		String json = gson.toJson(controller.getRoundInfo());
+		return json;
+	}
+	@GET
+	@Path("/chosencategory")
+	/**
+	 * 
+	 * @return the chosen category
+	 *
+	 * @throws JsonProcessingException
+	 */
+
+	public String chosenCategory() throws JsonProcessingException{
+		Map<String, String> category = new HashMap<String, String>();
+        category.put("chosenCategory", controller.getChosenCatergory().getName());
+		Gson gson = new Gson();
+		String json = gson.toJson(category);
+		return json;
+	}
+
+
+
+
+
+	@GET
+	@Path("/userround")
+	/**
+	 * plays a user round
+	 * @param category takes the category as an int 
+	 * 
+	 * this will be chosen by the user from the dropdown when prompted
+	 */
+
+	public void playHumanRound(@QueryParam("category") int category){
+				controller.playRoundHuman(category);
+				//maybe need to return something not sure yet
+
+	}
+
+
+	@GET
+	@Path("/computerround")
+	/**
+	 * 
+	 */
+	public void playComputerRound(){
+		controller.playRoundAI();
+		//maybe need to return something not sure yet
+	}
+
+	@GET
+	@Path("/humancard")
+
+	public String returnHumanCard(){
+		Gson gson = new Gson();
+		String json = gson.toJson(controller.getHumanCard());
+		return json;
+	}
 
 	@GET
 	@Path("/database")
@@ -92,18 +182,53 @@ GameModel game;
 		Gson gson = new Gson();
 		String json = gson.toJson(stats);
 		return json;
-}
+	}
 
 	@GET
-	@Path("/humanCard")
-	/*An attempt to get the API to return the human player's top card
-	*/
-	public String getHumanCard() throws JsonProcessingException{
-		
-		Card humanCard = oController.getHumanCard();
-		String humanCardAsString = oWriter.writeValueAsString(humanCard);
-		return humanCardAsString;
+	@Path("/ai1topcard")
+	/**
+	 * 
+	 * @return
+	 */
+	public String ai1TopCard(){
+		Gson gson = new Gson();
+		String json = gson.toJson(controller.getAi1TopCard());
+		return json;
 	}
+	@GET
+	@Path("/ai2topcard")
+	/**
+	 * 
+	 * @return
+	 */
+	public String ai2TopCard(){
+		Gson gson = new Gson();
+		String json = gson.toJson(controller.getAi2TopCard());
+		return json;
+	}
+	@GET
+	@Path("/ai3topcard")
+	/**
+	 * 
+	 * @return
+	 */
+	public String ai3TopCard(){
+		Gson gson = new Gson();
+		String json = gson.toJson(controller.getAi3TopCard());
+		return json;
+	}
+	@GET
+	@Path("/ai4topcard")
+	/**
+	 * 
+	 * @return
+	 */
+	public String ai4TopCard(){
+		Gson gson = new Gson();
+		String json = gson.toJson(controller.getAi4TopCard());
+		return json;
+	}
+
 	
 	@GET
 	@Path("/helloJSONList")
