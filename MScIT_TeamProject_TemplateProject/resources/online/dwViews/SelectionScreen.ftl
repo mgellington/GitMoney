@@ -38,10 +38,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     </head>
     <body>
+	<style>
+		body{background-color: grey;}
+		h1{color: white;
+			text-align: center;}
+	</style>
         <div class="container-fluid">
             <div class ="row">
                 <div class ="col">
-				<style> h1{text-align: center;}</style>
                     <h1>
                         Glasgow Bars Top Trumps
                     </h1>

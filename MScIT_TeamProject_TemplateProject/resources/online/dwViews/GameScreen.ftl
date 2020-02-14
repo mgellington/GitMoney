@@ -64,6 +64,10 @@
 						</head>
 
 						<body>
+                        <style>
+                                body{background-color: grey;}
+                                h1{color: white;}
+                            </style>
 							<div class="container-fluid">
 								<div class ="row">
 									<div class ="col">
@@ -94,7 +98,7 @@
                                         </div>
                                         </div>
 									</div>
-									<button onclick="whoStarts();" type="button" id="mainButton" class="btn btn-success">Start Game</button>
+									<button onclick="playRound();" type="button" id="mainButton" class="btn btn-success">Start Game</button>
 									</div> 
 
                 <!-- human player card -->
@@ -127,7 +131,7 @@
               </div>
 
               <div class="col-sm" id="ai1card" style="visibility: hidden">
-                AI Player 1 <span class="badge badge-pill badge-dark">XX</span>
+                AI Player 1 <span class="badge badge-pill badge-dark" id="ai1CardNo">XX</span>
                 <div class="card", style="width:80%" style="height:100%;">
                     <div class ="container">
                         <div class ="card-header" id="ai1CardName" >Card Name </div>
@@ -155,7 +159,7 @@
               </div>
 
               <div class="col-sm" id="ai2card" style="visibility: hidden">
-                  AI Player 2 <span class="badge badge-pill badge-dark">XX</span>
+                  AI Player 2 <span class="badge badge-pill badge-dark" id="ai2CardNo">XX</span>
                   <div class="card", style="width:80%" style="height:100%;">
                     <div class ="container">
                         <div class ="card-header" id="ai2CardName">Card Name </div>
@@ -205,7 +209,7 @@
                   </div>
                
                 <div class="col-sm" id="ai3card" style="visibility: hidden">
-                  AI Player 3 <span class="badge badge-pill badge-dark">XX</span>
+                  AI Player 3 <span class="badge badge-pill badge-dark" id="ai3CardNo">XX</span>
                   <div class="card", style="width:80%" style="height:100%;">
                     <div class ="container">
                         <div class ="card-header" id="ai3CardName">Card Name </div>
@@ -233,7 +237,7 @@
                 </div>
 
                 <div class="col-sm" id="ai4card" style="visibility: hidden">
-                  AI Player 4 <span class="badge badge-pill badge-dark">XX</span>
+                  AI Player 4 <span class="badge badge-pill badge-dark" id="ai4CardNo">XX</span>
                   <div class="card", style="width:80%" style="height:100%;">
                     <div class ="container">
                         <div class ="card-header" id="ai4CardName">Card Name </div>
@@ -325,7 +329,6 @@
 			// Method that is called on page load
 			function initalize() {
                 gameStart();
-                roundInfo();
 			
 				// --------------------------------------------------------------------------
 				// You can call other methods you want to run when the page first loads here
@@ -405,6 +408,7 @@
                 $("#UserPubQuiz").html(json["pubQuiz"]);
                 $("#UserAtmosphere").html(json["atmosphere"]);
                 $("#UserPlaylist").html(json["playlist"]);
+                $("#UserCardNo").html(json["deckSize"]);
             };
 
             //send request
@@ -435,7 +439,10 @@
 
         }
 
-        function whoStarts(){
+        function playRound(){
+            userCardInfo();
+            allAiCardInfo();
+            roundInfo();
             // First create a CORS request, this is the message we are going to send (a get request in this case)
             var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/roundinfo"); // Request type and URL
 
@@ -448,19 +455,22 @@
                 var responseText = xhr.response;
                 var json = JSON.parse(responseText);
                 var player = json["activePlayer"];
+                var round =  json["roundCounter"];
                 if(player === "You"){
-                    alert("You to Start! Select a Category!");
+                    if(round === 0){alert("You to Start! Select a Category!");}
+                    else{alert("You won!! Select a category!");}
                     $('#dropdownMenuLink').prop('disabled', false);
                     $('#mainButton').prop('disabled', true);
                 }else{
-                    alert(player + " to Start!");
-                    $('#mainButton').prop('disabled', true);
-                    document.getElementById("mainButton").innerHTML = "Show Cards";
+                    if(round === 0){alert(player + " to start!");;}
+                    else{alert(player + " won!! they're turn!");}
+                    aiPlayerRound();
+                    document.getElementById("mainButton").innerHTML="Show Cards";
+                    document.getElementById("mainButton").onclick = function(){
+                    showCards();
+                    };
+
                 }
-                userCardInfo();
-                allAiCardInfo();
-                roundInfo();
-                showCards();
                 
             };
 
@@ -471,14 +481,18 @@
         $(function(){
 				$(".dropdown-menu li a").click(function () {
                     // First create a CORS request, this is the message we are going to send (a get request in this case)
-            var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/computerround" + $(this).data('value')); // Request type and URL
+            var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/userround?category=" + $(this).data('value')); // Request type and URL
 
             // Message is not sent yet, but we can check that the browser supports CORS
             if (!xhr) {
                 alert("CORS not supported");
             };
             xhr.send();
-				        
+            document.getElementById("mainButton").innerHTML="Show Cards";
+            document.getElementById("mainButton").onclick = function(){
+            showCards();
+            }
+            $('#mainButton').prop('disabled', false);       
 				});
 			});
 
@@ -504,6 +518,24 @@
             elem3.style.visibility="visible";
             var elem4 = document.getElementById('ai4card');
             elem4.style.visibility="visible";
+            document.getElementById("mainButton").innerHTML="Next Round";
+            document.getElementById("mainButton").onclick = function(){
+            nextRound();
+            };
+        }
+        function hideCards(){
+            var elem = document.getElementById('ai1card');
+            elem.style.visibility="hidden";
+            var elem2 = document.getElementById('ai2card');
+            elem2.style.visibility="hidden";
+            var elem3 = document.getElementById('ai3card');
+            elem3.style.visibility="hidden";
+            var elem4 = document.getElementById('ai4card');
+            elem4.style.visibility="hidden";
+        }
+        function nextRound(){
+            hideCards();
+            setTimeout(function(){ playRound(); }, 1000);
         }
 
         function userRoundSelectedCategory(){
@@ -530,6 +562,7 @@
                 $("#ai1PubQuiz").html(json["pubQuiz"]);
                 $("#ai1Atmosphere").html(json["atmosphere"]);
                 $("#ai1Playlist").html(json["playlist"]);
+                $("#ai1CardNo").html(json["deckSize"]);
             };
 
             //send request
@@ -554,6 +587,7 @@
                 $("#ai2PubQuiz").html(json["pubQuiz"]);
                 $("#ai2Atmosphere").html(json["atmosphere"]);
                 $("#ai2Playlist").html(json["playlist"]);
+                $("#ai2CardNo").html(json["deckSize"]);
             };
 
             //send request
@@ -578,6 +612,7 @@
                 $("#ai3PubQuiz").html(json["pubQuiz"]);
                 $("#ai3Atmosphere").html(json["atmosphere"]);
                 $("#ai3Playlist").html(json["playlist"]);
+                $("#ai3CardNo").html(json["deckSize"]);
             };
 
             //send request
@@ -602,6 +637,7 @@
                 $("#ai4PubQuiz").html(json["pubQuiz"]);
                 $("#ai4Atmosphere").html(json["atmosphere"]);
                 $("#ai4Playlist").html(json["playlist"]);
+                $("#ai4CardNo").html(json["deckSize"]);
             };
 
             //send request
