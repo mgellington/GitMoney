@@ -21,6 +21,9 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.gson.Gson;
 
 import database.DatabaseAccess;
+import online.OnlineController;
+import commandline.model.GameModel;
+import commandline.model.*;
 
 @Path("/toptrumps") // Resources specified here should be hosted at http://localhost:7777/toptrumps
 @Produces(MediaType.APPLICATION_JSON) // This resource returns JSON content
@@ -36,6 +39,12 @@ import database.DatabaseAccess;
  * methods that allow a TopTrumps game to be controlled from a Web page.
  */
 public class TopTrumpsRESTAPI {
+// This API has the following attributes:
+// an online controller
+
+OnlineController oController;
+GameModel game;
+
 
 	/** A Jackson Object writer. It allows us to turn Java objects
 	 * into JSON strings easily. */
@@ -51,6 +60,11 @@ public class TopTrumpsRESTAPI {
 		// ----------------------------------------------------
 		// Add relevant initialization here
 		// ----------------------------------------------------
+		
+		// creating an instance of Online Controller to call methods from
+		// I dont know how to get user input to pass number of AI players
+		// so we'll go with 4
+		oController = new OnlineController(4);
 	}
 	
 	// ----------------------------------------------------
@@ -79,6 +93,17 @@ public class TopTrumpsRESTAPI {
 		String json = gson.toJson(stats);
 		return json;
 }
+
+	@GET
+	@Path("/humanCard")
+	/*An attempt to get the API to return the human player's top card
+	*/
+	public String getHumanCard() throws JsonProcessingException{
+		
+		Card humanCard = oController.getHumanCard();
+		String humanCardAsString = oWriter.writeValueAsString(humanCard);
+		return humanCardAsString;
+	}
 	
 	@GET
 	@Path("/helloJSONList")
