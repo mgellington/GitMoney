@@ -130,14 +130,24 @@
                 AI Player 1 <span class="badge badge-pill badge-dark">XX</span>
                 <div class="card", style="width:80%" style="height:100%;">
                     <div class ="container">
-                        <div class ="card-header">Card Name </div>
-                            <p>
-                                Stat1<br>
-                                Stat2<br>
-                                Stat3<br>
-                                Stat4<br>
-                                Stat5<br>
-                            </p>
+                        <div class ="card-header" id="ai1CardName" >Card Name </div>
+                            <div>
+                            <div>
+								<p style="float: left;">Floor Stickiness:</p><p id="ai1FloorSticky"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Pint Price:</p><p id="ai1PintPrice"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Pub Quiz:</p><p id="ai1PubQuiz"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Atmosphere:</p><p id="ai1Atmosphere"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Playlist:</p><p id="ai1Playlist"></p>
+                            </div>
+                            </div>
                         </div>
                       
     
@@ -148,14 +158,24 @@
                   AI Player 2 <span class="badge badge-pill badge-dark">XX</span>
                   <div class="card", style="width:80%" style="height:100%;">
                     <div class ="container">
-                        <div class ="card-header">Card Name </div>
-                            <p>
-                                Stat1<br>
-                                Stat2<br>
-                                Stat3<br>
-                                Stat4<br>
-                                Stat5<br>
-                            </p>
+                        <div class ="card-header" id="ai2CardName">Card Name </div>
+                            <div>
+                            <div>
+								<p style="float: left;">Floor Stickiness:</p><p id="ai2FloorSticky"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Pint Price:</p><p id="ai2PintPrice"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Pub Quiz:</p><p id="ai2PubQuiz"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Atmosphere:</p><p id="ai2Atmosphere"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Playlist:</p><p id="ai2Playlist"></p>
+                            </div>
+                            </div>
                         </div>
                       
     
@@ -170,15 +190,16 @@
                 <div class="col-sm">
                   <!-- next button, and select category drop down menu-->
                   <div class="dropdown show">
-                    <a class="btn btn-secondary dropdown-toggle disabled" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" disabled>
                       Choose a category
-                    </a>
-                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" onclick="PintPriceFunction()" href="#">Pint Price</a>
-                    <a class="dropdown-item" onclick="AtmosphereFunction()" href="#">Atmosphere</a>
-                    <a class="dropdown-item" onclick="PubQuizFunction()" href="#">Pub Quiz Quality</a>
-                    <a class="dropdown-item" onclick="MusicQualityFunction()" href="#">Music Quality</a>
-                    <a class="dropdown-item" onclick="StickyFunction()" href="#">Floor Stickiness</a>
+                    <span class="caret"></span></button>
+                    <ul id="dropdown" class="dropdown-menu">
+                    <li><a data-value="1" href="#">Floor Stickiness</a></li>
+					<li><a data-value="2" href="#">Pint Price</a></li>
+					<li><a data-value="3" href="#">Atmosphere</a></li>
+					<li><a data-value="4" href="#">Pub Quiz Quality</a></li>
+					<li><a data-value="5" href="#">Playlist Quality</a></li>
+					</ul>
                   </div>
                 </div>
                   </div>
@@ -187,14 +208,24 @@
                   AI Player 3 <span class="badge badge-pill badge-dark">XX</span>
                   <div class="card", style="width:80%" style="height:100%;">
                     <div class ="container">
-                        <div class ="card-header">Card Name </div>
-                            <p>
-                                Stat1<br>
-                                Stat2<br>
-                                Stat3<br>
-                                Stat4<br>
-                                Stat5<br>
-                            </p>
+                        <div class ="card-header" id="ai3CardName">Card Name </div>
+                            <div>
+                            <div>
+								<p style="float: left;">Floor Stickiness:</p><p id="ai3FloorSticky"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Pint Price:</p><p id="ai3PintPrice"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Pub Quiz:</p><p id="ai3PubQuiz"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Atmosphere:</p><p id="ai3Atmosphere"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Playlist:</p><p id="ai3Playlist"></p>
+                            </div>
+                            </div>
                         </div>
                       
     
@@ -205,14 +236,24 @@
                   AI Player 4 <span class="badge badge-pill badge-dark">XX</span>
                   <div class="card", style="width:80%" style="height:100%;">
                     <div class ="container">
-                        <div class ="card-header">Card Name </div>
-                            <p>
-                                Stat1<br>
-                                Stat2<br>
-                                Stat3<br>
-                                Stat4<br>
-                                Stat5<br>
-                            </p>
+                        <div class ="card-header" id="ai4CardName">Card Name </div>
+                           <div>
+                            <div>
+								<p style="float: left;">Floor Stickiness:</p><p id="ai4FloorSticky"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Pint Price:</p><p id="ai4PintPrice"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Pub Quiz:</p><p id="ai4PubQuiz"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Atmosphere:</p><p id="ai4Atmosphere"></p>
+                            </div>
+                            <div>
+							    <p style="float: left;">Playlist:</p><p id="ai4Playlist"></p>
+                            </div>
+                            </div>
                         </div>
                       
     
@@ -339,6 +380,12 @@
             xhr.send();
 
             }
+            function allAiCardInfo(){
+                ai1CardInfo();
+                ai2CardInfo();
+                ai3CardInfo();
+                ai4CardInfo();
+            }
 
             function userCardInfo(){
             // First create a CORS request, this is the message we are going to send (a get request in this case)
@@ -353,11 +400,11 @@
                 var responseText = xhr.response;
                 var json = JSON.parse(responseText);
                 $("#UserCardName").html(json["name"]);
-                $("#UserFloorSticky").html(json["FLOOR"]);
-                $("#UserPintPrice").html(json["PINT"]);
-                $("#UserPubQuiz").html(json["QUIZ"]);
-                $("#UserAtmosphere").html(json["VIBES"]);
-                $("#UserPlaylist").html(json["TUNES"]);
+                $("#UserFloorSticky").html(json["floorSticky"]);
+                $("#UserPintPrice").html(json["pintPrice"]);
+                $("#UserPubQuiz").html(json["pubQuiz"]);
+                $("#UserAtmosphere").html(json["atmosphere"]);
+                $("#UserPlaylist").html(json["playlist"]);
             };
 
             //send request
@@ -389,7 +436,8 @@
         }
 
         function whoStarts(){
-            var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/whostarts"); // Request type and URL
+            // First create a CORS request, this is the message we are going to send (a get request in this case)
+            var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/roundinfo"); // Request type and URL
 
             // Message is not sent yet, but we can check that the browser supports CORS
             if (!xhr) {
@@ -397,31 +445,172 @@
             }
             //need to determine what to do with returned info before //sending request
             xhr.onload = function(e) {
-                var response = xhr.response;
-                if(response == 0){
-                    alert("User to Start! Pick a Category!");
-                    userToPickCategory();
-                } else{
-                    alert("AI Player " + response + " to start!");
-                    aiRound();
+                var responseText = xhr.response;
+                var json = JSON.parse(responseText);
+                var player = json["activePlayer"];
+                if(player === "You"){
+                    alert("You to Start! Select a Category!");
+                    $('#dropdownMenuLink').prop('disabled', false);
+                    $('#mainButton').prop('disabled', true);
+                }else{
+                    alert(player + " to Start!");
+                    $('#mainButton').prop('disabled', true);
+                    document.getElementById("mainButton").innerHTML = "Show Cards";
                 }
                 userCardInfo();
+                allAiCardInfo();
+                roundInfo();
+                showCards();
                 
+            };
+
+            //send request
+            xhr.send();
+        }
+
+        $(function(){
+				$(".dropdown-menu li a").click(function () {
+                    // First create a CORS request, this is the message we are going to send (a get request in this case)
+            var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/computerround" + $(this).data('value')); // Request type and URL
+
+            // Message is not sent yet, but we can check that the browser supports CORS
+            if (!xhr) {
+                alert("CORS not supported");
+            };
+            xhr.send();
+				        
+				});
+			});
+
+
+        function aiPlayerRound(){
+
+            // First create a CORS request, this is the message we are going to send (a get request in this case)
+            var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/computerround"); // Request type and URL
+
+            // Message is not sent yet, but we can check that the browser supports CORS
+            if (!xhr) {
+                alert("CORS not supported");
+            };
+            xhr.send();
+
+        }
+        function showCards(){
+            var elem = document.getElementById('ai1card');
+            elem.style.visibility="visible";
+            var elem2 = document.getElementById('ai2card');
+            elem2.style.visibility="visible";
+            var elem3 = document.getElementById('ai3card');
+            elem3.style.visibility="visible";
+            var elem4 = document.getElementById('ai4card');
+            elem4.style.visibility="visible";
+        }
+
+        function userRoundSelectedCategory(){
+				var menu = document.querySelector("aiplayer");
+				var number = menu.value;
+				alert("CORS not supported");
+			}
+
+        function ai1CardInfo(){
+            // First create a CORS request, this is the message we are going to send (a get request in this case)
+            var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/ai1topcard"); // Request type and URL
+
+            // Message is not sent yet, but we can check that the browser supports CORS
+            if (!xhr) {
+                alert("CORS not supported");
             }
+            //need to determine what to do with returned info before //sending request
+            xhr.onload = function(e) {
+                var responseText = xhr.response;
+                var json = JSON.parse(responseText);
+                $("#ai1CardName").html(json["name"]);
+                $("#ai1FloorSticky").html(json["floorSticky"]);
+                $("#ai1PintPrice").html(json["pintPrice"]);
+                $("#ai1PubQuiz").html(json["pubQuiz"]);
+                $("#ai1Atmosphere").html(json["atmosphere"]);
+                $("#ai1Playlist").html(json["playlist"]);
+            };
+
+            //send request
+            xhr.send();
+
+        }
+        function ai2CardInfo(){
+            // First create a CORS request, this is the message we are going to send (a get request in this case)
+            var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/ai2topcard"); // Request type and URL
+
+            // Message is not sent yet, but we can check that the browser supports CORS
+            if (!xhr) {
+                alert("CORS not supported");
+            }
+            //need to determine what to do with returned info before //sending request
+            xhr.onload = function(e) {
+                var responseText = xhr.response;
+                var json = JSON.parse(responseText);
+                $("#ai2CardName").html(json["name"]);
+                $("#ai2FloorSticky").html(json["floorSticky"]);
+                $("#ai2PintPrice").html(json["pintPrice"]);
+                $("#ai2PubQuiz").html(json["pubQuiz"]);
+                $("#ai2Atmosphere").html(json["atmosphere"]);
+                $("#ai2Playlist").html(json["playlist"]);
+            };
+
+            //send request
+            xhr.send();
+
+        }
+        function ai3CardInfo(){
+            // First create a CORS request, this is the message we are going to send (a get request in this case)
+            var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/ai3topcard"); // Request type and URL
+
+            // Message is not sent yet, but we can check that the browser supports CORS
+            if (!xhr) {
+                alert("CORS not supported");
+            }
+            //need to determine what to do with returned info before //sending request
+            xhr.onload = function(e) {
+                var responseText = xhr.response;
+                var json = JSON.parse(responseText);
+                $("#ai3CardName").html(json["name"]);
+                $("#ai3FloorSticky").html(json["floorSticky"]);
+                $("#ai3PintPrice").html(json["pintPrice"]);
+                $("#ai3PubQuiz").html(json["pubQuiz"]);
+                $("#ai3Atmosphere").html(json["atmosphere"]);
+                $("#ai3Playlist").html(json["playlist"]);
+            };
+
+            //send request
+            xhr.send();
+
+        }
+        function ai4CardInfo(){
+            // First create a CORS request, this is the message we are going to send (a get request in this case)
+            var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/ai4topcard"); // Request type and URL
+
+            // Message is not sent yet, but we can check that the browser supports CORS
+            if (!xhr) {
+                alert("CORS not supported");
+            }
+            //need to determine what to do with returned info before //sending request
+            xhr.onload = function(e) {
+                var responseText = xhr.response;
+                var json = JSON.parse(responseText);
+                $("#ai4CardName").html(json["name"]);
+                $("#ai4FloorSticky").html(json["floorSticky"]);
+                $("#ai4PintPrice").html(json["pintPrice"]);
+                $("#ai4PubQuiz").html(json["pubQuiz"]);
+                $("#ai4Atmosphere").html(json["atmosphere"]);
+                $("#ai4Playlist").html(json["playlist"]);
+            };
 
             //send request
             xhr.send();
 
         }
 
-        function userToPickCategory(){
-            $('dropdownMenuLink').prop('disabled', false);
-    	}
-        
-        function showUserCardInfo(){
-            
+       
 
-        }
 
 
 

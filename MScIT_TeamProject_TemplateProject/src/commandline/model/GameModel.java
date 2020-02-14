@@ -22,8 +22,6 @@ public class GameModel {
 		this.mainDeck = inputDeck;
 		this.communalDeck = new Deck();
 		this.mainDeck.shuffleDeck();
-		int numOfRounds = 1;
-		int numOfDraws = 0;
 		player = new ArrayList<Player>();
 		// sets you as player and adds to array list
 		player.add(new Player());
@@ -32,6 +30,7 @@ public class GameModel {
 		for (int i = 1; i < numAIPlayers; i++) {
 			player.add(new Player());
 			player.get(i).setName("AI Player " + i);
+			System.out.println("AI Player " + i);
 		}
 		// deals cards to all players
 		int k = 0;

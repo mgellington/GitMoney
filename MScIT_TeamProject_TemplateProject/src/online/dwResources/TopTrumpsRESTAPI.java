@@ -21,7 +21,7 @@ import online.configuration.TopTrumpsJSONConfiguration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.google.gson.Gson;M
+import com.google.gson.Gson;
 import database.DatabaseAccess;
 
 @Path("/toptrumps") // Resources specified here should be hosted at http://localhost:7777/toptrumps
@@ -60,7 +60,7 @@ public class TopTrumpsRESTAPI {
 		oWriter = new ObjectMapper().writerWithDefaultPrettyPrinter();
         deckFile = conf.getDeckFile();
 		NUMBER_OF_PLAYERS = conf.getNumAIPlayers() + 1;
-		controller = new OnlineController(NUMBER_OF_PLAYERS -1);
+		controller = new OnlineController(4);
 	}
 	
 	// ----------------------------------------------------
@@ -94,19 +94,6 @@ public class TopTrumpsRESTAPI {
 		Gson gson = new Gson();
 		String json = gson.toJson(controller.getRoundInfo());
 		return json;
-	}
-
-	@GET
-	@Path("/whostarts")
-	/**
-	 * 
-	 * @return returns int from 1-5 to decide who the starting player is
-	 */
-
-	public int whoStarts(){
-		Random random = new Random();
-		int starter = random.nextInt(5);
-		return starter;
 	}
 
 
@@ -168,7 +155,53 @@ public class TopTrumpsRESTAPI {
 		Gson gson = new Gson();
 		String json = gson.toJson(stats);
 		return json;
-}
+	}
+
+	@GET
+	@Path("/ai1topcard")
+	/**
+	 * 
+	 * @return
+	 */
+	public String ai1TopCard(){
+		Gson gson = new Gson();
+		String json = gson.toJson(controller.getAi1TopCard());
+		return json;
+	}
+	@GET
+	@Path("/ai2topcard")
+	/**
+	 * 
+	 * @return
+	 */
+	public String ai2TopCard(){
+		Gson gson = new Gson();
+		String json = gson.toJson(controller.getAi2TopCard());
+		return json;
+	}
+	@GET
+	@Path("/ai3topcard")
+	/**
+	 * 
+	 * @return
+	 */
+	public String ai3TopCard(){
+		Gson gson = new Gson();
+		String json = gson.toJson(controller.getAi3TopCard());
+		return json;
+	}
+	@GET
+	@Path("/ai4topcard")
+	/**
+	 * 
+	 * @return
+	 */
+	public String ai4TopCard(){
+		Gson gson = new Gson();
+		String json = gson.toJson(controller.getAi4TopCard());
+		return json;
+	}
+
 	
 	@GET
 	@Path("/helloJSONList")

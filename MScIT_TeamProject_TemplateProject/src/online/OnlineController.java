@@ -135,6 +135,9 @@ public class OnlineController {
     public RoundInfo getRoundInfo(){
         return rInfo;
     }  
+    public int getActivePlayer(){
+        return game.getActivePlayer();
+    }
     
     //Trying to get a method to show the winner of a round but who is it?????
     public String getRoundWinner() {
@@ -145,18 +148,37 @@ public class OnlineController {
     }
     
     // method to return the human player's card 
-    public String getHumanCard() {
+    public Map getHumanCard() {
     	Player hPlayer = this.game.getPlayer().get(0);
-        Card humanCard = hPlayer.getDeck().getTopCard();
-        Map<String, String> card = new HashMap<String, String>();
-        card.put("name", "" + humanCard.getName());
-        card.put("name", "" + humanCard.get)
+        Map humanCard = hPlayer.getDeck().getTopCard().getCardAsMap();
+        return humanCard;
         //making hashmap for card
-    	
-
+    }
+    public Map getAi1TopCard() {
+    	Player Ai1 = this.game.getPlayer().get(1);
+        Map Ai1Card = Ai1.getDeck().getTopCard().getCardAsMap();
+        return Ai1Card;
+        //making hashmap for card
+    }
+    public Map getAi2TopCard() {
+    	Player Ai2 = this.game.getPlayer().get(2);
+        Map Ai2Card = Ai2.getDeck().getTopCard().getCardAsMap();
+        return Ai2Card;
+        //making hashmap for card
+    }
+    public Map getAi3TopCard() {
+    	Player Ai3 = this.game.getPlayer().get(3);
+        Map Ai3Card = Ai3.getDeck().getTopCard().getCardAsMap();
+        return Ai3Card;
+        //making hashmap for card
+    }
+    public Map getAi4TopCard() {
+    	Player Ai4 = this.game.getPlayer().get(4);
+        Map Ai4Card = Ai4.getDeck().getTopCard().getCardAsMap();
+        return Ai4Card;
+        //making hashmap for card
     }
     
-
     private static Deck readInDeck(String pathName) {
 
         // will read in info from the txt file containing deck and create a deck object based on this
