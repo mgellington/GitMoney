@@ -26,6 +26,12 @@
         <!-- Stylising the cards with css-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 					<style>
+                    body {
+                        background-image: url(https://cdn.pixabay.com/photo/2014/09/27/13/38/bar-463476_1280.jpg);
+                        background-repeat: no-repeat;
+                        background-position: 0 0;
+                        background-size: cover;
+                    }
 					.card {
 					box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 					transition: 0.3s;
@@ -60,6 +66,9 @@
 					width: 180px;
 					background-color: rgb(235, 179, 179);
 					}
+                    #info {
+                        color: white;
+                    }
 					</style>
 						</head>
 
@@ -80,7 +89,7 @@
 
 							<div class="container">
 								<div class="row">
-								<div class="col-sm">
+								<div class="col-sm" id="info">
 									Information
 									<div class="rectangle">
 										<div>
