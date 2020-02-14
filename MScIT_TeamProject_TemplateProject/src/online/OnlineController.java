@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.io.File;
+
 
 
 
@@ -33,7 +33,7 @@ public class OnlineController {
     public OnlineController(int inputNumAI) {
         deck = readInDeck("GlasgowBars.txt");
 
-        aiPlayerNum = inputNumAI;
+        aiPlayerNum = inputNumAI + 1;
 
     }
 

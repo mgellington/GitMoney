@@ -11,8 +11,6 @@ public class GameModel {
 	private int activePlayer;
 	private int numOfRounds; // update somewhere within methods or remove from the class entirely
 	private int numOfDraws; // this doesn't get updated - suggest to remove
-	private int numAIPlayers;
-	private CategoryTypes chosenCategory = null;
 	private Player gameWinner;
 	private Card roundWinningCard;
 
@@ -30,7 +28,6 @@ public class GameModel {
 		for (int i = 1; i < numAIPlayers; i++) {
 			player.add(new Player());
 			player.get(i).setName("AI Player " + i);
-			System.out.println("AI Player " + i);
 		}
 		// deals cards to all players
 		int k = 0;
