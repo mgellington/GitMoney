@@ -33,7 +33,7 @@ public class OnlineController {
     public OnlineController(int inputNumAI) {
         deck = readInDeck("GlasgowBars.txt");
 
-        aiPlayerNum = inputNumAI + 1;
+        aiPlayerNum = inputNumAI + 1 ;
 
     }
 
