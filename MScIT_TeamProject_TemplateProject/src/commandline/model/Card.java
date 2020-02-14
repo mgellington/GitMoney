@@ -1,15 +1,22 @@
 package commandline.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Card {
 
 	private String name;
 	private Category[] cats;
-	// private int floorSticky, pintPrice, pubQuiz, atmosphere, music;
+	private int floorSticky, pintPrice, pubQuiz, atmosphere, music;
 
 	public Card(String name, int floorSticky, int pintPrice, int pubQuiz, int atmosphere, int music) {
 		this.name = name;
 		this.cats = new Category[5];
-		
+		this.floorSticky = floorSticky;
+		this.pintPrice = pintPrice;
+		this.pubQuiz = pubQuiz;
+		this.atmosphere = atmosphere;
+		this.music = music;
 		Category floor = new Category(CategoryTypes.FLOOR, floorSticky);
 		Category pint = new Category(CategoryTypes.PINT, pintPrice);
 		Category quiz = new Category(CategoryTypes.QUIZ, pubQuiz);
@@ -80,6 +87,16 @@ public class Card {
 	public void setCats(Category[] cats) {
 		this.cats = cats;
 	}
+	public Map getCardAsMap(){
+		Map<String, String> card = new HashMap<String, String>();
+        card.put("name", "" + this.name);
+        card.put("floorSticky", "" + this.floorSticky);
+        card.put("pintPrice", "" + this.pintPrice);
+        card.put("pubQuiz", "" + this.pubQuiz);
+        card.put("atmosphere", "" + this.atmosphere);
+        card.put("playlist", "" + this.music);
+        return card;
+	}
 	
 	
 	
@@ -87,29 +104,26 @@ public class Card {
 	
 	// need method for printing card info
 
-//	public String getName() {
-//		return name;
-//	}
-//
-//	public int getFloorSticky() {
-//		return floorSticky;
-//	}
-//
-//	public int getPintPrice() {
-//		return pintPrice;
-//	}
-//
-//	public int getPubQuiz() {
-//		return pubQuiz;
-//	}
-//
-//	public int getAtmosphere() {
-//		return atmosphere;
-//	}
-//
-//	public int getMusic() {
-//		return music;
-//	}
+
+	// public int getFloorSticky() {
+	// 	return floorSticky;
+	// }
+
+	// public int getPintPrice() {
+	// 	return pintPrice;
+	// }
+
+	// public int getPubQuiz() {
+	// 	return pubQuiz;
+	// }
+
+	// public int getAtmosphere() {
+	// 	return atmosphere;
+	// }
+
+	// public int getMusic() {
+	// 	return music;
+	// }
 
     public String toString(){
 	    String cardContents="";

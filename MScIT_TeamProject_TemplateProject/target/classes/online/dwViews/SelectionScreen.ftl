@@ -38,10 +38,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     </head>
     <body>
+	<style>
+		body{background-color: grey;}
+		h1{color: white;
+			text-align: center;}
+	</style>
         <div class="container-fluid">
             <div class ="row">
                 <div class ="col">
-				<style> h1{text-align: center;}</style>
                     <h1>
                         Glasgow Bars Top Trumps
                     </h1>
@@ -68,32 +72,9 @@
               <br>
               <div class ="row">
                 <div class ="col"></div>
-                <div class ="col"><button id="newGame" value="Redirect" type="button" class="btn btn-success btn-block" >New Game</button></div>
+                <div class ="col"><button id="newGame" value="Redirect" type="button" onclick="newGame()" class="btn btn-success btn-block" >New Game</button></div>
                 <div class ="col"></div>
-            </div>
-			<br>
-            <div class ="row3">
-					<div class ="col-sm"></div>
-							<div class="dropdown">
-								<button class="btn btn-primary dropdown-toggle" id="aiplayer" onclick="selectedPlayers()" type="button" data-toggle="dropdown" disabled>AI Players
-								<span class="caret"></span></button>
-									<ul id="dropdown" class="dropdown-menu">
-										<li><a data-value="1" href="#">1 AI Player</a></li>
-										<li><a data-value="2" href="#">2 AI Players</a></li>
-										<li><a data-value="3" href="#">3 AI Players</a></li>
-										<li><a data-value="4" href="#">4 AI Players</a></li>
-									</ul>
-							</div>
-						<div class ="col-sm"></div>
-					</div>
-					<style>
-					.dropdown {
-								display: flex;
-								justify-content: center;
-								align-items: center;
-								}
-					</style>
-               
+            </div>   
         	 </div>
 
         <!-- importing javascript plugins that are used by bootstrap-->
@@ -152,17 +133,10 @@
 		
 		<!-- Here are examples of how to call REST API Methods -->
 		<script type="text/javascript">
-		$(function(){
-			$('#newGame').click(function() {
-				$('button').prop('disabled', false);
-    			});
-			});
+		function newGame(){
+			window.location.href = 'http://localhost:7777/toptrumps/game';
 
-			$(function(){
-				$(".dropdown-menu li a").click(function () {
-					alert($(this).data('value'));
-				});
-			});
+		}
 
 
 			function statsScreen(){

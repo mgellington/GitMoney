@@ -1,20 +1,19 @@
 package online;
-import java.io.BufferedReader;
 
-import commandline.*;
+import java.io.BufferedReader;
 import commandline.model.CategoryTypes;
 import commandline.model.Deck;
 import commandline.model.GameModel;
 import commandline.model.Player;
+import commandline.model.RoundInfo;
 import commandline.model.Card;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.stream.IntStream;
-import java.io.File;
+
 
 
 
@@ -34,7 +33,7 @@ public class OnlineController {
     public OnlineController(int inputNumAI) {
         deck = readInDeck("GlasgowBars.txt");
 
-        aiPlayerNum = inputNumAI;
+        aiPlayerNum = inputNumAI + 1 ;
 
     }
 
@@ -135,7 +134,13 @@ public class OnlineController {
         
     public RoundInfo getRoundInfo(){
         return rInfo;
-    }    
+    }  
+    public int getActivePlayer(){
+        return game.getActivePlayer();
+    }
+    public CategoryTypes getChosenCatergory(){
+        return this.chosenCategory;
+    }
     
     //Trying to get a method to show the winner of a round but who is it?????
     public String getRoundWinner() {
@@ -146,19 +151,46 @@ public class OnlineController {
     }
     
     // method to return the human player's card 
-    public Card getHumanCard() {
+    public Map getHumanCard() {
     	Player hPlayer = this.game.getPlayer().get(0);
-    	Card humanCard = hPlayer.getDeck().getTopCard();
-    	return humanCard;
-
+        Map humanCard = hPlayer.getDeck().getTopCard().getCardAsMap();
+        humanCard.put("deckSize", "" + hPlayer.getDeck().sizeOfDeck());
+        return humanCard;
+        //making hashmap for card
+    }
+    public Map getAi1TopCard() {
+    	Player Ai1 = this.game.getPlayer().get(1);
+        Map Ai1Card = Ai1.getDeck().getTopCard().getCardAsMap();
+        Ai1Card.put("deckSize", "" + Ai1.getDeck().sizeOfDeck());
+        return Ai1Card;
+        //making hashmap for card
+    }
+    public Map getAi2TopCard() {
+    	Player Ai2 = this.game.getPlayer().get(2);
+        Map Ai2Card = Ai2.getDeck().getTopCard().getCardAsMap();
+        Ai2Card.put("deckSize", "" + Ai2.getDeck().sizeOfDeck());
+        return Ai2Card;
+        //making hashmap for card
+    }
+    public Map getAi3TopCard() {
+    	Player Ai3 = this.game.getPlayer().get(3);
+        Map Ai3Card = Ai3.getDeck().getTopCard().getCardAsMap();
+        Ai3Card.put("deckSize", "" + Ai3.getDeck().sizeOfDeck());
+        return Ai3Card;
+        //making hashmap for card
+    }
+    public Map getAi4TopCard() {
+    	Player Ai4 = this.game.getPlayer().get(4);
+        Map Ai4Card = Ai4.getDeck().getTopCard().getCardAsMap();
+        Ai4Card.put("deckSize", "" + Ai4.getDeck().sizeOfDeck());
+        return Ai4Card;
+        //making hashmap for card
     }
     
-
     private static Deck readInDeck(String pathName) {
 
         // will read in info from the txt file containing deck and create a deck object based on this
         Deck inputDeck = new Deck();
-        File file = new File(pathName);
         try {
             Scanner scanner = new Scanner(new BufferedReader(new FileReader(pathName)));
             while(scanner.hasNextLine()) {
@@ -171,6 +203,7 @@ public class OnlineController {
 				//System.out.println("here");
 				inputDeck.addCard(new Card(name, sticky, pintPrice, pubQuiz, atmosphere, music));
             }
+            scanner.close();
             
 
         } catch (FileNotFoundException ex) {

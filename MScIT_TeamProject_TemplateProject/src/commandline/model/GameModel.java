@@ -11,8 +11,6 @@ public class GameModel {
 	private int activePlayer;
 	private int numOfRounds; // update somewhere within methods or remove from the class entirely
 	private int numOfDraws; // this doesn't get updated - suggest to remove
-	private int numAIPlayers;
-	private CategoryTypes chosenCategory = null;
 	private Player gameWinner;
 	private Card roundWinningCard;
 
@@ -22,8 +20,6 @@ public class GameModel {
 		this.mainDeck = inputDeck;
 		this.communalDeck = new Deck();
 		this.mainDeck.shuffleDeck();
-		int numOfRounds = 1;
-		int numOfDraws = 0;
 		player = new ArrayList<Player>();
 		// sets you as player and adds to array list
 		player.add(new Player());
