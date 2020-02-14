@@ -415,6 +415,25 @@
             xhr.send();
 
         }
+        function chosenCategory(){
+            // First create a CORS request, this is the message we are going to send (a get request in this case)
+            var xhr = createCORSRequest('GET', "http://localhost:7777/toptrumps/chosencategory"); // Request type and URL
+
+            // Message is not sent yet, but we can check that the browser supports CORS
+            if (!xhr) {
+                alert("CORS not supported");
+            }
+            //need to determine what to do with returned info before //sending request
+            xhr.onload = function(e) {
+                var responseText = xhr.response;
+                var json = JSON.parse(responseText);
+                $("#chosenCategory").html(json["chosenCategory"]);
+            };
+
+            //send request
+            xhr.send();
+
+        }
 
         
             function roundInfo(){
@@ -465,6 +484,7 @@
                     if(round === 0){alert(player + " to start!");;}
                     else{alert(player + " won!! they're turn!");}
                     aiPlayerRound();
+                    chosenCategory();
                     document.getElementById("mainButton").innerHTML="Show Cards";
                     document.getElementById("mainButton").onclick = function(){
                     showCards();
@@ -492,6 +512,7 @@
             document.getElementById("mainButton").onclick = function(){
             showCards();
             }
+            chosenCategory()
             $('#mainButton').prop('disabled', false);       
 				});
 			});
@@ -535,7 +556,7 @@
         }
         function nextRound(){
             hideCards();
-            setTimeout(function(){ playRound(); }, 1000);
+            setTimeout(function(){ playRound(); }, 500);
         }
 
         function userRoundSelectedCategory(){

@@ -95,6 +95,22 @@ public class TopTrumpsRESTAPI {
 		String json = gson.toJson(controller.getRoundInfo());
 		return json;
 	}
+	@GET
+	@Path("/chosencategory")
+	/**
+	 * 
+	 * @return the chosen category
+	 *
+	 * @throws JsonProcessingException
+	 */
+
+	public String chosenCategory() throws JsonProcessingException{
+		Map<String, String> category = new HashMap<String, String>();
+        category.put("chosenCategory", controller.getChosenCatergory().getName());
+		Gson gson = new Gson();
+		String json = gson.toJson(category);
+		return json;
+	}
 
 
 

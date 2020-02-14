@@ -138,6 +138,9 @@ public class OnlineController {
     public int getActivePlayer(){
         return game.getActivePlayer();
     }
+    public CategoryTypes getChosenCatergory(){
+        return this.chosenCategory;
+    }
     
     //Trying to get a method to show the winner of a round but who is it?????
     public String getRoundWinner() {
