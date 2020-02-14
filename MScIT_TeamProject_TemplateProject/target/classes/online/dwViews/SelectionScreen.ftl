@@ -39,9 +39,16 @@
     </head>
     <body>
 	<style>
-		body{background-color: grey;}
+		body {
+                        background-image: url(https://cdn.pixabay.com/photo/2019/04/18/11/56/monkey-4136775_1280.jpg);
+                        background-repeat: no-repeat;
+                        background-position: 0 0;
+                        background-size: cover;
+                    }
 		h1{color: white;
-			text-align: center;}
+			text-align: center;
+			font-size: 50px;
+			font-weight: 500;}
 	</style>
         <div class="container-fluid">
             <div class ="row">

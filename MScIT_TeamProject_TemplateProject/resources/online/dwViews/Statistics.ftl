@@ -33,7 +33,12 @@
         <!-- Add your HTML Here -->
         <div class="Header">
         <style> 
-            body{background: grey}
+            body {
+                        background-image: url(https://cdn.pixabay.com/photo/2014/09/27/13/38/bar-463476_1280.jpg);
+                        background-repeat: no-repeat;
+                        background-position: 0 0;
+                        background-size: cover;
+                    }
             h1, h2{text-align: center; color: white}</style>
             <h1> Glasgow Bars Top Trumps</h1>
             <h2> Statistics</h2>
@@ -41,6 +46,7 @@
                 p {
                     text-align: right;
                     color: white;
+                    font-size: 25px;
                 }
                 
                 #total_games, #user_wins, #computer_wins, #avg_draws, #max_rounds {

@@ -66,6 +66,9 @@
 					width: 180px;
 					background-color: rgb(235, 179, 179);
 					}
+                    p {
+                        color: black;
+                    }
                     #info {
                         color: white;
                     }
