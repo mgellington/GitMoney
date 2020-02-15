@@ -49,6 +49,19 @@
 			text-align: center;
 			font-size: 50px;
 			font-weight: 500;}
+
+		#stats {
+			background-color: darkgrey;
+			border: darkgrey;
+			height: 43;
+			font-size: 18px;
+		}
+		#newGame {
+			background-color: #585858;
+			border: black;
+			height: 43;
+			font-size: 18px;
+		}
 	</style>
         <div class="container-fluid">
             <div class ="row">
@@ -68,7 +81,7 @@
             </div>
             <div class ="row">
                 <div class ="col"></div>
-                <div class ="col"><button type="button" onclick="statsScreen()" class="btn btn-warning btn-block">Statistics</button></div>
+                <div class ="col"><button type="button" id="stats" onclick="statsScreen()" class="btn btn-warning btn-block">Statistics</button></div>
                 <div class ="col"></div>
             </div>
                <div class ="row">

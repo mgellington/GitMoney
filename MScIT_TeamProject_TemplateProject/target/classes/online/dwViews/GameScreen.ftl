@@ -63,23 +63,12 @@
 						
 					.rectangle {
 					height: 200px;
-					width: 180px;
-					background-color: rgb(235, 179, 179);
+					width: 220px;
 					}
-                    p {
-                        color: black;
-                    }
-                    #info {
-                        color: white;
-                    }
 					</style>
 						</head>
 
 						<body>
-                        <style>
-                                body{background-color: grey;}
-                                h1{color: white;}
-                            </style>
 							<div class="container-fluid">
 								<div class ="row">
 									<div class ="col">
@@ -89,31 +78,67 @@
 									</div>
 								</div>
 							</div>
+                            <style>
+                                h1{color: white;
+                                    font-size: 40px;}
+                            
+                                #info {
+                                    font-size: 24px;
+                                    font-weight: 700;
+                                    color: white;
+                                }
+                                #infoOne {
+                                    color: white;
+                                    font-size: 18px;
+                                    font-weight: 700;
+                                }
+                                #roundNumber, #activePlayer, #chosenCategory, #comDeck{
+                                    color: white;
+                                    font-size: 18px;
+                                    font-weight: 300;
+                                    align: left;
+                                }
+
+                                #att {  color: black;}
+                            </style>
 
 							<div class="container">
 								<div class="row">
 								<div class="col-sm" id="info">
 									Information
-									<div class="rectangle">
+									<div class="rectangle" id="infoOne">
+                                    <br>
 										<div>
                                         <div>
-											<p style="float: left;">Round Number:</p><p id="roundNumber"></p>
+											<p style="float: left;">Round Number:&nbsp</p><p id="roundNumber"></p>
                                         </div>
                                         <div>
-											<p style="float: left;">Active Player:</p><p id="activePlayer"></p>
+											<p style="float: left;">Active Player:&nbsp</p><p id="activePlayer"></p>
                                         </div>
                                         <div>
-											<p style="float: left;">Category Chosen:</p><p id="chosenCategory"></p>
+											<p style="float: left;">Category Chosen:&nbsp&nbsp&nbsp</p>
+                                        <p id="chosenCategory"></p>
                                         </div>
                                         <div>
-											<p style="float: left;">Communal Deck Size:</p><p id="comDeck"></p>
+											<p style="float: left;">Communal Deck Size:&nbsp</p><p id="comDeck"></p>
                                         </div>
                                         </div>
 									</div>
 									<button onclick="playRound();" type="button" id="mainButton" class="btn btn-success">Start Game</button>
+                                    <style>
+                                    #mainButton {
+                                        background-color: #005c99;
+                                        border: black;
+                                        font-weight: 600;
+                                    }
+                                    </style>
 									</div> 
 
                 <!-- human player card -->
+                <style> #usercard {color:white;}
+                        #UserCardName{color:black;}
+                        #UserFloorSticky, #UserPintPrice, #UserPubQuiz, #UserAtmosphere, #UserPlaylist{color:black;}
+                </style>
               <div class="col-sm" id="usercard">
                 Human Player <span class="badge badge-pill badge-dark" id="UserCardNo">XX</span>
                 <div class="card", style="width:80%" style="height:100%;">
@@ -121,19 +146,19 @@
                         <div class ="card-header" id="UserCardName">Card Name </div>
                             <div>
                             <div>
-								<p style="float: left;">Floor Stickiness:</p><p id="UserFloorSticky"></p>
+								<p id="att" style="float: left;">Floor Stickiness:&nbsp</p><p id="UserFloorSticky">&nbsp</p>
                             </div>
                             <div>
-							    <p style="float: left;">Pint Price:</p><p id="UserPintPrice"></p>
+							    <p id="att" style="float: left;">Pint Price:&nbsp</p><p id="UserPintPrice">&nbsp</p>
                             </div>
                             <div>
-							    <p style="float: left;">Pub Quiz:</p><p id="UserPubQuiz"></p>
+							    <p id="att" style="float: left;">Pub Quiz:&nbsp</p><p id="UserPubQuiz">&nbsp</p>
                             </div>
                             <div>
-							    <p style="float: left;">Atmosphere:</p><p id="UserAtmosphere"></p>
+							    <p id="att" style="float: left;">Atmosphere:&nbsp</p><p id="UserAtmosphere">&nbsp</p>
                             </div>
                             <div>
-							    <p style="float: left;">Playlist:</p><p id="UserPlaylist"></p>
+							    <p id="att" style="float: left;">Playlist:&nbsp</p><p id="UserPlaylist">&nbsp</p>
                             </div>
                             </div>
                         </div>
@@ -141,7 +166,10 @@
     
                     </div>
               </div>
-
+                <style> #ai1card {color:white;} 
+                        #ai1CardName {color:black;}
+                        #ai1FloorSticky, #ai1PintPrice, #ai1PubQuiz, #ai1Atmosphere, #ai1Playlist{color:black;}
+                </style>
               <div class="col-sm" id="ai1card" style="visibility: hidden">
                 AI Player 1 <span class="badge badge-pill badge-dark" id="ai1CardNo">XX</span>
                 <div class="card", style="width:80%" style="height:100%;">
@@ -149,19 +177,19 @@
                         <div class ="card-header" id="ai1CardName" >Card Name </div>
                             <div>
                             <div>
-								<p style="float: left;">Floor Stickiness:</p><p id="ai1FloorSticky"></p>
+								<p id="att" style="float: left;">Floor Stickiness:&nbsp</p><p id="ai1FloorSticky"></p>
                             </div>
                             <div>
-							    <p style="float: left;">Pint Price:</p><p id="ai1PintPrice"></p>
+							    <p id="att" style="float: left;">Pint Price:&nbsp</p><p id="ai1PintPrice"></p>
                             </div>
                             <div>
-							    <p style="float: left;">Pub Quiz:</p><p id="ai1PubQuiz"></p>
+							    <p id="att" style="float: left;">Pub Quiz:&nbsp</p><p id="ai1PubQuiz"></p>
                             </div>
                             <div>
-							    <p style="float: left;">Atmosphere:</p><p id="ai1Atmosphere"></p>
+							    <p id="att" style="float: left;">Atmosphere:&nbsp</p><p id="ai1Atmosphere"></p>
                             </div>
                             <div>
-							    <p style="float: left;">Playlist:</p><p id="ai1Playlist"></p>
+							    <p id="att" style="float: left;">Playlist:&nbsp</p><p id="ai1Playlist"></p>
                             </div>
                             </div>
                         </div>
@@ -169,7 +197,10 @@
     
                     </div>
               </div>
-
+                <style> #ai2card {color:white;} 
+                        #ai2CardName {color:black;}
+                        #ai2FloorSticky, #ai2PintPrice, #ai2PubQuiz, #ai2Atmosphere, #ai2Playlist{color:black;}
+                </style>
               <div class="col-sm" id="ai2card" style="visibility: hidden">
                   AI Player 2 <span class="badge badge-pill badge-dark" id="ai2CardNo">XX</span>
                   <div class="card", style="width:80%" style="height:100%;">
@@ -177,19 +208,19 @@
                         <div class ="card-header" id="ai2CardName">Card Name </div>
                             <div>
                             <div>
-								<p style="float: left;">Floor Stickiness:</p><p id="ai2FloorSticky"></p>
+								<p id="att" style="float: left;">Floor Stickiness:&nbsp</p><p id="ai2FloorSticky"></p>
                             </div>
                             <div>
-							    <p style="float: left;">Pint Price:</p><p id="ai2PintPrice"></p>
+							    <p id="att" style="float: left;">Pint Price:&nbsp</p><p id="ai2PintPrice"></p>
                             </div>
                             <div>
-							    <p style="float: left;">Pub Quiz:</p><p id="ai2PubQuiz"></p>
+							    <p id="att" style="float: left;">Pub Quiz:&nbsp</p><p id="ai2PubQuiz"></p>
                             </div>
                             <div>
-							    <p style="float: left;">Atmosphere:</p><p id="ai2Atmosphere"></p>
+							    <p id="att" style="float: left;">Atmosphere:&nbsp</p><p id="ai2Atmosphere"></p>
                             </div>
                             <div>
-							    <p style="float: left;">Playlist:</p><p id="ai2Playlist"></p>
+							    <p id="att" style="float: left;">Playlist:&nbsp</p><p id="ai2Playlist"></p>
                             </div>
                             </div>
                         </div>
@@ -219,27 +250,34 @@
                   </div>
                 </div>
                   </div>
-               
+                  <div class ="container-fluid">
+                        <div class ="row">
+
+                        <div class ="col-md"></div>
+               <style> #ai3card {color:white;} 
+                        #ai3CardName {color:black;}
+                        #ai3FloorSticky, #ai3PintPrice, #ai3PubQuiz, #ai3Atmosphere, #ai3Playlist{color:black;}
+                </style>
                 <div class="col-sm" id="ai3card" style="visibility: hidden">
                   AI Player 3 <span class="badge badge-pill badge-dark" id="ai3CardNo">XX</span>
-                  <div class="card", style="width:80%" style="height:100%;">
+                  <div class="card", style="width:60%" style="height:100%;">
                     <div class ="container">
                         <div class ="card-header" id="ai3CardName">Card Name </div>
                             <div>
                             <div>
-								<p style="float: left;">Floor Stickiness:</p><p id="ai3FloorSticky"></p>
+								<p id="att" style="float: left;">Floor Stickiness:&nbsp</p><p id="ai3FloorSticky"></p>
                             </div>
                             <div>
-							    <p style="float: left;">Pint Price:</p><p id="ai3PintPrice"></p>
+							    <p id="att" style="float: left;">Pint Price:&nbsp</p><p id="ai3PintPrice"></p>
                             </div>
                             <div>
-							    <p style="float: left;">Pub Quiz:</p><p id="ai3PubQuiz"></p>
+							    <p id="att" style="float: left;">Pub Quiz:&nbsp</p><p id="ai3PubQuiz"></p>
                             </div>
                             <div>
-							    <p style="float: left;">Atmosphere:</p><p id="ai3Atmosphere"></p>
+							    <p id="att" style="float: left;">Atmosphere:&nbsp</p><p id="ai3Atmosphere"></p>
                             </div>
                             <div>
-							    <p style="float: left;">Playlist:</p><p id="ai3Playlist"></p>
+							    <p id="att" style="float: left;">Playlist:&nbsp</p><p id="ai3Playlist"></p>
                             </div>
                             </div>
                         </div>
@@ -247,33 +285,38 @@
     
                     </div>
                 </div>
-
+                    <style> #ai4card {color:white;} 
+                            #ai4CardName {color:black;}
+                            #ai4FloorSticky, #ai4PintPrice, #ai4PubQuiz, #ai4Atmosphere, #ai4Playlist{color:black;}
+                </style>
                 <div class="col-sm" id="ai4card" style="visibility: hidden">
                   AI Player 4 <span class="badge badge-pill badge-dark" id="ai4CardNo">XX</span>
-                  <div class="card", style="width:80%" style="height:100%;">
+                  <div class="card", style="width:60%" style="height:100%;">
                     <div class ="container">
                         <div class ="card-header" id="ai4CardName">Card Name </div>
                            <div>
                             <div>
-								<p style="float: left;">Floor Stickiness:</p><p id="ai4FloorSticky"></p>
+								<p id="att" style="float: left;">Floor Stickiness:&nbsp</p><p id="ai4FloorSticky"></p>
                             </div>
                             <div>
-							    <p style="float: left;">Pint Price:</p><p id="ai4PintPrice"></p>
+							    <p id="att" style="float: left;">Pint Price:&nbsp</p><p id="ai4PintPrice"></p>
                             </div>
                             <div>
-							    <p style="float: left;">Pub Quiz:</p><p id="ai4PubQuiz"></p>
+							    <p id="att" style="float: left;">Pub Quiz:&nbsp</p><p id="ai4PubQuiz"></p>
                             </div>
                             <div>
-							    <p style="float: left;">Atmosphere:</p><p id="ai4Atmosphere"></p>
+							    <p id="att" style="float: left;">Atmosphere:&nbsp</p><p id="ai4Atmosphere"></p>
                             </div>
                             <div>
-							    <p style="float: left;">Playlist:</p><p id="ai4Playlist"></p>
+							    <p id="att" style="float: left;">Playlist:&nbsp</p><p id="ai4Playlist"></p>
                             </div>
                             </div>
                         </div>
                       
     
-                    </div>
+                        </div>
+                     </div>
+                  </div>
                 </div>
 
                 <div class="col-sm">
@@ -677,15 +720,6 @@
             xhr.send();
 
         }
-
-       
-
-
-
-
-
-
-           
 		
 			// This calls the helloJSONList REST method from TopTrumpsRESTAPI
 			function helloJSONList() {

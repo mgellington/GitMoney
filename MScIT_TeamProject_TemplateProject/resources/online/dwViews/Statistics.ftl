@@ -53,6 +53,12 @@
                     text-align: left;
                     color: white;
                 }
+                #home {
+                    background-color: #585858;
+                    border: black;
+                    height: 43;
+                    font-size: 18px;
+                }
                 
             </style>
             <br>
