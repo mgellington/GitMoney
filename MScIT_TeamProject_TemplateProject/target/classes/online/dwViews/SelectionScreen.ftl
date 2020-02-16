@@ -39,9 +39,29 @@
     </head>
     <body>
 	<style>
-		body{background-color: grey;}
+		body {
+                        background-image: url(https://cdn.pixabay.com/photo/2019/04/18/11/56/monkey-4136775_1280.jpg);
+                        background-repeat: no-repeat;
+                        background-position: 0 0;
+                        background-size: cover;
+                    }
 		h1{color: white;
-			text-align: center;}
+			text-align: center;
+			font-size: 50px;
+			font-weight: 500;}
+
+		#stats {
+			background-color: darkgrey;
+			border: darkgrey;
+			height: 43;
+			font-size: 18px;
+		}
+		#newGame {
+			background-color: #585858;
+			border: black;
+			height: 43;
+			font-size: 18px;
+		}
 	</style>
         <div class="container-fluid">
             <div class ="row">
@@ -61,7 +81,7 @@
             </div>
             <div class ="row">
                 <div class ="col"></div>
-                <div class ="col"><button type="button" onclick="statsScreen()" class="btn btn-warning btn-block">Statistics</button></div>
+                <div class ="col"><button type="button" id="stats" onclick="statsScreen()" class="btn btn-warning btn-block">Statistics</button></div>
                 <div class ="col"></div>
             </div>
                <div class ="row">
