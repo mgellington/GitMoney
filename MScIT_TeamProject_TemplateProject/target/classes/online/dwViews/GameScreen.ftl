@@ -568,7 +568,8 @@
             showCards();
             }
             chosenCategory()
-            $('#mainButton').prop('disabled', false);       
+            $('#mainButton').prop('disabled', false);
+            $('#dropdownMenuLink').prop('disabled', true);       
 				});
 			});
 
