@@ -21,7 +21,7 @@ public class DatabaseAccess {
         try {
 
             Class.forName("org.postgresql.Driver");
-            c = DriverManager.getConnection("dbc:postgresql://localhost/postgres", "postgres", "postgres");
+            c = DriverManager.getConnection("jdbc:postgresql://52.24.215.108:5432/gitmoney", "gitmoney", "gitmoney");
 
         } catch (Exception e) {
 
@@ -69,7 +69,7 @@ public class DatabaseAccess {
         try {
 
             Class.forName("org.postgresql.Driver");
-            c = DriverManager.getConnection("dbc:postgresql://localhost/postgres", "postgres", "postgres");
+            c = DriverManager.getConnection("jdbc:postgresql://52.24.215.108:5432/gitmoney", "gitmoney", "gitmoney");
 
         } catch (Exception e) {
 
@@ -104,7 +104,7 @@ public class DatabaseAccess {
         try {
 
             Class.forName("org.postgresql.Driver");
-            c = DriverManager.getConnection("dbc:postgresql://localhost/postgres", "postgres", "postgres");
+            c = DriverManager.getConnection("jdbc:postgresql://52.24.215.108:5432/gitmoney", "gitmoney", "gitmoney");
 
         } catch (Exception e) {
 
@@ -140,7 +140,7 @@ public class DatabaseAccess {
         try {
 
             Class.forName("org.postgresql.Driver");
-            c = DriverManager.getConnection("dbc:postgresql://localhost/postgres", "postgres", "postgres");
+            c = DriverManager.getConnection("jdbc:postgresql://52.24.215.108:5432/gitmoney", "gitmoney", "gitmoney");
 
         } catch (Exception e) {
 
@@ -178,7 +178,7 @@ public class DatabaseAccess {
         try {
 
             Class.forName("org.postgresql.Driver");
-            c = DriverManager.getConnection("dbc:postgresql://localhost/postgres", "postgres", "postgres");
+            c = DriverManager.getConnection("jdbc:postgresql://52.24.215.108:5432/gitmoney", "gitmoney", "gitmoney");
 
         } catch (Exception e) {
 
@@ -215,7 +215,7 @@ public class DatabaseAccess {
         try {
 
             Class.forName("org.postgresql.Driver");
-            c = DriverManager.getConnection("dbc:postgresql://localhost/postgres", "postgres", "postgres");
+            c = DriverManager.getConnection("jdbc:postgresql://52.24.215.108:5432/gitmoney", "gitmoney", "gitmoney");
 
         } catch (Exception e) {
 
