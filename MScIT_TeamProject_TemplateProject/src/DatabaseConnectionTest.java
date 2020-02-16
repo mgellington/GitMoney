@@ -62,9 +62,9 @@ Class.forName("org.postgresql.Driver");
 
 c = DriverManager
 
-.getConnection("jdbc:postgresql://yacata.dcs.gla.ac.uk:5432/postgres",
+.getConnection("jdbc:postgresql://52.24.215.108:5432/gitmoney",
 
-"m_19_"+username, password);
+username, password);
 
 c.close();
 

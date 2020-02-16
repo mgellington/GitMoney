@@ -89,7 +89,7 @@ public class TopTrumpsCLIApplication {
 						+ "\nThe Max number of Rounds Played: " + DatabaseAccess.getMaxNoRounds()
 						+ "\nThe Number of AI Wins: " + DatabaseAccess.getNumberOfComputerWins()
 						+ "\nThe Number of User Wins: " + DatabaseAccess.getNumberOfUserWins());
-				System.out.println("\n\nDo you want to continue to selection screen?\nIf yes enter 1.\nIf no enter 2.");
+				System.out.println("\n\nDo you want to continue to selection screen?\n1: Selection Screen\n2: Quit Game");
 				if (scanner.nextInt() == 1) {
 					continue;
 				} else {
